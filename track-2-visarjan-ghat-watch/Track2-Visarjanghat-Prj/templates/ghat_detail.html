@@ -19,8 +19,11 @@
         <img src="/static/img/gallery/mppcb_guidelines_display.jpeg" alt="{{ ghat.site }}" class="w-full h-full object-cover object-center opacity-40 lg:opacity-75">
         {% elif 'Rani' in ghat.site %}
         <img src="/static/img/gallery/mppcb_statutory_warning_board.jpeg" alt="{{ ghat.site }}" class="w-full h-full object-cover object-center opacity-40 lg:opacity-75">
+        {% elif 'Khatlapura' in ghat.site %}
+        <img src="/static/img/gallery/visarjan_containment_operation.jpeg" alt="{{ ghat.site }}" class="w-full h-full object-cover object-center opacity-40 lg:opacity-75">
         {% else %}
-        <img src="/static/img/gallery/lake_ghat_barricading_protection.jpeg" alt="{{ ghat.site }}" class="w-full h-full object-cover object-center opacity-40 lg:opacity-75">
+        <!-- Default verified immersion containment banner for newly added dedicated sites / kunds -->
+        <img src="/static/img/gallery/bhopal_artificial_kund_immersion.jpeg" alt="{{ ghat.site }}" class="w-full h-full object-cover object-center opacity-40 lg:opacity-75">
         {% endif %}
         <!-- Multi-directional gradient masks for seamless fade -->
         <div class="absolute inset-0 bg-gradient-to-t from-stone-950 via-stone-950/60 to-transparent lg:hidden"></div>
@@ -481,6 +484,27 @@
                             <a href="/pdf/{{ r.report_pdf }}#page={{ r.source_page }}" target="_blank" title="मूल MPPCB रिपोर्ट PDF में यह पृष्ठ देखें" class="hover:underline hover:text-emerald-950 inline-flex items-center gap-1">
                                 📄 पृष्ठ {{ r.source_page }} · {{ r.report_pdf }} &nearr;
                             </a>
+                        </td>
+                    </tr>
+                    {% else %}
+                    <tr>
+                        <td colspan="6" class="py-12 px-6 text-center">
+                            <div class="max-w-md mx-auto space-y-3 font-sans">
+                                <span class="text-3xl block">🧪</span>
+                                <h4 class="font-bold text-stone-800 text-sm">
+                                    <span class="lang-hi">इस नए घाट हेतु अभी कोई परीक्षण डेटा दर्ज नहीं है</span>
+                                    <span class="lang-en hidden">No monitoring readings recorded yet for this new site</span>
+                                </h4>
+                                <p class="text-xs text-subtle font-hindi">
+                                    <span class="lang-hi">होमपेज पर जाकर <strong>"जल गुणवत्ता डेटा आयात (CSV/Excel)"</strong> या <strong>"नया परीक्षण दर्ज करें"</strong> के माध्यम से इस घाट के लिए पहला सैंपल अपलोड करें। अपलोड होते ही चार्ट्स और आंकड़े तुरंत सक्रिय हो जाएंगे।</span>
+                                    <span class="lang-en hidden">Please upload sample readings from the dashboard using "Import Water Quality Data" or "Add Single Sample". Charts and trends will activate immediately.</span>
+                                </p>
+                                <a href="/" class="inline-flex items-center space-x-1.5 px-4 py-2 rounded-full bg-emerald-700 text-white font-semibold text-xs shadow-soft hover:bg-emerald-800 transition">
+                                    <span>➕</span> 
+                                    <span class="lang-hi">डेटा अपलोड करने डैशबोर्ड पर जाएं</span>
+                                    <span class="lang-en hidden">Go to Dashboard to Upload</span>
+                                </a>
+                            </div>
                         </td>
                     </tr>
                     {% endfor %}
