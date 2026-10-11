@@ -60,8 +60,8 @@ def api_readings():
 
 if __name__ == '__main__':
     port = int(os.environ.get('PORT', 5000))
-    print(f"==================================================")
-    print(f"🌊 Bhopal Visarjan Ghat Watch 2026 running!")
-    print(f"👉 Local URL: http://localhost:{port}")
-    print(f"==================================================")
+    print("==================================================")
+    print("Bhopal Visarjan Ghat Watch 2026 - Server Ready")
+    print(f"Local URL: http://localhost:{port}")
+    print("==================================================")
     app.run(host='0.0.0.0', port=port, debug=False)
