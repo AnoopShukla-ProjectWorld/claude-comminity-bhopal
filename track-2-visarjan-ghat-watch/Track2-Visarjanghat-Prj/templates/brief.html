@@ -98,6 +98,86 @@
             </ul>
         </div>
 
+        <!-- 5. Technical Methodology & Formula (तकनीकी गणना पद्धति) -->
+        <div class="space-y-4 bg-stone-50/70 p-6 rounded-2xl border border-stone-200">
+            <h3 class="text-sm font-bold text-stone-900 uppercase tracking-wider font-sans border-b border-stone-200 pb-2 flex items-center justify-between">
+                <span>5. जोखिम स्कोर गणना पद्धति (Calculation Methodology & Formulas)</span>
+                <span class="text-[10px] bg-emerald-100 text-emerald-800 px-2 py-0.5 rounded font-sans">CPCB Class-B Standards</span>
+            </h3>
+            
+            <p class="text-xs text-stone-700 leading-relaxed">
+                यह प्रणाली किसी अपारदर्शी (Black-Box) मशीन लर्निंग मॉडल के स्थान पर <strong>केंद्रीय प्रदूषण नियंत्रण बोर्ड (CPCB) के जल गुणवत्ता मानकों</strong> पर आधारित <strong>Deterministic Weighted Multi-Criteria Decision Analysis (MCDA)</strong> सूत्र का उपयोग करती है:
+            </p>
+
+            <div class="bg-white p-3.5 rounded-xl border border-stone-200 text-xs font-mono text-stone-800 space-y-1">
+                <p class="font-bold text-emerald-900 font-sans">प्राथमिकता जोखिम स्कोर (Priority Risk Score, 0-100):</p>
+                <p class="text-stone-900">Score = (W_DO × DO_Deficit) + (W_BOD × BOD_Load) + (W_pH × pH_Dev)</p>
+                <div class="text-[11px] text-stone-600 font-sans pt-1 space-y-0.5">
+                    <p>• <strong>DO Deficit (घुलित ऑक्सीजन कमी):</strong> यदि DO &lt; 5.0 mg/l है, तो पेनाल्टी = ((5.0 - DO_min) / 5.0) × 100। शून्य DO (0 mg/l) होने पर अधिकतम 100 अंक। (डिफ़ॉल्ट भार: <strong>50%</strong>)</p>
+                    <p>• <strong>BOD Load (जैविक प्रदूषण भार):</strong> यदि BOD &gt; 3.0 mg/l है, तो अतिरिक्त भार = min(((BOD_max - 3.0) / 10.0) × 100, 100)। (डिफ़ॉल्ट भार: <strong>40%</strong>)</p>
+                    <p>• <strong>pH Deviation (अम्लीय/क्षारीय विचलन):</strong> 6.5 से 8.5 के सुरक्षित दायरे से विचलन पर पेनाल्टी। (डिफ़ॉल्ट भार: <strong>10%</strong>)</p>
+                </div>
+            </div>
+
+            <!-- Abbreviations Table -->
+            <div class="space-y-2 pt-2">
+                <h4 class="text-xs font-bold text-stone-800 uppercase tracking-wider">संक्षिप्त शब्दों की सूची (Abbreviations & Full Forms)</h4>
+                <div class="overflow-x-auto">
+                    <table class="w-full text-[11px] text-stone-700 border-collapse border border-stone-200">
+                        <thead>
+                            <tr class="bg-stone-200/60 text-stone-800 font-bold text-left">
+                                <th class="p-1.5 border border-stone-200">शॉर्टफॉर्म</th>
+                                <th class="p-1.5 border border-stone-200">पूर्ण रूप (Full Form)</th>
+                                <th class="p-1.5 border border-stone-200">प्रशासनिक महत्व व मानक सीमा</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr class="border-b border-stone-200 bg-white">
+                                <td class="p-1.5 font-bold border border-stone-200">DO</td>
+                                <td class="p-1.5 border border-stone-200">Dissolved Oxygen (घुलित ऑक्सीजन)</td>
+                                <td class="p-1.5 border border-stone-200">जलीय जीवन हेतु न्यूनतम मानक <strong>&ge; 5.0 mg/l</strong>। 0 mg/l पर जलीय जीव मर जाते हैं।</td>
+                            </tr>
+                            <tr class="border-b border-stone-200 bg-stone-50/50">
+                                <td class="p-1.5 font-bold border border-stone-200">BOD</td>
+                                <td class="p-1.5 border border-stone-200">Biochemical Oxygen Demand (जैव रासायनिक ऑक्सीजन मांग)</td>
+                                <td class="p-1.5 border border-stone-200">जैविक कचरा। सुरक्षित सीमा <strong>&le; 3.0 mg/l</strong>। अधिक होने पर पानी सड़ने लगता है।</td>
+                            </tr>
+                            <tr class="border-b border-stone-200 bg-white">
+                                <td class="p-1.5 font-bold border border-stone-200">COD</td>
+                                <td class="p-1.5 border border-stone-200">Chemical Oxygen Demand (रासायनिक ऑक्सीजन मांग)</td>
+                                <td class="p-1.5 border border-stone-200">रासायनिक रंगों व अकार्बनिक प्रदूषकों का स्तर।</td>
+                            </tr>
+                            <tr class="border-b border-stone-200 bg-stone-50/50">
+                                <td class="p-1.5 font-bold border border-stone-200">pH</td>
+                                <td class="p-1.5 border border-stone-200">Potential of Hydrogen (अम्लता/क्षारीयता)</td>
+                                <td class="p-1.5 border border-stone-200">सुरक्षित सीमा <strong>6.5 से 8.5</strong>।</td>
+                            </tr>
+                            <tr class="border-b border-stone-200 bg-white">
+                                <td class="p-1.5 font-bold border border-stone-200">TDS / TSS</td>
+                                <td class="p-1.5 border border-stone-200">Total Dissolved / Suspended Solids</td>
+                                <td class="p-1.5 border border-stone-200">पानी में घुले व तैरते ठोस कण (मिट्टी व केमिकल सिल्ट)।</td>
+                            </tr>
+                            <tr class="border-b border-stone-200 bg-stone-50/50">
+                                <td class="p-1.5 font-bold border border-stone-200">TC / FC</td>
+                                <td class="p-1.5 border border-stone-200">Total Coliform / Faecal Coliform</td>
+                                <td class="p-1.5 border border-stone-200">जीवाणु व सीवेज प्रदूषण का पैमाना (मानक: MPN/100ml)।</td>
+                            </tr>
+                            <tr class="border-b border-stone-200 bg-white">
+                                <td class="p-1.5 font-bold border border-stone-200">CPCB / MPPCB</td>
+                                <td class="p-1.5 border border-stone-200">Central / MP Pollution Control Board</td>
+                                <td class="p-1.5 border border-stone-200">प्रदूषण नियंत्रण बोर्ड (मानक निर्धारण एवं जल नमूना परीक्षण एजेंसी)।</td>
+                            </tr>
+                            <tr class="bg-stone-50/50">
+                                <td class="p-1.5 font-bold border border-stone-200">NGT</td>
+                                <td class="p-1.5 border border-stone-200">National Green Tribunal (राष्ट्रीय हरित अधिकरण)</td>
+                                <td class="p-1.5 border border-stone-200">प्राकृतिक झीलों में मूर्ति विसर्जन पर कानूनी रोक लगाने वाली न्यायिक संस्था।</td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </div>
+
         <!-- Sign-off -->
         <div class="pt-8 border-t border-stone-200 flex justify-between items-end text-xs text-subtle font-sans">
             <div>
@@ -184,6 +264,86 @@
                 <li><strong>Naming Uncertainty:</strong> Rani Kamlapati site varies between "Kamla Park kund" and "Lower Lake ghat" across reports.</li>
                 <li><strong>No Health Claims:</strong> Data indicates CPCB statutory exceedance only; no epidemiological claims are made.</li>
             </ul>
+        </div>
+
+        <!-- 5. Technical Methodology & Formula -->
+        <div class="space-y-4 bg-stone-50/70 p-6 rounded-2xl border border-stone-200">
+            <h3 class="text-sm font-bold text-stone-900 uppercase tracking-wider border-b border-stone-200 pb-2 flex items-center justify-between">
+                <span>5. Calculation Methodology & Formula Specification</span>
+                <span class="text-[10px] bg-emerald-100 text-emerald-800 px-2 py-0.5 rounded font-sans">CPCB Class-B Standards</span>
+            </h3>
+            
+            <p class="text-xs text-stone-700 leading-relaxed">
+                Rather than an unexplainable black-box machine learning model, this platform operates on a <strong>deterministic, multi-criteria decision analysis (MCDA) framework</strong> strictly aligned with <strong>CPCB Outdoor Bathing Water Quality Standards</strong>:
+            </p>
+
+            <div class="bg-white p-3.5 rounded-xl border border-stone-200 text-xs font-mono text-stone-800 space-y-1">
+                <p class="font-bold text-emerald-900 font-sans">Composite Priority Risk Score (0-100 Scale):</p>
+                <p class="text-stone-900">Score = (W_DO × DO_Deficit) + (W_BOD × BOD_Load) + (W_pH × pH_Dev)</p>
+                <div class="text-[11px] text-stone-600 font-sans pt-1 space-y-0.5">
+                    <p>• <strong>DO Deficit Penalty:</strong> If DO &lt; 5.0 mg/l, Deficit = ((5.0 - DO_min) / 5.0) × 100. Complete anoxia (0 mg/l) incurs maximum 100 points. (Default Weight: <strong>50%</strong>)</p>
+                    <p>• <strong>BOD Load Penalty:</strong> If BOD &gt; 3.0 mg/l, Excess Load = min(((BOD_max - 3.0) / 10.0) × 100, 100). (Default Weight: <strong>40%</strong>)</p>
+                    <p>• <strong>pH Deviation Penalty:</strong> Exceedance outside safe band 6.5–8.5 incurs graduated penalty. (Default Weight: <strong>10%</strong>)</p>
+                </div>
+            </div>
+
+            <!-- Abbreviations Table -->
+            <div class="space-y-2 pt-2">
+                <h4 class="text-xs font-bold text-stone-800 uppercase tracking-wider">Statutory Acronyms & Definitions</h4>
+                <div class="overflow-x-auto">
+                    <table class="w-full text-[11px] text-stone-700 border-collapse border border-stone-200">
+                        <thead>
+                            <tr class="bg-stone-200/60 text-stone-800 font-bold text-left">
+                                <th class="p-1.5 border border-stone-200">Acronym</th>
+                                <th class="p-1.5 border border-stone-200">Full Form</th>
+                                <th class="p-1.5 border border-stone-200">Regulatory Threshold & Meaning</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr class="border-b border-stone-200 bg-white">
+                                <td class="p-1.5 font-bold border border-stone-200">DO</td>
+                                <td class="p-1.5 border border-stone-200">Dissolved Oxygen</td>
+                                <td class="p-1.5 border border-stone-200">Statutory threshold <strong>&ge; 5.0 mg/l</strong>. 0.0 mg/l signifies total aquatic anoxia.</td>
+                            </tr>
+                            <tr class="border-b border-stone-200 bg-stone-50/50">
+                                <td class="p-1.5 font-bold border border-stone-200">BOD</td>
+                                <td class="p-1.5 border border-stone-200">Biochemical Oxygen Demand</td>
+                                <td class="p-1.5 border border-stone-200">Organic pollution indicator. Safe threshold <strong>&le; 3.0 mg/l</strong>.</td>
+                            </tr>
+                            <tr class="border-b border-stone-200 bg-white">
+                                <td class="p-1.5 font-bold border border-stone-200">COD</td>
+                                <td class="p-1.5 border border-stone-200">Chemical Oxygen Demand</td>
+                                <td class="p-1.5 border border-stone-200">Measure of non-biodegradable synthetic and chemical paint load.</td>
+                            </tr>
+                            <tr class="border-b border-stone-200 bg-stone-50/50">
+                                <td class="p-1.5 font-bold border border-stone-200">pH</td>
+                                <td class="p-1.5 border border-stone-200">Potential of Hydrogen</td>
+                                <td class="p-1.5 border border-stone-200">Acceptable outdoor bathing range: <strong>6.5 to 8.5</strong>.</td>
+                            </tr>
+                            <tr class="border-b border-stone-200 bg-white">
+                                <td class="p-1.5 font-bold border border-stone-200">TDS / TSS</td>
+                                <td class="p-1.5 border border-stone-200">Total Dissolved / Suspended Solids</td>
+                                <td class="p-1.5 border border-stone-200">Particulate silt and chemical runoff from dissolved idols.</td>
+                            </tr>
+                            <tr class="border-b border-stone-200 bg-stone-50/50">
+                                <td class="p-1.5 font-bold border border-stone-200">TC / FC</td>
+                                <td class="p-1.5 border border-stone-200">Total Coliform / Faecal Coliform</td>
+                                <td class="p-1.5 border border-stone-200">Microbial / sewage contamination metric (measured in MPN/100ml).</td>
+                            </tr>
+                            <tr class="border-b border-stone-200 bg-white">
+                                <td class="p-1.5 font-bold border border-stone-200">CPCB / MPPCB</td>
+                                <td class="p-1.5 border border-stone-200">Central / MP Pollution Control Board</td>
+                                <td class="p-1.5 border border-stone-200">Statutory environmental regulatory bodies and sampling authorities.</td>
+                            </tr>
+                            <tr class="bg-stone-50/50">
+                                <td class="p-1.5 font-bold border border-stone-200">NGT</td>
+                                <td class="p-1.5 border border-stone-200">National Green Tribunal</td>
+                                <td class="p-1.5 border border-stone-200">Judicial authority prohibiting idol immersion in natural water bodies.</td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
         </div>
 
         <!-- Sign-off -->
