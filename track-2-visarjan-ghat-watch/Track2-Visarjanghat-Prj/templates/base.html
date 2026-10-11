@@ -217,6 +217,243 @@
         </div>
     </footer>
 
+    <!-- FLOATING AI ASSISTANT WIDGET (Minimalist Pill / Drawer) -->
+    <div id="aiChatWidget" class="fixed bottom-6 right-6 z-50 no-print">
+        <!-- Floating Trigger Pill Button -->
+        <button id="aiChatTrigger" onclick="toggleChatbot()" class="group flex items-center space-x-2.5 bg-stone-900 hover:bg-stone-950 text-white px-5 py-3.5 rounded-full shadow-floating hover:shadow-2xl transition-all duration-300 hover:scale-105 active:scale-95 border border-stone-700/80">
+            <span class="w-2.5 h-2.5 rounded-full bg-emerald-400 animate-pulse"></span>
+            <span class="text-lg">🤖</span>
+            <span class="text-xs font-bold font-hindi tracking-wide">
+                <span class="lang-hi">घाट वॉच AI सहायक</span>
+                <span class="lang-en hidden">Ghat Watch AI Assistant</span>
+            </span>
+            <span class="bg-emerald-500/20 text-emerald-300 text-[10px] px-2 py-0.5 rounded-full font-mono border border-emerald-500/30">1,524 Data</span>
+        </button>
+
+        <!-- Floating Chat Modal / Drawer -->
+        <div id="aiChatBox" class="hidden absolute bottom-16 right-0 w-[92vw] sm:w-[420px] h-[540px] bg-white rounded-[2rem] shadow-2xl border border-stone-200/90 flex flex-col overflow-hidden backdrop-blur-xl transition-all duration-300">
+            <!-- Header -->
+            <div class="bg-gradient-to-r from-stone-900 via-stone-950 to-stone-900 text-white p-4 px-5 flex items-center justify-between border-b border-stone-800">
+                <div class="flex items-center space-x-3">
+                    <div class="w-9 h-9 rounded-2xl bg-emerald-600 flex items-center justify-center text-white text-base shadow-soft">
+                        🌊
+                    </div>
+                    <div>
+                        <h4 class="text-xs font-bold text-white flex items-center gap-1.5">
+                            <span class="lang-hi">विसर्जन घाट AI सहायक</span>
+                            <span class="lang-en hidden">Visarjan Ghat AI Assistant</span>
+                            <span class="w-2 h-2 rounded-full bg-emerald-400"></span>
+                        </h4>
+                        <p class="text-[10px] text-stone-400 font-hindi">MPPCB प्रमाणित डेटा आधारित निर्णय सहायक</p>
+                    </div>
+                </div>
+                <div class="flex items-center space-x-2">
+                    <button onclick="clearChat()" title="वार्तालाप साफ़ करें" class="text-stone-400 hover:text-white text-xs px-2 py-1 rounded hover:bg-stone-800">
+                        🗑️
+                    </button>
+                    <button onclick="toggleChatbot()" class="text-stone-400 hover:text-white text-xl font-bold leading-none p-1">
+                        &times;
+                    </button>
+                </div>
+            </div>
+
+            <!-- Suggested Quick Chips -->
+            <div class="bg-stone-50 border-b border-stone-100 p-2.5 px-3 flex items-center space-x-2 overflow-x-auto text-[11px] whitespace-nowrap scrollbar-none">
+                <button onclick="sendQuickPrompt('सबसे खतरनाक घाट कौन सा है?')" class="bg-white hover:bg-stone-100 border border-stone-200 text-stone-700 px-3 py-1 rounded-full font-medium transition shrink-0">
+                    🚨 सबसे संवेदनशील घाट?
+                </button>
+                <button onclick="sendQuickPrompt('7 घाटों की पूरी रैंकिंग सूची दिखाएं?')" class="bg-white hover:bg-stone-100 border border-stone-200 text-stone-700 px-3 py-1 rounded-full font-medium transition shrink-0">
+                    🏆 सभी 7 घाट रैंकिंग
+                </button>
+                <button onclick="sendQuickPrompt('बड़े और छोटे तालाब पर NGT के क्या नियम हैं?')" class="bg-white hover:bg-stone-100 border border-stone-200 text-stone-700 px-3 py-1 rounded-full font-medium transition shrink-0">
+                    ⚖️ NGT 2026 नियम
+                </button>
+                <button onclick="sendQuickPrompt('बैरागढ़ कुंड का पानी कैसा है?')" class="bg-white hover:bg-stone-100 border border-stone-200 text-stone-700 px-3 py-1 rounded-full font-medium transition shrink-0">
+                    🧪 बैरागढ़ कुंड डेटा
+                </button>
+            </div>
+
+            <!-- Messages Stream Area -->
+            <div id="aiChatMessages" class="flex-1 p-4 space-y-3.5 overflow-y-auto text-xs leading-relaxed bg-[#FAF7F2]">
+                <!-- Welcome Bot Message -->
+                <div class="flex items-start space-x-2.5">
+                    <div class="w-7 h-7 rounded-full bg-emerald-800 text-white flex items-center justify-center shrink-0 text-xs font-bold">
+                        AI
+                    </div>
+                    <div class="bg-white p-3.5 rounded-2xl rounded-tl-sm border border-stone-200/80 shadow-soft max-w-[85%] text-stone-800 font-hindi space-y-1">
+                        <p class="font-bold text-stone-900">
+                            <span class="lang-hi">नमस्ते! मैं विसर्जन घाट वॉच सहायक हूँ।</span>
+                            <span class="lang-en hidden">Hello! I am your Visarjan Ghat AI Assistant.</span>
+                        </p>
+                        <p class="text-stone-600 text-[11px]">
+                            <span class="lang-hi">मैं MPPCB के 1,524 जल नमूनों और CPCB क्लास-B मानकों के आधार पर घाटों की स्थिति, NGT दिशानिर्देशों व आवश्यक कार्रवाइयों पर आपके प्रश्नों का तुरंत उत्तर दे सकता हूँ।</span>
+                            <span class="lang-en hidden">I can provide instant, verified answers grounded strictly in MPPCB's 1,524 water tests, CPCB Class B standards, and NGT 2026 guidelines.</span>
+                        </p>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Input Bar -->
+            <div class="p-3 bg-white border-t border-stone-200/80">
+                <form id="aiChatForm" onsubmit="handleChatSubmit(event)" class="flex items-center space-x-2">
+                    <input type="text" id="aiChatInput" placeholder="यहाँ प्रश्न पूछें (उदा. कौन सा घाट सबसे सुरक्षित है?)..." required class="flex-1 border border-stone-200 rounded-full px-4 py-2.5 text-xs text-stone-800 focus:outline-none focus:border-emerald-600 bg-stone-50 font-hindi">
+                    <button type="submit" id="aiChatSendBtn" class="bg-stone-900 hover:bg-stone-950 text-white px-4 py-2.5 rounded-full text-xs font-bold shadow-soft transition shrink-0 flex items-center gap-1">
+                        <span>भेजें</span>
+                        <span>&rarr;</span>
+                    </button>
+                </form>
+            </div>
+        </div>
+    </div>
+
+    <!-- Chatbot Controller Script -->
+    <script>
+        let chatOpen = false;
+
+        function toggleChatbot() {
+            chatOpen = !chatOpen;
+            const chatBox = document.getElementById('aiChatBox');
+            if (chatOpen) {
+                chatBox.classList.remove('hidden');
+                document.getElementById('aiChatInput').focus();
+            } else {
+                chatBox.classList.add('hidden');
+            }
+        }
+
+        function clearChat() {
+            const container = document.getElementById('aiChatMessages');
+            container.innerHTML = `
+                <div class="flex items-start space-x-2.5">
+                    <div class="w-7 h-7 rounded-full bg-emerald-800 text-white flex items-center justify-center shrink-0 text-xs font-bold">
+                        AI
+                    </div>
+                    <div class="bg-white p-3.5 rounded-2xl rounded-tl-sm border border-stone-200/80 shadow-soft max-w-[85%] text-stone-800 font-hindi">
+                        <p class="font-bold text-stone-900">वार्तालाप रीसेट कर दिया गया है।</p>
+                        <p class="text-stone-600 text-[11px] mt-1">आप किसी भी घाट, NGT नियम या CPCB मानक के बारे में पुनः पूछ सकते हैं।</p>
+                    </div>
+                </div>
+            `;
+        }
+
+        function sendQuickPrompt(promptText) {
+            document.getElementById('aiChatInput').value = promptText;
+            document.getElementById('aiChatForm').dispatchEvent(new Event('submit'));
+        }
+
+        async function handleChatSubmit(e) {
+            e.preventDefault();
+            const inputEl = document.getElementById('aiChatInput');
+            const message = inputEl.value.trim();
+            if (!message) return;
+
+            const currentLang = localStorage.getItem('vghat_preferred_lang') || 'hi';
+            appendUserMessage(message);
+            inputEl.value = '';
+
+            const typingId = appendTypingIndicator();
+
+            try {
+                const response = await fetch('/api/chat', {
+                    method: 'POST',
+                    headers: { 'Content-Type': 'application/json' },
+                    body: JSON.stringify({ message: message, lang: currentLang })
+                });
+                const data = await response.json();
+                removeTypingIndicator(typingId);
+
+                if (data.status === 'success') {
+                    appendBotMessage(data.reply, data.sources);
+                } else {
+                    appendBotMessage("क्षमा करें, उत्तर प्राप्त करने में समस्या आई: " + data.message, []);
+                }
+            } catch (err) {
+                removeTypingIndicator(typingId);
+                appendBotMessage("सर्वर से संपर्क करने में असमर्थ। कृपया पुनः प्रयास करें।", []);
+            }
+        }
+
+        function appendUserMessage(text) {
+            const container = document.getElementById('aiChatMessages');
+            const msgDiv = document.createElement('div');
+            msgDiv.className = 'flex items-start justify-end space-x-2.5';
+            msgDiv.innerHTML = `
+                <div class="bg-stone-900 text-white p-3.5 rounded-2xl rounded-tr-sm shadow-soft max-w-[85%] text-xs font-hindi leading-relaxed">
+                    ${escapeHtml(text)}
+                </div>
+                <div class="w-7 h-7 rounded-full bg-stone-200 text-stone-800 flex items-center justify-center shrink-0 text-xs font-bold">
+                    👤
+                </div>
+            `;
+            container.appendChild(msgDiv);
+            container.scrollTop = container.scrollHeight;
+        }
+
+        function appendBotMessage(text, sources) {
+            const container = document.getElementById('aiChatMessages');
+            const msgDiv = document.createElement('div');
+            msgDiv.className = 'flex items-start space-x-2.5';
+
+            let sourcesHtml = '';
+            if (sources && sources.length > 0) {
+                sourcesHtml = `
+                    <div class="mt-2 pt-2 border-t border-stone-100 flex flex-wrap items-center gap-1.5 text-[10px] text-stone-500">
+                        <span class="font-bold text-stone-600">प्रमाण:</span>
+                        ${sources.map(s => `<span class="bg-stone-100 px-2 py-0.5 rounded-full border border-stone-200">${s}</span>`).join('')}
+                    </div>
+                `;
+            }
+
+            // Simple markdown formatting for bold and lists
+            const formatted = text
+                .replace(/\*\*(.*?)\*\*/g, '<strong>$1</strong>')
+                .replace(/\n/g, '<br/>');
+
+            msgDiv.innerHTML = `
+                <div class="w-7 h-7 rounded-full bg-emerald-800 text-white flex items-center justify-center shrink-0 text-xs font-bold">
+                    AI
+                </div>
+                <div class="bg-white p-3.5 rounded-2xl rounded-tl-sm border border-stone-200/80 shadow-soft max-w-[85%] text-stone-800 font-hindi leading-relaxed">
+                    <div>${formatted}</div>
+                    ${sourcesHtml}
+                </div>
+            `;
+            container.appendChild(msgDiv);
+            container.scrollTop = container.scrollHeight;
+        }
+
+        function appendTypingIndicator() {
+            const container = document.getElementById('aiChatMessages');
+            const id = 'typing_' + Date.now();
+            const typingDiv = document.createElement('div');
+            typingDiv.id = id;
+            typingDiv.className = 'flex items-start space-x-2.5';
+            typingDiv.innerHTML = `
+                <div class="w-7 h-7 rounded-full bg-emerald-800 text-white flex items-center justify-center shrink-0 text-xs font-bold">
+                    AI
+                </div>
+                <div class="bg-white p-3 rounded-2xl rounded-tl-sm border border-stone-200/80 shadow-soft text-stone-500 text-xs flex items-center space-x-1 font-hindi">
+                    <span class="w-1.5 h-1.5 rounded-full bg-stone-400 animate-bounce"></span>
+                    <span class="w-1.5 h-1.5 rounded-full bg-stone-400 animate-bounce [animation-delay:0.2s]"></span>
+                    <span class="w-1.5 h-1.5 rounded-full bg-stone-400 animate-bounce [animation-delay:0.4s]"></span>
+                    <span class="text-[11px] text-stone-400 ml-1.5">MPPCB रिकॉर्ड्स विश्लेषित किए जा रहे हैं...</span>
+                </div>
+            `;
+            container.appendChild(typingDiv);
+            container.scrollTop = container.scrollHeight;
+            return id;
+        }
+
+        function removeTypingIndicator(id) {
+            const el = document.getElementById(id);
+            if (el) el.remove();
+        }
+
+        function escapeHtml(str) {
+            return str.replace(/&/g, '&amp;').replace(/</g, '&lt;').replace(/>/g, '&gt;').replace(/"/g, '&quot;');
+        }
+    </script>
+
     <!-- Global Language Switcher Script -->
     <script>
         function setGlobalLang(lang) {

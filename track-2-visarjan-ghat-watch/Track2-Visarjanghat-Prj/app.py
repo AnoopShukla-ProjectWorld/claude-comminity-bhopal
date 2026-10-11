@@ -11,10 +11,12 @@ import pandas as pd
 from flask import Flask, render_template, request, jsonify, redirect, url_for
 from database import Database
 from analysis.engine import GhatAnalysisEngine
+from chatbot_assistant import GhatChatbotAssistant
 
 app = Flask(__name__)
 db = Database()
 engine = GhatAnalysisEngine(db=db)
+assistant = GhatChatbotAssistant(engine=engine)
 
 @app.route('/')
 def dashboard():
@@ -129,6 +131,22 @@ def api_readings():
         'status': 'success',
         'count': len(readings),
         'data': readings
+    })
+
+@app.route('/api/chat', methods=['POST'])
+def api_chat():
+    """REST API endpoint for the bilingual Visarjan Ghat AI assistant."""
+    data = request.get_json() or {}
+    message = data.get('message', '').strip()
+    lang = data.get('lang', 'hi')
+    if not message:
+        return jsonify({'status': 'error', 'message': 'Message cannot be empty'}), 400
+
+    result = assistant.answer_query(message, lang=lang)
+    return jsonify({
+        'status': 'success',
+        'reply': result['reply'],
+        'sources': result['sources']
     })
 
 @app.route('/pdf/<path:filename>')
