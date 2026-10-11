@@ -157,9 +157,9 @@
                         </td>
                         
                         <td class="py-2.5 px-4 font-sans text-[11px]">
-                            <span class="inline-flex items-center gap-1 font-bold text-teal-800 bg-teal-50 px-2.5 py-1 rounded-md border border-teal-200">
-                                📄 पृष्ठ {{ r.source_page }} · {{ r.report_pdf }}
-                            </span>
+                            <a href="/pdf/{{ r.report_pdf }}#page={{ r.source_page }}" target="_blank" title="मूल MPPCB रिपोर्ट PDF में यह पृष्ठ देखें" class="inline-flex items-center gap-1 font-bold text-teal-800 bg-teal-50 hover:bg-teal-100 hover:text-teal-950 px-2.5 py-1 rounded-md border border-teal-200 transition">
+                                📄 पृष्ठ {{ r.source_page }} · {{ r.report_pdf }} &nearr;
+                            </a>
                         </td>
                         
                     </tr>

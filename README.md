@@ -1,8 +1,22 @@
-# Bhopal Impact Lab 2026: problem statements and data
+# 🌊 Bhopal Impact Lab 2026: Project Submission
 
+> ### 🏆 Track 2 Submission: Visarjan Ghat Watch (विसर्जन घाट वॉच)
+> **Author & Developer:** Anoop Shukla  
+> **Repository:** https://github.com/AnoopShukla-ProjectWorld/claude-comminity-bhopal  
+> **Project Directory:** [`track-2-visarjan-ghat-watch/Track2-Visarjanghat-Prj/`](track-2-visarjan-ghat-watch/Track2-Visarjanghat-Prj/)  
+> **Built for:** Bhopal Municipal Corporation (BMC) Planning Officers for Durga Visarjan (20 Oct 2026)  
+>
+> **Quick Start (3 Steps):**
+> 1. `cd track-2-visarjan-ghat-watch/Track2-Visarjanghat-Prj`
+> 2. `pip install -r requirements.txt`
+> 3. `python app.py` (or double-click `run.bat` on Windows) &rarr; Open **http://localhost:5000**
+>
+> **Run Automated Audit Test:** `python test_system.py` (verifies DB, 7 ghats, all routes, and dynamic write-fetch)
+
+---
+
+## Bhopal Impact Lab 2026: Problem Statements and Data
 Claude Impact Lab × Cerebras Café Compute, Bhopal · Sunday 11 October 2026 · SSR Global Skills Park
-
-Today you build a working tool for a real Bhopal problem, in one day, with Claude and Claude Code. Everything you build is open source and offered to the Government of Madhya Pradesh through MPSeDC.
 
 This repo has both problem statements, the data for each track, the original source documents and all the links.
 

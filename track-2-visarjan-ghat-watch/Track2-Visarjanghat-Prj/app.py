@@ -7,6 +7,7 @@ Built for: Bhopal Municipal Corporation (BMC) Planning Officers
 
 import os
 import urllib.parse
+import pandas as pd
 from flask import Flask, render_template, request, jsonify, redirect, url_for
 from database import Database
 from analysis.engine import GhatAnalysisEngine
@@ -129,6 +130,47 @@ def api_readings():
         'count': len(readings),
         'data': readings
     })
+
+@app.route('/pdf/<path:filename>')
+def serve_pdf(filename):
+    """Serves official MPPCB report PDFs for direct browser inspection and page jumps."""
+    current_dir = os.path.dirname(os.path.abspath(__file__))
+    res_candidates = [
+        os.path.abspath(os.path.join(current_dir, '..', 'resources')),
+        os.path.abspath(os.path.join(current_dir, 'resources'))
+    ]
+    for r_dir in res_candidates:
+        if os.path.exists(os.path.join(r_dir, filename)):
+            from flask import send_from_directory
+            return send_from_directory(r_dir, filename)
+    return f"PDF '{filename}' not found", 404
+
+@app.route('/export-csv')
+def export_csv():
+    """Generates downloadable CSV report of current ghat risk rankings."""
+    from flask import Response
+    summary = engine.get_ghat_summary()
+    export_df = pd.DataFrame([{
+        'Rank': g['rank'],
+        'Site': g['site'],
+        'Water_Body': g['water_body'],
+        'Risk_Score': g['base_risk_score'],
+        'Risk_Level': g['risk_level'],
+        'DO_Failures': g['do_fails'],
+        'BOD_Failures': g['bod_fails'],
+        'DO_Min_mg_l': g['do_min'],
+        'BOD_Max_mg_l': g['bod_max'],
+        'NGT_Status': g['ngt_status'],
+        'Plain_Reason': g['reason_en'],
+        'Actions_Required': ' | '.join(g['recommendations_en'])
+    } for g in summary])
+    
+    csv_data = export_df.to_csv(index=False, encoding='utf-8')
+    return Response(
+        csv_data,
+        mimetype="text/csv",
+        headers={"Content-disposition": "attachment; filename=bhopal_visarjan_ghat_risk_ranking_2026.csv"}
+    )
 
 if __name__ == '__main__':
     port = int(os.environ.get('PORT', 5000))

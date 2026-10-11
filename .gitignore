@@ -2,3 +2,6 @@
 __pycache__/
 *.pyc
 .env
+*/static/img/extracted/
+static/img/extracted/
+*.db-journal
