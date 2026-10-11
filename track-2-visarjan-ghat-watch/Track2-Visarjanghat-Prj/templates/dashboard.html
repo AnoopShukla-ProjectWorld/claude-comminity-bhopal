@@ -47,22 +47,15 @@
                 <button onclick="openModal('bulkImportModal')" 
                         class="inline-flex items-center space-x-2 px-5 py-3 rounded-full bg-stone-900/90 hover:bg-stone-800 text-emerald-400 font-bold text-xs uppercase tracking-wider transition-all duration-200 border border-emerald-500/40 backdrop-blur-sm hover:border-emerald-400 hover:scale-[1.02] active:scale-[0.98]">
                     <span>📥</span>
-                    <span class="lang-hi">थोक डेटा आयात (CSV/Excel)</span>
-                    <span class="lang-en hidden">Bulk Import (CSV/Excel)</span>
+                    <span class="lang-hi">जल गुणवत्ता डेटा आयात (CSV/Excel)</span>
+                    <span class="lang-en hidden">Import Water Quality Data</span>
                 </button>
 
                 <button onclick="openModal('addGhatModal')" 
                         class="inline-flex items-center space-x-2 px-5 py-3 rounded-full bg-stone-900/90 hover:bg-stone-800 text-amber-300 font-bold text-xs uppercase tracking-wider transition-all duration-200 border border-amber-500/40 backdrop-blur-sm hover:border-amber-400 hover:scale-[1.02] active:scale-[0.98]">
                     <span>🏛️</span>
-                    <span class="lang-hi">नया घाट / कुंड जोड़ें</span>
-                    <span class="lang-en hidden">Add New Immersion Ghat</span>
-                </button>
-
-                <button onclick="triggerRecalculate()" id="btnRecalculate" 
-                        class="inline-flex items-center space-x-2 px-5 py-3 rounded-full bg-stone-900/60 hover:bg-stone-800 text-stone-200 font-semibold text-xs transition-all duration-200 border border-stone-700 backdrop-blur-sm hover:border-stone-500 hover:text-white">
-                    <span>⚡</span>
-                    <span class="lang-hi">तात्कालिक पुनर्गणना</span>
-                    <span class="lang-en hidden">Instant Recalculate</span>
+                    <span class="lang-hi">नया विसर्जन कुंड जोड़ें</span>
+                    <span class="lang-en hidden">Add New Immersion Kund</span>
                 </button>
 
                 <a href="/brief" 
@@ -841,17 +834,17 @@
 
 <!-- MODAL 2: BULK IMPORT (CSV / EXCEL UPLOAD) -->
 <div id="bulkImportModal" class="hidden fixed inset-0 z-50 bg-stone-950/70 backdrop-blur-sm flex items-center justify-center p-4">
-    <div class="bg-white rounded-3xl max-w-lg w-full p-6 sm:p-8 shadow-lift border border-stone-200 space-y-6">
+    <div class="bg-white rounded-3xl max-w-xl w-full p-6 sm:p-8 shadow-lift border border-stone-200 space-y-6">
         <div class="flex justify-between items-center border-b border-stone-100 pb-4">
             <div>
                 <h3 class="text-lg font-bold text-stone-900 flex items-center gap-2">
                     <span>📥</span>
-                    <span class="lang-hi">थोक जल परीक्षण डेटा आयात (Bulk Import)</span>
-                    <span class="lang-en hidden">Bulk Water Test Data Import</span>
+                    <span class="lang-hi">जल गुणवत्ता परीक्षण डेटा आयात (Water Quality Import)</span>
+                    <span class="lang-en hidden">Water Quality Test Data Import</span>
                 </h3>
                 <p class="text-xs text-subtle mt-0.5">
-                    <span class="lang-hi font-hindi">CSV या Excel फ़ाइल अपलोड करके सैकड़ों परीक्षण एक साथ डेटाबेस में सुरक्षित करें</span>
-                    <span class="lang-en hidden">Upload CSV or Excel (.xlsx) file to batch ingest hundreds of readings at once</span>
+                    <span class="lang-hi font-hindi">CSV या Excel फ़ाइल अपलोड करें — एक ही फ़ाइल में सभी पैरामीटर्स (DO, BOD, pH आदि) सम्मिलित हो सकते हैं</span>
+                    <span class="lang-en hidden">Upload CSV or Excel (.xlsx) file — multiple parameters (DO, BOD, pH, etc.) supported in a single file</span>
                 </p>
             </div>
             <button onclick="closeModal('bulkImportModal')" class="text-stone-400 hover:text-stone-600 text-2xl font-bold leading-none">&times;</button>
@@ -861,12 +854,12 @@
         <div class="bg-emerald-50/70 rounded-2xl p-4 border border-emerald-200/60 flex items-center justify-between">
             <div>
                 <div class="text-xs font-bold text-emerald-900">
-                    <span class="lang-hi">📄 मानक CSV टेम्पलेट उपलब्ध है</span>
-                    <span class="lang-en hidden">📄 Standard CSV Template Ready</span>
+                    <span class="lang-hi">📄 मानक बहु-पैरामीटर टेम्पलेट (Standard CSV Template)</span>
+                    <span class="lang-en hidden">📄 Multi-Parameter CSV Template Ready</span>
                 </div>
                 <div class="text-[11px] text-emerald-700 mt-0.5">
-                    <span class="lang-hi font-hindi">सही फॉर्मेट और कॉलम्स के लिए इसे डाउनलोड करके डेटा भरें</span>
-                    <span class="lang-en hidden">Download formatted sample to ensure 100% error-free parsing</span>
+                    <span class="lang-hi font-hindi">एक ही फ़ाइल में DO, BOD, pH, COD आदि भरने हेतु नमूना फ़ाइल</span>
+                    <span class="lang-en hidden">Download formatted sample covering all parameters in one file</span>
                 </div>
             </div>
             <a href="/download-template" class="shrink-0 text-xs font-bold px-3.5 py-1.5 rounded-full bg-emerald-700 hover:bg-emerald-800 text-white transition shadow-soft">
@@ -875,24 +868,77 @@
             </a>
         </div>
 
-        <form id="bulkImportForm" onsubmit="submitBulkImport(event)" class="space-y-4">
+        <form id="bulkImportForm" onsubmit="submitBulkImport(event)" class="space-y-4 text-xs">
+            <!-- Contextual Scope: Ghat, Year, Festival -->
+            <div class="p-4 bg-stone-50 rounded-2xl border border-stone-200/80 space-y-3">
+                <div class="font-bold text-stone-900 flex items-center gap-1.5">
+                    <span>🎯</span>
+                    <span class="lang-hi">डेटा संदर्भ व दायरा (Import Context):</span>
+                    <span class="lang-en hidden">Import Scope & Context:</span>
+                </div>
+                <div class="grid grid-cols-1 sm:grid-cols-3 gap-3">
+                    <div>
+                        <label class="block font-semibold text-stone-600 mb-1">
+                            <span class="lang-hi">घाट / स्थल:</span>
+                            <span class="lang-en hidden">Ghat / Site:</span>
+                        </label>
+                        <select id="bulk_override_site" name="override_site" class="w-full border border-stone-200 rounded-xl p-2 bg-white font-medium text-stone-800">
+                            <option value="AUTO">फ़ाइल के अनुसार (As in File)</option>
+                            {% for g in summary %}
+                            <option value="{{ g.site }}">{{ g.site }}</option>
+                            {% endfor %}
+                        </select>
+                    </div>
+
+                    <div>
+                        <label class="block font-semibold text-stone-600 mb-1">
+                            <span class="lang-hi">वर्ष (Year):</span>
+                            <span class="lang-en hidden">Year:</span>
+                        </label>
+                        <select id="bulk_override_year" name="override_year" class="w-full border border-stone-200 rounded-xl p-2 bg-white font-medium text-stone-800">
+                            <option value="AUTO">फ़ाइल के अनुसार (As in File)</option>
+                            <option value="2026" selected>2026</option>
+                            <option value="2025">2025</option>
+                            <option value="2024">2024</option>
+                            <option value="2023">2023</option>
+                        </select>
+                    </div>
+
+                    <div>
+                        <label class="block font-semibold text-stone-600 mb-1">
+                            <span class="lang-hi">त्योहार:</span>
+                            <span class="lang-en hidden">Festival:</span>
+                        </label>
+                        <select id="bulk_override_festival" name="override_festival" class="w-full border border-stone-200 rounded-xl p-2 bg-white font-medium text-stone-800">
+                            <option value="AUTO">फ़ाइल के अनुसार (As in File)</option>
+                            <option value="Durga" selected>दुर्गा विसर्जन (Durga)</option>
+                            <option value="Ganesh">गणेश विसर्जन (Ganesh)</option>
+                        </select>
+                    </div>
+                </div>
+                <p class="text-[11px] text-subtle">
+                    <span class="lang-hi font-hindi">यदि फ़ाइल में कई घाटों या वर्षों का डेटा है, तो 'फ़ाइल के अनुसार' ही रहने दें।</span>
+                    <span class="lang-en hidden">Leave as 'As in File' if your sheet already specifies site and year columns.</span>
+                </p>
+            </div>
+
             <div>
                 <label class="block font-bold text-stone-700 mb-2 text-xs uppercase tracking-wider">
-                    <span class="lang-hi">फ़ाइल चुनें (CSV या Excel):</span>
-                    <span class="lang-en hidden">Select File (CSV or Excel):</span>
+                    <span class="lang-hi">फ़ाइल चुनें (CSV या Excel .xlsx):</span>
+                    <span class="lang-en hidden">Select File (CSV or Excel .xlsx):</span>
                 </label>
                 <div class="border-2 border-dashed border-stone-300 rounded-2xl p-6 text-center hover:border-emerald-600 transition bg-stone-50/50">
                     <input type="file" id="bulkFile" name="file" accept=".csv, .xlsx, .xls" required class="w-full text-xs text-stone-700 file:mr-4 file:py-2 file:px-4 file:rounded-full file:border-0 file:text-xs file:font-bold file:bg-stone-900 file:text-white hover:file:bg-emerald-700 cursor-pointer">
                     <p class="text-[11px] text-subtle mt-2">
-                        <span class="lang-hi font-hindi">कॉलम्स: <code>site, parameter, value</code> (वैकल्पिक: <code>year, festival, phase, unit_assumed</code>)</span>
-                        <span class="lang-en hidden">Required columns: <code>site, parameter, value</code></span>
+                        <span class="lang-hi font-hindi">आवश्यक कॉलम: <code>parameter, value</code> (वैकल्पिक: <code>site, year, festival, phase, unit_assumed</code>)</span>
+                        <span class="lang-en hidden">Required columns: <code>parameter, value</code></span>
                     </p>
                 </div>
             </div>
 
             <div id="bulkImportProgress" class="hidden p-3 bg-stone-100 rounded-xl text-center text-xs font-semibold text-stone-700">
-                <span class="lang-hi font-hindi">⏳ फ़ाइल पार्स एवं डेटाबेस में सुरक्षित की जा रही है...</span>
-                <span class="lang-en hidden">⏳ Processing & importing certified records...</span>
+                <span class="lang-hi font-hindi">⏳ फ़ाइल पार्स, डेटाबेस में प्रविष्टि एवं रैंकिंग पुनर्गणना जारी है...</span>
+                <span class="lang-en hidden">⏳ Ingesting readings & automatically recalculating priority rankings...</span>
             </div>
 
             <div class="pt-3 flex justify-end space-x-3">
@@ -900,9 +946,10 @@
                     <span class="lang-hi">रद्द करें</span>
                     <span class="lang-en hidden">Cancel</span>
                 </button>
-                <button type="submit" id="btnSubmitBulk" class="px-6 py-2.5 rounded-full bg-emerald-700 hover:bg-emerald-800 text-white font-bold text-xs shadow-soft transition">
-                    <span class="lang-hi">🚀 डेटा आयात करें</span>
-                    <span class="lang-en hidden">🚀 Ingest Data</span>
+                <button type="submit" id="btnSubmitBulk" class="px-6 py-2.5 rounded-full bg-emerald-700 hover:bg-emerald-800 text-white font-bold text-xs shadow-soft transition flex items-center gap-1.5">
+                    <span>⚡</span>
+                    <span class="lang-hi">डेटा आयात करें एवं रैंकिंग रीकैलकुलेट करें</span>
+                    <span class="lang-en hidden">Import Data & Recalculate Rankings</span>
                 </button>
             </div>
         </form>
@@ -1083,6 +1130,9 @@
 
         const formData = new FormData();
         formData.append('file', fileInput.files[0]);
+        formData.append('override_site', document.getElementById('bulk_override_site').value);
+        formData.append('override_year', document.getElementById('bulk_override_year').value);
+        formData.append('override_festival', document.getElementById('bulk_override_festival').value);
 
         const progressDiv = document.getElementById('bulkImportProgress');
         const submitBtn = document.getElementById('btnSubmitBulk');
@@ -1099,7 +1149,7 @@
             submitBtn.disabled = false;
 
             if (data.status === 'success') {
-                alert(`✅ सफल! ${data.inserted_count} प्रमाणित रिकॉर्ड्स डेटाबेस में सफलतापूर्वक सुरक्षित कर लिए गए। कुल रिकॉर्ड्स: ${data.total_in_db}`);
+                alert(`✅ सफल! ${data.inserted_count} प्रमाणित रिकॉर्ड्स डेटाबेस में सुरक्षित कर लिए गए एवं रैंकिंग स्वचालित रूप से परिकलित हो गई। (डेटाबेस में कुल रिकॉर्ड्स: ${data.total_in_db})`);
                 closeModal('bulkImportModal');
                 window.location.reload();
             } else {
@@ -1127,41 +1177,13 @@
             });
             const data = await resp.json();
             if (data.status === 'success') {
-                alert(`🏛️ घाट '${data.site}' सफलतापूर्वक पंजीकृत हो गया!`);
+                alert(`🏛️ नया विसर्जन स्थल '${data.site}' सफलतापूर्वक पंजीकृत हो गया!`);
                 closeModal('addGhatModal');
                 window.location.reload();
             } else {
                 alert('पंजीकरण त्रुटि / Error: ' + data.message);
             }
         } catch (err) {
-            alert('सर्वर त्रुटि / Server error: ' + err.message);
-        }
-    }
-
-    // Trigger Instant System-wide Recalculate
-    async function triggerRecalculate() {
-        const btn = document.getElementById('btnRecalculate');
-        const originalText = btn.innerHTML;
-        btn.innerHTML = '<span>⏳</span> <span>पुनर्गणना चालू है...</span>';
-        btn.disabled = true;
-
-        try {
-            const resp = await fetch(`/api/recalculate?w_do=${currentDO}&w_bod=${currentBOD}&w_ph=${currentPH}`, {
-                method: 'POST'
-            });
-            const data = await resp.json();
-            btn.innerHTML = originalText;
-            btn.disabled = false;
-
-            if (data.status === 'success') {
-                alert(`⚡ सभी ${data.total_ghats} घाटों एवं ${data.total_readings} नमूनों की पुनर्गणना सफलतापूर्वक संपन्न हुई!`);
-                window.location.reload();
-            } else {
-                alert('त्रुटि / Error: ' + data.message);
-            }
-        } catch (err) {
-            btn.innerHTML = originalText;
-            btn.disabled = false;
             alert('सर्वर त्रुटि / Server error: ' + err.message);
         }
     }

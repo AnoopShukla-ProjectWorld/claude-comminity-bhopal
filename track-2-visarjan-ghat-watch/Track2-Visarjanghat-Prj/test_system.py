@@ -80,19 +80,41 @@ assert row['year'] == 2026
 print(f" [PASS] Fetched back directly from SQLite: ID={row['id']} | Site={row['site']} | Year={row['year']} | Value={row['value']} {row['unit_assumed']}")
 
 print("\n" + "============================================================")
-print("[6] BULK DATA IMPORT (CSV INGESTION PIPELINE)")
+print("[6] BULK DATA IMPORT (MULTI-PARAMETER CSV & SCOPE OVERRIDES)")
 print("============================================================")
 import io
-csv_content = """year,festival,site,water_body,phase,parameter,value,unit_assumed
-2026,Durga,Bairagarh (Sant Hirdaram) kund,Upper Lake,pre,Dissolved oxygen,5.1,mg/l
-2026,Durga,Bairagarh (Sant Hirdaram) kund,Upper Lake,during,Dissolved oxygen,2.9,mg/l
-2026,Durga,Bairagarh (Sant Hirdaram) kund,Upper Lake,during,BOD,11.2,mg/l
+# Test 1: Long format with scope override from popup
+csv_content_long = """phase,parameter,value
+pre,Dissolved oxygen,5.8
+during,Dissolved oxygen,2.4
+during,BOD,14.6
 """
-data = {'file': (io.BytesIO(csv_content.encode('utf-8')), 'test_batch_2026.csv')}
-bulk_res = client.post('/api/bulk-import', data=data, content_type='multipart/form-data')
-assert bulk_res.status_code == 200, f"Bulk import failed: {bulk_res.data}"
-assert bulk_res.json['inserted_count'] == 3
-print(f" [PASS] Bulk import processed successfully! Ingested {bulk_res.json['inserted_count']} readings.")
+data1 = {
+    'file': (io.BytesIO(csv_content_long.encode('utf-8')), 'test_long_2026.csv'),
+    'override_site': 'Bairagarh (Sant Hirdaram) kund',
+    'override_year': '2026',
+    'override_festival': 'Durga'
+}
+bulk_res1 = client.post('/api/bulk-import', data=data1, content_type='multipart/form-data')
+assert bulk_res1.status_code == 200, f"Bulk import long failed: {bulk_res1.data}"
+assert bulk_res1.json['inserted_count'] == 3
+print(f" [PASS] Long format with popup overrides imported {bulk_res1.json['inserted_count']} readings.")
+
+# Test 2: Wide format (All parameters in single row)
+csv_content_wide = """phase,dissolved_oxygen,bod,ph
+pre,6.2,2.8,7.4
+during,3.1,12.0,8.2
+"""
+data2 = {
+    'file': (io.BytesIO(csv_content_wide.encode('utf-8')), 'test_wide_matrix.csv'),
+    'override_site': 'Prempura ghat',
+    'override_year': '2026',
+    'override_festival': 'Durga'
+}
+bulk_res2 = client.post('/api/bulk-import', data=data2, content_type='multipart/form-data')
+assert bulk_res2.status_code == 200, f"Bulk import wide failed: {bulk_res2.data}"
+assert bulk_res2.json['inserted_count'] == 6 # 3 parameters * 2 rows = 6 readings
+print(f" [PASS] Wide matrix format (all parameters in one file) imported {bulk_res2.json['inserted_count']} readings and auto-recalculated!")
 
 print("\n" + "============================================================")
 print("[7] NEW GHAT / KUND REGISTRATION & INSTANT ONBOARDING")

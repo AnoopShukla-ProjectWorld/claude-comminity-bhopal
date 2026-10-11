@@ -154,6 +154,10 @@ def api_bulk_import():
         return jsonify({'status': 'error', 'message': 'No selected file'}), 400
 
     filename = file.filename.lower()
+    override_site = request.form.get('override_site', 'AUTO').strip()
+    override_year = request.form.get('override_year', 'AUTO').strip()
+    override_festival = request.form.get('override_festival', 'AUTO').strip()
+
     try:
         if filename.endswith('.csv'):
             stream = io.StringIO(file.stream.read().decode('utf-8', errors='replace'))
@@ -163,68 +167,100 @@ def api_bulk_import():
         else:
             return jsonify({'status': 'error', 'message': 'Please upload a CSV or Excel (.xlsx) file'}), 400
 
-        # Normalize column names (lowercase, stripped, underscore)
+        # Normalize column names
         df_in.columns = [str(c).strip().lower().replace(' ', '_') for c in df_in.columns]
 
-        # Check required columns
-        required_cols = ['site', 'parameter', 'value']
-        missing_cols = [c for c in required_cols if c not in df_in.columns]
-        if missing_cols:
-            return jsonify({
-                'status': 'error',
-                'message': f"Missing mandatory columns: {', '.join(missing_cols)}. Required: site, parameter, value."
-            }), 400
-
-        # Register any new ghats discovered in the file
-        existing_ghats = {g['site'] for g in db.get_ghats()}
-        unique_sites = df_in['site'].dropna().unique()
-        for s in unique_sites:
-            s_clean = str(s).strip()
-            if s_clean and s_clean not in existing_ghats:
-                wb = 'Dedicated Kund'
-                if 'water_body' in df_in.columns:
-                    wb_vals = df_in[df_in['site'] == s]['water_body'].dropna()
-                    if not wb_vals.empty:
-                        wb = str(wb_vals.iloc[0])
-                db.add_ghat({
-                    'site': s_clean,
-                    'water_body': wb,
-                    'type': 'Imported Immersion Site',
-                    'ngt_status': 'Permitted dedicated artificial site'
-                })
-                existing_ghats.add(s_clean)
+        # Check if wide format (parameters as columns) or long format (column 'parameter')
+        standard_params = ['dissolved_oxygen', 'bod', 'ph', 'cod', 'turbidity', 'total_solids', 'lead', 'zinc', 'copper']
+        is_wide_format = any(p in df_in.columns for p in standard_params) and 'parameter' not in df_in.columns
 
         records_to_insert = []
-        for _, row in df_in.iterrows():
-            site_val = str(row['site']).strip()
-            param_val = str(row['parameter']).strip()
-            if not site_val or not param_val or pd.isna(row['value']):
-                continue
+        existing_ghats = {g['site'] for g in db.get_ghats()}
 
-            records_to_insert.append({
-                'year': int(row['year']) if 'year' in row and pd.notna(row['year']) else 2026,
-                'festival': str(row['festival']).strip() if 'festival' in row and pd.notna(row['festival']) else 'Durga',
-                'site': site_val,
-                'water_body': str(row.get('water_body', '')).strip() if pd.notna(row.get('water_body')) else '',
-                'phase': str(row.get('phase', 'pre')).strip().lower() if pd.notna(row.get('phase')) else 'pre',
-                'parameter': param_val,
-                'value': row['value'],
-                'unit_assumed': str(row.get('unit_assumed', 'mg/l')).strip() if pd.notna(row.get('unit_assumed')) else 'mg/l',
-                'flag': str(row.get('flag', '')).strip() if pd.notna(row.get('flag')) else '',
-                'source_page': int(row.get('source_page', 1)) if pd.notna(row.get('source_page')) else 1
-            })
+        if is_wide_format:
+            # Wide/Matrix format: convert to rows
+            for _, row in df_in.iterrows():
+                site_val = override_site if override_site != 'AUTO' else str(row.get('site', 'Bairagarh (Sant Hirdaram) kund')).strip()
+                year_val = int(override_year) if override_year != 'AUTO' else (int(row['year']) if 'year' in row and pd.notna(row['year']) else 2026)
+                fest_val = override_festival if override_festival != 'AUTO' else (str(row['festival']).strip() if 'festival' in row and pd.notna(row['festival']) else 'Durga')
+                phase_val = str(row.get('phase', 'pre')).strip().lower() if pd.notna(row.get('phase')) else 'pre'
+                wb_val = str(row.get('water_body', '')).strip() if pd.notna(row.get('water_body')) else ''
+
+                if site_val and site_val not in existing_ghats:
+                    db.add_ghat({'site': site_val, 'water_body': wb_val or 'Dedicated Kund', 'type': 'Imported Immersion Site', 'ngt_status': 'Permitted dedicated artificial site'})
+                    existing_ghats.add(site_val)
+
+                for col in df_in.columns:
+                    if col in standard_params and pd.notna(row[col]):
+                        param_name = col.replace('_', ' ').capitalize()
+                        if col == 'ph': param_name = 'pH'
+                        elif col == 'bod': param_name = 'BOD'
+                        elif col == 'cod': param_name = 'COD'
+                        elif col == 'dissolved_oxygen': param_name = 'Dissolved oxygen'
+
+                        records_to_insert.append({
+                            'year': year_val,
+                            'festival': fest_val,
+                            'site': site_val,
+                            'water_body': wb_val,
+                            'phase': phase_val,
+                            'parameter': param_name,
+                            'value': row[col],
+                            'unit_assumed': 'mg/l' if param_name != 'pH' else '',
+                            'flag': '',
+                            'source_page': 1
+                        })
+        else:
+            # Long format: requires 'parameter' and 'value'
+            if 'parameter' not in df_in.columns or 'value' not in df_in.columns:
+                return jsonify({
+                    'status': 'error',
+                    'message': "Missing required columns. Either provide 'parameter' and 'value' columns, or use parameters (Dissolved oxygen, BOD, pH) as column headers."
+                }), 400
+
+            for _, row in df_in.iterrows():
+                site_val = override_site if override_site != 'AUTO' else (str(row.get('site', '')).strip() if pd.notna(row.get('site')) else 'Bairagarh (Sant Hirdaram) kund')
+                year_val = int(override_year) if override_year != 'AUTO' else (int(row['year']) if 'year' in row and pd.notna(row['year']) else 2026)
+                fest_val = override_festival if override_festival != 'AUTO' else (str(row['festival']).strip() if 'festival' in row and pd.notna(row['festival']) else 'Durga')
+                phase_val = str(row.get('phase', 'pre')).strip().lower() if pd.notna(row.get('phase')) else 'pre'
+                wb_val = str(row.get('water_body', '')).strip() if pd.notna(row.get('water_body')) else ''
+                param_val = str(row['parameter']).strip()
+
+                if not param_val or pd.isna(row['value']):
+                    continue
+
+                if site_val and site_val not in existing_ghats:
+                    db.add_ghat({'site': site_val, 'water_body': wb_val or 'Dedicated Kund', 'type': 'Imported Immersion Site', 'ngt_status': 'Permitted dedicated artificial site'})
+                    existing_ghats.add(site_val)
+
+                records_to_insert.append({
+                    'year': year_val,
+                    'festival': fest_val,
+                    'site': site_val,
+                    'water_body': wb_val,
+                    'phase': phase_val,
+                    'parameter': param_val,
+                    'value': row['value'],
+                    'unit_assumed': str(row.get('unit_assumed', 'mg/l')).strip() if pd.notna(row.get('unit_assumed')) else 'mg/l',
+                    'flag': str(row.get('flag', '')).strip() if pd.notna(row.get('flag')) else '',
+                    'source_page': int(row.get('source_page', 1)) if pd.notna(row.get('source_page')) else 1
+                })
 
         if not records_to_insert:
             return jsonify({'status': 'error', 'message': 'No valid water readings found in the file'}), 400
 
         inserted_count = db.bulk_add_readings(records_to_insert)
+        
+        # Automatically recalculate all metrics and risk scores
         engine.refresh_data()
+        summary = engine.get_ghat_summary()
 
         return jsonify({
             'status': 'success',
-            'message': f"Successfully imported {inserted_count} certified water readings!",
+            'message': f"Successfully imported {inserted_count} certified water readings and recalculated priority rankings!",
             'inserted_count': inserted_count,
-            'total_in_db': len(engine.df)
+            'total_in_db': len(engine.df),
+            'total_ghats': len(summary)
         })
 
     except Exception as e:
