@@ -103,11 +103,26 @@
         <div class="max-w-7xl mx-auto flex flex-wrap items-center justify-between gap-2">
             <div class="flex items-center space-x-2">
                 <span class="inline-flex items-center justify-center w-4 h-4 rounded-full bg-amber-400 text-stone-950 font-black text-[10px]">!</span>
-                <span class="text-stone-200"><strong>NGT Advisory:</strong> बड़े व छोटे तालाब में प्रतिमा विसर्जन प्रतिबंधित है। दुर्गा विसर्जन: <strong>20 अक्टूबर 2026</strong></span>
+                <span class="text-stone-200">
+                    <span class="lang-hi"><strong>NGT Advisory:</strong> बड़े व छोटे तालाब में प्रतिमा विसर्जन प्रतिबंधित है। दुर्गा विसर्जन: <strong>20 अक्टूबर 2026</strong></span>
+                    <span class="lang-en hidden"><strong>NGT Advisory:</strong> Idol immersion strictly prohibited in Upper & Lower Lake. Durga Visarjan: <strong>20 Oct 2026</strong></span>
+                </span>
             </div>
             <div class="flex items-center space-x-3 text-[11px]">
                 <span class="bg-white/10 px-2 py-0.5 rounded-full border border-white/10 text-amber-200">CPCB Class B Standard</span>
-                <a href="/brief" class="underline hover:text-white font-semibold">अधिकारी ब्रीफ &rarr;</a>
+                <a href="/brief" class="underline hover:text-white font-semibold">
+                    <span class="lang-hi">अधिकारी ब्रीफ &rarr;</span>
+                    <span class="lang-en hidden">Officer Brief &rarr;</span>
+                </a>
+                <!-- Global Language Switcher in Top Bar -->
+                <div class="inline-flex items-center bg-stone-950/80 rounded-full p-0.5 border border-amber-500/30">
+                    <button onclick="setGlobalLang('hi')" id="global-lang-btn-hi" class="px-2.5 py-0.5 rounded-full text-[11px] font-bold bg-amber-400 text-stone-950 transition">
+                        हिंदी
+                    </button>
+                    <button onclick="setGlobalLang('en')" id="global-lang-btn-en" class="px-2.5 py-0.5 rounded-full text-[11px] font-bold text-stone-300 hover:text-white transition">
+                        English
+                    </button>
+                </div>
             </div>
         </div>
     </div>
@@ -124,29 +139,49 @@
                         <div>
                             <div class="flex items-center space-x-2">
                                 <h1 class="text-xl font-bold tracking-tight text-ink group-hover:text-teal-900 transition">
-                                    विसर्जन घाट वॉच
+                                    <span class="lang-hi">विसर्जन घाट वॉच</span>
+                                    <span class="lang-en hidden">Visarjan Ghat Watch</span>
                                 </h1>
                                 <span class="bg-emerald-50 text-emerald-800 text-[10px] font-bold px-2.5 py-0.5 rounded-full border border-emerald-200 uppercase tracking-wider">Bhopal 2026</span>
                             </div>
-                            <p class="text-xs text-subtle font-hindi">Bhopal Municipal Corporation · Idol Immersion Risk Intelligence</p>
+                            <p class="text-xs text-subtle font-hindi">
+                                <span class="lang-hi">नगर पालिक निगम भोपाल · प्रतिमा विसर्जन जोखिम नियंत्रण प्रणाली</span>
+                                <span class="lang-en hidden">Bhopal Municipal Corporation · Idol Immersion Risk Intelligence</span>
+                            </p>
                         </div>
                     </a>
                 </div>
 
-                <nav class="flex items-center space-x-1 sm:space-x-2">
-                    <a href="/" class="px-3.5 py-2 rounded-full text-xs sm:text-sm font-semibold transition {% if request.path == '/' %}bg-stone-900 text-white shadow-soft{% else %}text-stone-600 hover:text-stone-900 hover:bg-stone-200/50{% endif %}">
-                        📊 डैशबोर्ड
-                    </a>
-                    <a href="/brief" class="px-3.5 py-2 rounded-full text-xs sm:text-sm font-semibold transition {% if request.path == '/brief' %}bg-stone-900 text-white shadow-soft{% else %}text-stone-600 hover:text-stone-900 hover:bg-stone-200/50{% endif %}">
-                        📑 अधिकारी ब्रीफ
-                    </a>
-                    <a href="/traceability" class="px-3.5 py-2 rounded-full text-xs sm:text-sm font-semibold transition {% if request.path == '/traceability' %}bg-stone-900 text-white shadow-soft{% else %}text-stone-600 hover:text-stone-900 hover:bg-stone-200/50{% endif %}">
-                        🔍 डेटा प्रमाण
-                    </a>
-                    <a href="/export-csv" class="hidden md:inline-flex items-center space-x-1 px-3.5 py-2 rounded-full text-xs font-semibold bg-emerald-800 text-emerald-50 hover:bg-emerald-700 shadow-soft transition">
-                        <span>📥 CSV रिपोर्ट</span>
-                    </a>
-                </nav>
+                <div class="flex items-center space-x-2 sm:space-x-4">
+                    <nav class="flex items-center space-x-1 sm:space-x-2">
+                        <a href="/" class="px-3.5 py-2 rounded-full text-xs sm:text-sm font-semibold transition {% if request.path == '/' %}bg-stone-900 text-white shadow-soft{% else %}text-stone-600 hover:text-stone-900 hover:bg-stone-200/50{% endif %}">
+                            <span class="lang-hi">📊 डैशबोर्ड</span>
+                            <span class="lang-en hidden">📊 Dashboard</span>
+                        </a>
+                        <a href="/brief" class="px-3.5 py-2 rounded-full text-xs sm:text-sm font-semibold transition {% if request.path == '/brief' %}bg-stone-900 text-white shadow-soft{% else %}text-stone-600 hover:text-stone-900 hover:bg-stone-200/50{% endif %}">
+                            <span class="lang-hi">📑 अधिकारी ब्रीफ</span>
+                            <span class="lang-en hidden">📑 Officer Brief</span>
+                        </a>
+                        <a href="/traceability" class="px-3.5 py-2 rounded-full text-xs sm:text-sm font-semibold transition {% if request.path == '/traceability' %}bg-stone-900 text-white shadow-soft{% else %}text-stone-600 hover:text-stone-900 hover:bg-stone-200/50{% endif %}">
+                            <span class="lang-hi">🔍 परीक्षण प्रमाण</span>
+                            <span class="lang-en hidden">🔍 Traceability</span>
+                        </a>
+                        <a href="/export-csv" class="hidden md:inline-flex items-center space-x-1 px-3.5 py-2 rounded-full text-xs font-semibold bg-emerald-800 text-emerald-50 hover:bg-emerald-700 shadow-soft transition">
+                            <span class="lang-hi">📥 CSV रिपोर्ट</span>
+                            <span class="lang-en hidden">📥 CSV Export</span>
+                        </a>
+                    </nav>
+
+                    <!-- Language Switcher in Navbar for Convenience -->
+                    <div class="inline-flex items-center bg-stone-100 rounded-full p-1 border border-stone-300">
+                        <button onclick="setGlobalLang('hi')" id="nav-lang-btn-hi" class="px-3 py-1 rounded-full text-xs font-bold bg-stone-900 text-white shadow-soft transition">
+                            हिंदी
+                        </button>
+                        <button onclick="setGlobalLang('en')" id="nav-lang-btn-en" class="px-3 py-1 rounded-full text-xs font-bold text-stone-700 hover:text-stone-950 transition">
+                            English
+                        </button>
+                    </div>
+                </div>
             </div>
         </div>
     </header>
@@ -169,15 +204,74 @@
                 <div class="flex flex-wrap items-center gap-3 text-xs">
                     <span class="bg-stone-800 text-emerald-400 px-3 py-1 rounded-full border border-stone-700">● 1,524 Verified Readings</span>
                     <span class="bg-stone-800 text-amber-400 px-3 py-1 rounded-full border border-stone-700">● CPCB Class B Standards</span>
-                    <span class="bg-stone-800 text-teal-400 px-3 py-1 rounded-full border border-stone-700">● SQLite Engine</span>
+                    <span class="bg-stone-800 text-teal-400 px-3 py-1 rounded-full border border-stone-700">● 100% Verified Records</span>
                 </div>
             </div>
             <div class="flex flex-col md:flex-row justify-between items-center gap-3 text-[11px] text-stone-500">
-                <p class="font-hindi">⚠️ <strong>अस्वीकरण:</strong> यह प्रणाली MPPCB आधिकारिक विसर्जन परीक्षणों के आधार पर CPCB मानकों से विचलन प्रदर्शित करती है। यह प्रत्यक्ष स्वास्थ्य प्रभाव का दावा नहीं करती।</p>
+                <p class="font-hindi">
+                    <span class="lang-hi">⚠️ <strong>अस्वीकरण:</strong> यह प्रणाली MPPCB आधिकारिक विसर्जन परीक्षणों के आधार पर CPCB मानकों से विचलन प्रदर्शित करती है। यह प्रत्यक्ष स्वास्थ्य प्रभाव का दावा नहीं करती।</span>
+                    <span class="lang-en hidden">⚠️ <strong>Disclaimer:</strong> This system displays compliance deviations against CPCB Class B outdoor bathing standards based on MPPCB monitoring data.</span>
+                </p>
                 <p class="whitespace-nowrap">Open Source · MIT License</p>
             </div>
         </div>
     </footer>
+
+    <!-- Global Language Switcher Script -->
+    <script>
+        function setGlobalLang(lang) {
+            localStorage.setItem('vghat_preferred_lang', lang);
+            document.documentElement.setAttribute('lang', lang);
+
+            const isHindi = (lang === 'hi');
+
+            // Toggle all .lang-hi and .lang-en elements across the entire page
+            document.querySelectorAll('.lang-hi, .lang-text-hi').forEach(el => {
+                if (isHindi) el.classList.remove('hidden');
+                else el.classList.add('hidden');
+            });
+
+            document.querySelectorAll('.lang-en, .lang-text-en').forEach(el => {
+                if (isHindi) el.classList.add('hidden');
+                else el.classList.remove('hidden');
+            });
+
+            // Update top bar toggle styling
+            const topBtnHi = document.getElementById('global-lang-btn-hi');
+            const topBtnEn = document.getElementById('global-lang-btn-en');
+            if (topBtnHi && topBtnEn) {
+                if (isHindi) {
+                    topBtnHi.className = "px-2.5 py-0.5 rounded-full text-[11px] font-bold bg-amber-400 text-stone-950 transition";
+                    topBtnEn.className = "px-2.5 py-0.5 rounded-full text-[11px] font-bold text-stone-300 hover:text-white transition";
+                } else {
+                    topBtnHi.className = "px-2.5 py-0.5 rounded-full text-[11px] font-bold text-stone-300 hover:text-white transition";
+                    topBtnEn.className = "px-2.5 py-0.5 rounded-full text-[11px] font-bold bg-amber-400 text-stone-950 transition";
+                }
+            }
+
+            // Update navbar toggle styling
+            const navBtnHi = document.getElementById('nav-lang-btn-hi');
+            const navBtnEn = document.getElementById('nav-lang-btn-en');
+            if (navBtnHi && navBtnEn) {
+                if (isHindi) {
+                    navBtnHi.className = "px-3 py-1 rounded-full text-xs font-bold bg-stone-900 text-white shadow-soft transition";
+                    navBtnEn.className = "px-3 py-1 rounded-full text-xs font-bold text-stone-700 hover:text-stone-950 transition";
+                } else {
+                    navBtnHi.className = "px-3 py-1 rounded-full text-xs font-bold text-stone-700 hover:text-stone-950 transition";
+                    navBtnEn.className = "px-3 py-1 rounded-full text-xs font-bold bg-stone-900 text-white shadow-soft transition";
+                }
+            }
+
+            // Trigger custom event so page-specific components (e.g. Chart.js labels) can re-render if needed
+            window.dispatchEvent(new CustomEvent('languageChanged', { detail: { lang: lang } }));
+        }
+
+        // Initialize preferred language on DOM load
+        document.addEventListener('DOMContentLoaded', () => {
+            const savedLang = localStorage.getItem('vghat_preferred_lang') || 'hi';
+            setGlobalLang(savedLang);
+        });
+    </script>
 
     {% block scripts %}{% endblock %}
 </body>
