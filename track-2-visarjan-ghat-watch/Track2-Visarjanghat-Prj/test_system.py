@@ -80,5 +80,49 @@ assert row['year'] == 2026
 print(f" [PASS] Fetched back directly from SQLite: ID={row['id']} | Site={row['site']} | Year={row['year']} | Value={row['value']} {row['unit_assumed']}")
 
 print("\n" + "============================================================")
+print("[6] BULK DATA IMPORT (CSV INGESTION PIPELINE)")
+print("============================================================")
+import io
+csv_content = """year,festival,site,water_body,phase,parameter,value,unit_assumed
+2026,Durga,Bairagarh (Sant Hirdaram) kund,Upper Lake,pre,Dissolved oxygen,5.1,mg/l
+2026,Durga,Bairagarh (Sant Hirdaram) kund,Upper Lake,during,Dissolved oxygen,2.9,mg/l
+2026,Durga,Bairagarh (Sant Hirdaram) kund,Upper Lake,during,BOD,11.2,mg/l
+"""
+data = {'file': (io.BytesIO(csv_content.encode('utf-8')), 'test_batch_2026.csv')}
+bulk_res = client.post('/api/bulk-import', data=data, content_type='multipart/form-data')
+assert bulk_res.status_code == 200, f"Bulk import failed: {bulk_res.data}"
+assert bulk_res.json['inserted_count'] == 3
+print(f" [PASS] Bulk import processed successfully! Ingested {bulk_res.json['inserted_count']} readings.")
+
+print("\n" + "============================================================")
+print("[7] NEW GHAT / KUND REGISTRATION & INSTANT ONBOARDING")
+print("============================================================")
+new_ghat_payload = {
+    'site': 'Kolar Dam Dedicated Kund (Test)',
+    'water_body': 'Kolar Reservoir',
+    'type': 'Dedicated Artificial Kund',
+    'lat': 23.2100,
+    'lon': 77.4100
+}
+ghat_res = client.post('/api/add-ghat', json=new_ghat_payload)
+assert ghat_res.status_code == 200
+print(f" [PASS] Registered new ghat: '{ghat_res.json['site']}'")
+
+# Recalculate
+recalc_res = client.post('/api/recalculate')
+assert recalc_res.status_code == 200
+assert recalc_res.json['total_ghats'] == 8
+print(f" [PASS] Instant Recalculate updated total ghats from 7 to 8!")
+
+# Cleanup test records and test ghat
+conn = db.get_connection()
+c = conn.cursor()
+c.execute("DELETE FROM readings WHERE site = 'Kolar Dam Dedicated Kund (Test)' OR id >= ?", (new_id,))
+c.execute("DELETE FROM ghats WHERE site = 'Kolar Dam Dedicated Kund (Test)'")
+conn.commit()
+conn.close()
+print(" [PASS] Cleaned up temporary test records cleanly.")
+
+print("\n" + "============================================================")
 print("[SUCCESS] ALL AUDIT CHECKS PASSED: 100% OPERATIONAL AND CONNECTED!")
 print("============================================================")

@@ -118,6 +118,198 @@ def api_add_reading():
         'reading_id': new_id
     })
 
+@app.route('/api/add-ghat', methods=['POST'])
+def api_add_ghat():
+    """Dynamically register a new ghat / immersion site."""
+    data = request.get_json() if request.is_json else request.form.to_dict()
+    site = (data.get('site') or '').strip()
+    if not site:
+        return jsonify({'status': 'error', 'message': 'Ghat site name is required'}), 400
+
+    db.add_ghat({
+        'site': site,
+        'water_body': data.get('water_body', 'Dedicated Kund'),
+        'type': data.get('type', 'Dedicated Immersion Kund'),
+        'ngt_status': data.get('ngt_status', 'Permitted dedicated artificial site'),
+        'lat': float(data.get('lat', 23.2500)),
+        'lon': float(data.get('lon', 77.4000)),
+        'missing_notes': data.get('missing_notes', 'Newly registered immersion site for 2026.')
+    })
+    engine.refresh_data()
+    return jsonify({
+        'status': 'success',
+        'message': f"Ghat '{site}' successfully registered",
+        'site': site
+    })
+
+@app.route('/api/bulk-import', methods=['POST'])
+def api_bulk_import():
+    """Bulk import water readings from uploaded CSV or Excel file."""
+    import io
+    if 'file' not in request.files:
+        return jsonify({'status': 'error', 'message': 'No file uploaded'}), 400
+
+    file = request.files['file']
+    if not file.filename:
+        return jsonify({'status': 'error', 'message': 'No selected file'}), 400
+
+    filename = file.filename.lower()
+    try:
+        if filename.endswith('.csv'):
+            stream = io.StringIO(file.stream.read().decode('utf-8', errors='replace'))
+            df_in = pd.read_csv(stream)
+        elif filename.endswith(('.xls', '.xlsx')):
+            df_in = pd.read_excel(file)
+        else:
+            return jsonify({'status': 'error', 'message': 'Please upload a CSV or Excel (.xlsx) file'}), 400
+
+        # Normalize column names (lowercase, stripped, underscore)
+        df_in.columns = [str(c).strip().lower().replace(' ', '_') for c in df_in.columns]
+
+        # Check required columns
+        required_cols = ['site', 'parameter', 'value']
+        missing_cols = [c for c in required_cols if c not in df_in.columns]
+        if missing_cols:
+            return jsonify({
+                'status': 'error',
+                'message': f"Missing mandatory columns: {', '.join(missing_cols)}. Required: site, parameter, value."
+            }), 400
+
+        # Register any new ghats discovered in the file
+        existing_ghats = {g['site'] for g in db.get_ghats()}
+        unique_sites = df_in['site'].dropna().unique()
+        for s in unique_sites:
+            s_clean = str(s).strip()
+            if s_clean and s_clean not in existing_ghats:
+                wb = 'Dedicated Kund'
+                if 'water_body' in df_in.columns:
+                    wb_vals = df_in[df_in['site'] == s]['water_body'].dropna()
+                    if not wb_vals.empty:
+                        wb = str(wb_vals.iloc[0])
+                db.add_ghat({
+                    'site': s_clean,
+                    'water_body': wb,
+                    'type': 'Imported Immersion Site',
+                    'ngt_status': 'Permitted dedicated artificial site'
+                })
+                existing_ghats.add(s_clean)
+
+        records_to_insert = []
+        for _, row in df_in.iterrows():
+            site_val = str(row['site']).strip()
+            param_val = str(row['parameter']).strip()
+            if not site_val or not param_val or pd.isna(row['value']):
+                continue
+
+            records_to_insert.append({
+                'year': int(row['year']) if 'year' in row and pd.notna(row['year']) else 2026,
+                'festival': str(row['festival']).strip() if 'festival' in row and pd.notna(row['festival']) else 'Durga',
+                'site': site_val,
+                'water_body': str(row.get('water_body', '')).strip() if pd.notna(row.get('water_body')) else '',
+                'phase': str(row.get('phase', 'pre')).strip().lower() if pd.notna(row.get('phase')) else 'pre',
+                'parameter': param_val,
+                'value': row['value'],
+                'unit_assumed': str(row.get('unit_assumed', 'mg/l')).strip() if pd.notna(row.get('unit_assumed')) else 'mg/l',
+                'flag': str(row.get('flag', '')).strip() if pd.notna(row.get('flag')) else '',
+                'source_page': int(row.get('source_page', 1)) if pd.notna(row.get('source_page')) else 1
+            })
+
+        if not records_to_insert:
+            return jsonify({'status': 'error', 'message': 'No valid water readings found in the file'}), 400
+
+        inserted_count = db.bulk_add_readings(records_to_insert)
+        engine.refresh_data()
+
+        return jsonify({
+            'status': 'success',
+            'message': f"Successfully imported {inserted_count} certified water readings!",
+            'inserted_count': inserted_count,
+            'total_in_db': len(engine.df)
+        })
+
+    except Exception as e:
+        return jsonify({'status': 'error', 'message': f"Import failed: {str(e)}"}), 500
+
+@app.route('/api/recalculate', methods=['POST'])
+def api_recalculate():
+    """Forces recalculation of all metrics and MCDA scores across the entire dataset."""
+    w_do = float(request.args.get('w_do', 50))
+    w_bod = float(request.args.get('w_bod', 40))
+    w_ph = float(request.args.get('w_ph', 10))
+
+    engine.refresh_data()
+    summary = engine.get_ghat_summary(w_do, w_bod, w_ph)
+    stats = engine.get_overall_stats()
+
+    return jsonify({
+        'status': 'success',
+        'message': 'Engine successfully recalculated all metrics and priority rankings',
+        'total_readings': stats['total_rows'],
+        'total_ghats': len(summary),
+        'rankings': summary
+    })
+
+@app.route('/download-template')
+def download_template():
+    """Generates standard CSV template for easy data collection and bulk upload."""
+    from flask import Response
+    sample_df = pd.DataFrame([
+        {
+            'year': 2026,
+            'festival': 'Durga',
+            'site': 'Bairagarh (Sant Hirdaram) kund',
+            'water_body': 'Upper Lake',
+            'phase': 'pre',
+            'parameter': 'Dissolved oxygen',
+            'value': 5.4,
+            'unit_assumed': 'mg/l',
+            'flag': '',
+            'source_page': 1
+        },
+        {
+            'year': 2026,
+            'festival': 'Durga',
+            'site': 'Bairagarh (Sant Hirdaram) kund',
+            'water_body': 'Upper Lake',
+            'phase': 'during',
+            'parameter': 'Dissolved oxygen',
+            'value': 3.1,
+            'unit_assumed': 'mg/l',
+            'flag': '',
+            'source_page': 1
+        },
+        {
+            'year': 2026,
+            'festival': 'Durga',
+            'site': 'Bairagarh (Sant Hirdaram) kund',
+            'water_body': 'Upper Lake',
+            'phase': 'during',
+            'parameter': 'BOD',
+            'value': 8.5,
+            'unit_assumed': 'mg/l',
+            'flag': '',
+            'source_page': 1
+        },
+        {
+            'year': 2026,
+            'festival': 'Durga',
+            'site': 'Shahpura lake ghat',
+            'water_body': 'Shahpura Lake',
+            'phase': 'pre',
+            'parameter': 'pH',
+            'value': 7.6,
+            'unit_assumed': '',
+            'flag': '',
+            'source_page': 1
+        }
+    ])
+    csv_str = sample_df.to_csv(index=False, encoding='utf-8')
+    return Response(
+        csv_str,
+        mimetype="text/csv",
+        headers={"Content-disposition": "attachment; filename=mppcb_visarjan_readings_template_2026.csv"}
+    )
+
 @app.route('/api/readings')
 def api_readings():
     """REST API endpoint returning raw readings."""

@@ -250,6 +250,59 @@ class Database:
         conn.close()
         return new_id
 
+    def bulk_add_readings(self, records_list):
+        """Adds multiple readings in a single atomic transaction.
+        Each item in records_list should be a dictionary with reading fields.
+        Returns the number of rows successfully inserted.
+        """
+        if not records_list:
+            return 0
+            
+        conn = self.get_connection()
+        cursor = conn.cursor()
+        inserted_count = 0
+        try:
+            tuples_to_insert = []
+            for data in records_list:
+                val = float(data['value']) if data.get('value') not in [None, '', 'BDL', 'ND'] else None
+                flag = data.get('flag', '')
+                if data.get('value') in ['BDL', 'ND']:
+                    flag = data.get('value')
+
+                tuples_to_insert.append((
+                    int(data.get('year', 2026)),
+                    str(data.get('festival', 'Durga')),
+                    str(data.get('site')),
+                    str(data.get('water_body', '')),
+                    str(data.get('phase', 'pre')),
+                    str(data.get('parameter')),
+                    val,
+                    str(data.get('unit_assumed', 'mg/l')),
+                    flag,
+                    str(data.get('value', '')),
+                    str(data.get('parameter', '')),
+                    str(data.get('site', '')),
+                    'high',
+                    int(data.get('source_page', 1))
+                ))
+
+            cursor.executemany('''
+                INSERT INTO readings (
+                    year, festival, site, water_body, phase, parameter, value,
+                    unit_assumed, flag, value_as_printed, parameter_as_printed,
+                    site_as_printed, site_match_confidence, source_page
+                ) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)
+            ''', tuples_to_insert)
+            conn.commit()
+            inserted_count = len(tuples_to_insert)
+        except Exception as e:
+            conn.rollback()
+            conn.close()
+            raise e
+            
+        conn.close()
+        return inserted_count
+
     def add_ghat(self, data):
         """Registers a new dedicated ghat."""
         conn = self.get_connection()
