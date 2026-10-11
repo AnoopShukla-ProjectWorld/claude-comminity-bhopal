@@ -1,0 +1,119 @@
+<!DOCTYPE html>
+<html lang="hi" class="h-full bg-slate-50">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>{% block title %}विसर्जन घाट वॉच · Bhopal Visarjan Ghat Watch 2026{% endblock %}</title>
+    <!-- Tailwind CSS CDN -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    <!-- Chart.js CDN -->
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    <!-- Google Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@300;400;500;600;700;800&family=Tiro+Devanagari+Hindi:ital@0;1&display=swap" rel="stylesheet">
+    <style>
+        body {
+            font-family: 'Plus Jakarta Sans', sans-serif;
+        }
+        .font-hindi {
+            font-family: 'Tiro Devanagari Hindi', 'Plus Jakarta Sans', serif;
+        }
+        @media print {
+            .no-print {
+                display: none !important;
+            }
+            .print-only {
+                display: block !important;
+            }
+            body {
+                background: white;
+                color: black;
+            }
+        }
+    </style>
+</head>
+<body class="flex flex-col min-h-screen text-slate-800 antialiased selection:bg-teal-500 selection:text-white">
+
+    <!-- Top Emergency / NGT Alert Banner -->
+    <div class="bg-gradient-to-r from-amber-700 via-amber-800 to-rose-900 text-amber-50 px-4 py-2.5 text-xs md:text-sm font-medium shadow-sm no-print">
+        <div class="max-w-7xl mx-auto flex flex-wrap items-center justify-between gap-2">
+            <div class="flex items-center space-x-2">
+                <span class="inline-flex items-center justify-center w-5 h-5 rounded-full bg-amber-400 text-amber-950 font-bold text-xs">⚠️</span>
+                <span><strong>NGT & MPSeDC ADVISORY:</strong> एनजीटी आदेशानुसार बड़े तालाब व छोटे तालाब में सीधे प्रतिमा विसर्जन प्रतिबंधित है। दुर्गा विसर्जन: <strong>20 अक्टूबर 2026 (9 दिन शेष)</strong></span>
+            </div>
+            <div class="flex items-center space-x-3 text-xs">
+                <span class="bg-black/30 px-2.5 py-0.5 rounded-full border border-amber-300/30">CPCB Class B Standard (DO ≥ 5 | BOD ≤ 3)</span>
+                <a href="#brief-section" class="underline hover:text-white font-semibold">अधिकारी ब्रीफ देखें &rarr;</a>
+            </div>
+        </div>
+    </div>
+
+    <!-- Header Navigation -->
+    <header class="bg-white border-b border-slate-200 sticky top-0 z-50 shadow-sm no-print">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="flex justify-between h-16 items-center">
+                <div class="flex items-center space-x-3">
+                    <a href="/" class="flex items-center space-x-3 group">
+                        <div class="w-10 h-10 rounded-xl bg-gradient-to-tr from-teal-600 to-emerald-500 flex items-center justify-center text-white font-black text-xl shadow-md group-hover:scale-105 transition-transform">
+                            🌊
+                        </div>
+                        <div>
+                            <div class="flex items-center space-x-2">
+                                <h1 class="text-lg md:text-xl font-extrabold tracking-tight text-slate-900 group-hover:text-teal-700 transition">
+                                    विसर्जन घाट वॉच <span class="text-xs font-normal text-slate-500">| Visarjan Ghat Watch</span>
+                                </h1>
+                                <span class="bg-teal-50 text-teal-700 text-[10px] font-bold px-2 py-0.5 rounded-full border border-teal-200 uppercase tracking-wider">Bhopal 2026</span>
+                            </div>
+                            <p class="text-[11px] text-slate-500">Bhopal Municipal Corporation · Durga Visarjan Planning Support</p>
+                        </div>
+                    </a>
+                </div>
+
+                <nav class="flex items-center space-x-1 sm:space-x-3">
+                    <a href="/" class="px-3 py-1.5 rounded-lg text-xs md:text-sm font-semibold {% if request.path == '/' %}bg-slate-100 text-teal-800{% else %}text-slate-600 hover:text-slate-900 hover:bg-slate-50{% endif %}">
+                        📊 डैशबोर्ड (Dashboard)
+                    </a>
+                    <a href="/brief" class="px-3 py-1.5 rounded-lg text-xs md:text-sm font-semibold {% if request.path == '/brief' %}bg-slate-100 text-teal-800{% else %}text-slate-600 hover:text-slate-900 hover:bg-slate-50{% endif %}">
+                        📑 अधिकारी ब्रीफ (Brief)
+                    </a>
+                    <a href="/traceability" class="px-3 py-1.5 rounded-lg text-xs md:text-sm font-semibold {% if request.path == '/traceability' %}bg-slate-100 text-teal-800{% else %}text-slate-600 hover:text-slate-900 hover:bg-slate-50{% endif %}">
+                        🔍 डेटा प्रमाण (Evidence)
+                    </a>
+                    <button onclick="window.print()" class="hidden md:inline-flex items-center space-x-1.5 px-3 py-1.5 rounded-lg text-xs font-semibold bg-teal-600 text-white hover:bg-teal-700 shadow-sm transition">
+                        <span>🖨️ रिपोर्ट प्रिंट</span>
+                    </button>
+                </nav>
+            </div>
+        </div>
+    </header>
+
+    <!-- Main Content -->
+    <main class="flex-grow">
+        {% block content %}{% endblock %}
+    </main>
+
+    <!-- Footer -->
+    <footer class="bg-slate-900 text-slate-400 py-8 text-xs border-t border-slate-800 mt-12 no-print">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 space-y-4">
+            <div class="flex flex-col md:flex-row justify-between items-center gap-4 border-b border-slate-800 pb-6">
+                <div>
+                    <h3 class="text-sm font-semibold text-white">Bhopal Impact Lab 2026 · Track 2: Visarjan Ghat Watch</h3>
+                    <p class="text-xs text-slate-400 mt-1">Built for Bhopal Municipal Corporation (BMC) Planning Officers by <strong>Anoop Shukla</strong></p>
+                </div>
+                <div class="flex items-center space-x-4 text-xs">
+                    <span class="text-emerald-400 flex items-center gap-1">● MPPCB Consolidated 2023-2025</span>
+                    <span class="text-teal-400 flex items-center gap-1">● CPCB Class B Standards</span>
+                    <span class="text-amber-400 flex items-center gap-1">● 100% Traceable</span>
+                </div>
+            </div>
+            <div class="flex flex-col md:flex-row justify-between items-center gap-2 text-[11px] text-slate-500">
+                <p>⚠️ <strong>कानूनी अस्वीकरण (Disclaimer):</strong> यह उपकरण केवल MPPCB आधिकारिक विसर्जन परीक्षणों के आधार पर CPCB मानकों से तुलना प्रदर्शित करता है। यह किसी प्रत्यक्ष स्वास्थ्य प्रभाव का दावा नहीं करता। निर्णय अधिकृत अधिकारी का होगा।</p>
+                <p class="whitespace-nowrap">Open Source · MIT License</p>
+            </div>
+        </div>
+    </footer>
+
+    {% block scripts %}{% endblock %}
+</body>
+</html>
