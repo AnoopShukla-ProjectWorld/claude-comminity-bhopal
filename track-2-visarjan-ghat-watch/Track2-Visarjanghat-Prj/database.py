@@ -82,6 +82,14 @@ class Database:
         if db_path is None:
             current_dir = os.path.dirname(os.path.abspath(__file__))
             db_path = os.path.join(current_dir, DB_FILE)
+            # Vercel's filesystem is read-only except /tmp: work on a copy there
+            # (changes last only for the life of the serverless instance).
+            if os.environ.get('VERCEL'):
+                tmp_path = os.path.join('/tmp', DB_FILE)
+                if not os.path.exists(tmp_path):
+                    import shutil
+                    shutil.copyfile(db_path, tmp_path)
+                db_path = tmp_path
         self.db_path = db_path
         self.init_db()
 
