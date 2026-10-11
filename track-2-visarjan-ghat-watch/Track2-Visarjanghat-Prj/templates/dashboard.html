@@ -1,391 +1,417 @@
 {% extends 'base.html' %}
 
 {% block content %}
-<div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8 space-y-8">
+<div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-10 space-y-12">
 
-    <!-- Hero / Officer Directive Header -->
-    <div class="bg-gradient-to-br from-slate-900 via-teal-950 to-slate-900 rounded-3xl p-6 sm:p-8 text-white shadow-xl relative overflow-hidden">
-        <div class="absolute -right-12 -bottom-12 w-64 h-64 bg-teal-500/10 rounded-full blur-3xl pointer-events-none"></div>
-        <div class="relative z-10 flex flex-col lg:flex-row lg:items-center justify-between gap-6">
-            <div class="space-y-3 max-w-3xl">
-                <div class="inline-flex items-center space-x-2 px-3 py-1 rounded-full bg-teal-500/20 text-teal-300 text-xs font-semibold border border-teal-500/30">
-                    <span>⚡ नगर पालिक निगम भोपाल · विसर्जन योजना 2026</span>
+    <!-- HERO SECTION: Spacious, Editorial & Calming Tone -->
+    <div class="relative bg-gradient-to-br from-stone-900 via-stone-900 to-emerald-950 rounded-[2.5rem] p-8 sm:p-12 text-white shadow-floating overflow-hidden border border-stone-800">
+        <div class="absolute -right-16 -bottom-16 w-96 h-96 bg-emerald-500/10 rounded-full blur-3xl pointer-events-none"></div>
+        <div class="relative z-10 flex flex-col lg:flex-row lg:items-center justify-between gap-10">
+            <div class="space-y-4 max-w-3xl">
+                <div class="inline-flex items-center space-x-2 px-3.5 py-1 rounded-full bg-emerald-500/10 text-emerald-300 text-xs font-semibold border border-emerald-500/20">
+                    <span class="w-2 h-2 rounded-full bg-emerald-400 animate-pulse"></span>
+                    <span>नगर पालिक निगम भोपाल · विसर्जन योजना 2026</span>
                 </div>
-                <h2 class="text-2xl sm:text-3xl lg:text-4xl font-extrabold tracking-tight">
-                    भोपाल विसर्जन घाट जल गुणवत्ता एवं जोखिम रैंकिंग
+                
+                <h2 class="text-3xl sm:text-4xl lg:text-5xl font-display font-medium tracking-tight text-white leading-tight">
+                    भोपाल विसर्जन घाट जल गुणवत्ता एवं प्राथमिकता रैंकिंग
                 </h2>
-                <p class="text-slate-300 text-sm sm:text-base leading-relaxed font-hindi">
-                    मध्य प्रदेश प्रदूषण नियंत्रण बोर्ड (MPPCB) के 3 वर्षों (2023–2025) के 1,524 जल परीक्षण नमूनों के आधार पर तैयार प्राथमिकता रिपोर्ट। दुर्गा विसर्जन से पूर्व सफाई, वातन (Aeration) एवं निगरानी संसाधन आवंटित करने हेतु आधिकारिक डैशबोर्ड।
+                
+                <p class="text-stone-300 text-sm sm:text-base leading-relaxed font-hindi font-light max-w-2xl">
+                    MPPCB के 3 वर्षों (2023–2025) के 1,524 प्रमाणित जल परीक्षणों का निष्पक्ष विश्लेषण। दुर्गा विसर्जन से पूर्व संसाधन आवंटन, वातन (Aeration) व तात्कालिक सफाई हेतु समर्पित निर्णय प्रणाली।
                 </p>
-                <div class="flex flex-wrap items-center gap-3 pt-2 text-xs text-slate-300">
-                    <span class="bg-white/10 px-3 py-1 rounded-lg">📅 दुर्गा विसर्जन: <strong>20 अक्टूबर 2026</strong></span>
-                    <span class="bg-rose-500/20 text-rose-300 border border-rose-500/30 px-3 py-1 rounded-lg font-bold">⏳ उल्टी गिनती: 9 दिन शेष</span>
-                    <span class="bg-amber-500/20 text-amber-300 border border-amber-500/30 px-3 py-1 rounded-lg">⚖️ मानक: CPCB Class B (आउटडोर स्नान)</span>
+
+                <div class="flex flex-wrap items-center gap-3 pt-2 text-xs text-stone-300">
+                    <span class="bg-white/10 px-3.5 py-1.5 rounded-full border border-white/10">📅 दुर्गा विसर्जन: <strong>20 अक्टूबर 2026</strong></span>
+                    <span class="bg-rose-500/20 text-rose-300 border border-rose-500/30 px-3.5 py-1.5 rounded-full font-bold">⏳ 9 दिन शेष</span>
+                    <span class="bg-amber-500/20 text-amber-300 border border-amber-500/30 px-3.5 py-1.5 rounded-full">⚖️ CPCB Class B Standard</span>
                 </div>
             </div>
-            <div class="flex flex-col sm:flex-row lg:flex-col gap-2.5 shrink-0">
-                <button onclick="openModal('addReadingModal')" class="inline-flex items-center justify-center space-x-2 px-5 py-2.5 rounded-xl bg-teal-500 text-slate-950 font-bold text-xs hover:bg-teal-400 transition shadow-lg shadow-teal-500/20">
-                    <span>➕ नया 2026 परीक्षण डेटा जोड़ें (Add Reading)</span>
+
+            <!-- Single-Click High Value CTA Cluster -->
+            <div class="flex flex-col sm:flex-row lg:flex-col gap-3 shrink-0">
+                <button onclick="openModal('addReadingModal')" class="inline-flex items-center justify-center space-x-2 px-6 py-3.5 rounded-full bg-emerald-500 text-stone-950 font-bold text-xs uppercase tracking-wider hover:bg-emerald-400 hover:scale-[1.02] active:scale-[0.98] transition shadow-soft">
+                    <span>➕ नया 2026 परीक्षण डेटा जोड़ें</span>
                 </button>
-                <a href="/brief" class="inline-flex items-center justify-center space-x-2 px-5 py-2.5 rounded-xl bg-white/10 hover:bg-white/15 text-white font-medium text-xs transition border border-white/10">
-                    <span>📑 अधिकारी ब्रीफ देखें (Forwardable Memo) &rarr;</span>
+                <a href="/brief" class="inline-flex items-center justify-center space-x-2 px-6 py-3.5 rounded-full bg-white/10 hover:bg-white/20 text-white font-medium text-xs transition border border-white/10">
+                    <span>📑 अधिकारी ब्रीफ देखें (Memo) &rarr;</span>
                 </a>
-                <a href="/export-csv" class="inline-flex items-center justify-center space-x-1.5 px-5 py-2.5 rounded-xl bg-teal-900/80 hover:bg-teal-800 text-teal-200 font-bold text-xs transition border border-teal-700/50">
-                    <span>📥 रैंकिंग CSV डाउनलोड करें (Export Report)</span>
+                <a href="/export-csv" class="inline-flex items-center justify-center space-x-2 px-6 py-3.5 rounded-full bg-stone-800/80 hover:bg-stone-800 text-stone-300 font-medium text-xs transition border border-stone-700/60">
+                    <span>📥 रैंकिंग CSV डाउनलोड करें</span>
                 </a>
             </div>
         </div>
     </div>
 
-    <!-- 4 High-Impact KPI Cards -->
-    <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4">
+    <!-- 4 AIRY KPI CARDS: Clean, Soft Shadows, Generous Padding -->
+    <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6">
         <!-- DO Metric -->
-        <div class="bg-white p-5 rounded-2xl border border-slate-200/80 shadow-sm relative overflow-hidden group hover:border-rose-300 transition">
-            <div class="flex justify-between items-start">
-                <span class="text-xs font-bold uppercase tracking-wider text-slate-500">घुलित ऑक्सीजन (DO) विफलता</span>
-                <span class="w-8 h-8 rounded-lg bg-rose-50 text-rose-600 flex items-center justify-center font-bold text-sm">🧪</span>
+        <div class="bg-white p-6 rounded-3xl border border-stone-200/80 shadow-soft card-lift flex flex-col justify-between">
+            <div>
+                <div class="flex justify-between items-center">
+                    <span class="text-xs font-bold uppercase tracking-wider text-subtle">घुलित ऑक्सीजन (DO) विफलता</span>
+                    <span class="w-8 h-8 rounded-full bg-rose-50 text-rose-600 flex items-center justify-center text-sm font-bold">🧪</span>
+                </div>
+                <div class="mt-4 flex items-baseline space-x-2">
+                    <span class="text-4xl font-display font-bold text-rose-600">{{ stats.do_fails }}</span>
+                    <span class="text-subtle text-xs">/ {{ stats.do_total }} ({{ stats.do_fail_pct }}%)</span>
+                </div>
+                <p class="text-xs text-subtle mt-2 font-hindi leading-relaxed">
+                    मानक (≥ 5.0 mg/l) से कम। <strong>4 बार शून्य (0 mg/l)</strong> ऑक्सीजन दर्ज।
+                </p>
             </div>
-            <div class="mt-3 flex items-baseline space-x-2">
-                <span class="text-3xl font-black text-rose-600">{{ stats.do_fails }}</span>
-                <span class="text-slate-500 text-sm">/ {{ stats.do_total }} परीक्षण ({{ stats.do_fail_pct }}%)</span>
-            </div>
-            <p class="text-xs text-slate-500 mt-2 font-hindi">CPCB मानक (≥ 5.0 mg/l) से कम। <strong>4 बार शून्य (0 mg/l)</strong> ऑक्सीजन दर्ज हुई।</p>
-            <div class="w-full bg-slate-100 h-1.5 rounded-full mt-3 overflow-hidden">
-                <div class="bg-rose-500 h-full rounded-full" style="width: {{ stats.do_fail_pct }}%"></div>
+            <div class="w-full bg-stone-100 h-1.5 rounded-full mt-4 overflow-hidden">
+                <div class="bg-rose-500 h-full rounded-full transition-all duration-500" style="width: {{ stats.do_fail_pct }}%"></div>
             </div>
         </div>
 
         <!-- BOD Metric -->
-        <div class="bg-white p-5 rounded-2xl border border-slate-200/80 shadow-sm relative overflow-hidden group hover:border-amber-300 transition">
-            <div class="flex justify-between items-start">
-                <span class="text-xs font-bold uppercase tracking-wider text-slate-500">BOD प्रदूषण सीमा पार</span>
-                <span class="w-8 h-8 rounded-lg bg-amber-50 text-amber-600 flex items-center justify-center font-bold text-sm">☣️</span>
+        <div class="bg-white p-6 rounded-3xl border border-stone-200/80 shadow-soft card-lift flex flex-col justify-between">
+            <div>
+                <div class="flex justify-between items-center">
+                    <span class="text-xs font-bold uppercase tracking-wider text-subtle">BOD प्रदूषण सीमा पार</span>
+                    <span class="w-8 h-8 rounded-full bg-amber-50 text-amber-600 flex items-center justify-center text-sm font-bold">☣️</span>
+                </div>
+                <div class="mt-4 flex items-baseline space-x-2">
+                    <span class="text-4xl font-display font-bold text-amber-600">{{ stats.bod_fails }}</span>
+                    <span class="text-subtle text-xs">/ {{ stats.bod_total }} ({{ stats.bod_fail_pct }}%)</span>
+                </div>
+                <p class="text-xs text-subtle mt-2 font-hindi leading-relaxed">
+                    जैविक सीमा (≤ 3.0 mg/l) से ऊपर। अधिकतम BOD <strong>22.0 mg/l</strong> तक।
+                </p>
             </div>
-            <div class="mt-3 flex items-baseline space-x-2">
-                <span class="text-3xl font-black text-amber-600">{{ stats.bod_fails }}</span>
-                <span class="text-slate-500 text-sm">/ {{ stats.bod_total }} परीक्षण ({{ stats.bod_fail_pct }}%)</span>
-            </div>
-            <p class="text-xs text-slate-500 mt-2 font-hindi">जैविक प्रदूषण सीमा (≤ 3.0 mg/l) से ऊपर। अधिकतम BOD <strong>22.0 mg/l</strong> तक पहुंची।</p>
-            <div class="w-full bg-slate-100 h-1.5 rounded-full mt-3 overflow-hidden">
-                <div class="bg-amber-500 h-full rounded-full" style="width: {{ stats.bod_fail_pct }}%"></div>
+            <div class="w-full bg-stone-100 h-1.5 rounded-full mt-4 overflow-hidden">
+                <div class="bg-amber-500 h-full rounded-full transition-all duration-500" style="width: {{ stats.bod_fail_pct }}%"></div>
             </div>
         </div>
 
         <!-- DO = 0 Metric -->
-        <div class="bg-white p-5 rounded-2xl border border-rose-200 bg-rose-50/30 p-5 shadow-sm relative overflow-hidden group hover:border-rose-400 transition">
-            <div class="flex justify-between items-start">
-                <span class="text-xs font-bold uppercase tracking-wider text-rose-800">शून्य ऑक्सीजन (DO = 0 mg/l)</span>
-                <span class="w-8 h-8 rounded-lg bg-rose-100 text-rose-800 flex items-center justify-center font-bold text-sm">⚠️</span>
+        <div class="bg-rose-50/40 p-6 rounded-3xl border border-rose-200 shadow-soft card-lift flex flex-col justify-between">
+            <div>
+                <div class="flex justify-between items-center">
+                    <span class="text-xs font-bold uppercase tracking-wider text-rose-800">शून्य ऑक्सीजन (0 mg/l DO)</span>
+                    <span class="w-8 h-8 rounded-full bg-rose-100 text-rose-800 flex items-center justify-center text-sm font-bold">⚠️</span>
+                </div>
+                <div class="mt-4 flex items-baseline space-x-2">
+                    <span class="text-4xl font-display font-bold text-rose-700">{{ stats.do_zeros }} बार</span>
+                    <span class="text-rose-600 text-xs font-bold font-hindi">बैरागढ़ कुंड</span>
+                </div>
+                <p class="text-xs text-stone-600 mt-2 font-hindi leading-relaxed">
+                    घुलित ऑक्सीजन पूरी तरह खत्म (अत्यधिक जलीय खतरा)। तत्काल वातन आवश्यक।
+                </p>
             </div>
-            <div class="mt-3 flex items-baseline space-x-2">
-                <span class="text-3xl font-black text-rose-700">{{ stats.do_zeros }} बार</span>
-                <span class="text-rose-600 text-xs font-semibold">बैरागढ़ संत हिरदाराम कुंड</span>
-            </div>
-            <p class="text-xs text-slate-600 mt-2 font-hindi">पानी में घुलित ऑक्सीजन पूरी तरह खत्म (अत्यधिक जलीय खतरा)। तत्काल वातन आवश्यक।</p>
-            <div class="mt-3">
-                <span class="inline-block bg-rose-600 text-white text-[10px] font-bold px-2 py-0.5 rounded">अति संवेदनशील घाट #1</span>
+            <div class="mt-4">
+                <span class="inline-block bg-rose-600 text-white text-[10px] font-bold px-2.5 py-0.5 rounded-full uppercase tracking-wider">
+                    Critical Ghat #1
+                </span>
             </div>
         </div>
 
-        <!-- Total Traced Readings (SQLite Backed) -->
-        <div class="bg-white p-5 rounded-2xl border border-slate-200/80 shadow-sm relative overflow-hidden group hover:border-teal-300 transition">
-            <div class="flex justify-between items-start">
-                <span class="text-xs font-bold uppercase tracking-wider text-slate-500">कुल प्रमाणित डेटा पॉइंट्स (SQLite)</span>
-                <span class="w-8 h-8 rounded-lg bg-teal-50 text-teal-600 flex items-center justify-center font-bold text-sm">🗄️</span>
+        <!-- Total Traced Readings -->
+        <div class="bg-white p-6 rounded-3xl border border-stone-200/80 shadow-soft card-lift flex flex-col justify-between">
+            <div>
+                <div class="flex justify-between items-center">
+                    <span class="text-xs font-bold uppercase tracking-wider text-subtle">कुल प्रमाणित डेटा (SQLite)</span>
+                    <span class="w-8 h-8 rounded-full bg-emerald-50 text-emerald-700 flex items-center justify-center text-sm font-bold">🗄️</span>
+                </div>
+                <div class="mt-4 flex items-baseline space-x-2">
+                    <span class="text-4xl font-display font-bold text-stone-900">{{ stats.total_rows }}</span>
+                    <span class="text-subtle text-xs">नमूने (7 घाट, 3 वर्ष)</span>
+                </div>
+                <p class="text-xs text-subtle mt-2 font-hindi leading-relaxed">
+                    SQLite डेटाबेस में स्थायी संचित। रिपोर्ट पृष्ठों से 100% सत्यापित।
+                </p>
             </div>
-            <div class="mt-3 flex items-baseline space-x-2">
-                <span id="kpi-total-rows" class="text-3xl font-black text-teal-700">{{ stats.total_rows }}</span>
-                <span class="text-slate-500 text-sm">परीक्षण (7 घाट, 3 वर्ष)</span>
-            </div>
-            <p class="text-xs text-slate-500 mt-2 font-hindi">SQLite डेटाबेस में स्थायी संचित। डायनामिक रूप से अद्यतन योग्य।</p>
-            <div class="mt-3">
-                <span class="inline-block bg-teal-100 text-teal-800 text-[10px] font-bold px-2 py-0.5 rounded">Persistent SQLite Database</span>
+            <div class="mt-4">
+                <span class="inline-block bg-emerald-100 text-emerald-900 text-[10px] font-bold px-2.5 py-0.5 rounded-full">
+                    100% Traceable
+                </span>
             </div>
         </div>
     </div>
 
-    <!-- Interactive Bhopal Map & Statewide Context Grid -->
-    <div class="grid grid-cols-1 lg:grid-cols-3 gap-6">
-        <!-- Left: Leaflet Bhopal Map (2 cols) -->
-        <div class="lg:col-span-2 bg-white rounded-3xl p-5 border border-slate-200 shadow-sm space-y-3">
-            <div class="flex items-center justify-between">
+    <!-- GEOSPATIAL MAP & STATEWIDE INTELLIGENCE (Spacious 2:1 Layout) -->
+    <div class="grid grid-cols-1 lg:grid-cols-3 gap-8">
+        <!-- Interactive Leaflet Map -->
+        <div class="lg:col-span-2 bg-white rounded-[2rem] p-6 sm:p-8 border border-stone-200/80 shadow-soft space-y-4">
+            <div class="flex flex-col sm:flex-row sm:items-center justify-between gap-3 border-b border-stone-100 pb-4">
                 <div>
-                    <h3 class="text-sm font-bold text-slate-900 flex items-center gap-1.5">
-                        <span>🗺️</span> भोपाल विसर्जन घाट भू-स्थानिक मानचित्र (Interactive Geospatial Map)
+                    <h3 class="text-base font-bold text-stone-900 flex items-center gap-2">
+                        <span>🗺️</span> भोपाल विसर्जन घाट भू-स्थानिक मानचित्र
                     </h3>
-                    <p class="text-[11px] text-slate-500 font-hindi">
-                        7 घाटों की वास्तविक स्थिति और जोखिम स्तर (मार्कर पर क्लिक करके विवरण देखें)
+                    <p class="text-xs text-subtle font-hindi mt-0.5">
+                        7 घाटों की वास्तविक भौगोलिक स्थिति एवं जोखिम स्तर (मार्कर पर क्लिक करके विवरण देखें)
                     </p>
                 </div>
-                <div class="flex items-center space-x-2 text-[10px] font-semibold">
-                    <span class="flex items-center gap-1"><span class="w-2.5 h-2.5 rounded-full bg-rose-600"></span> अति संवेदनशील</span>
-                    <span class="flex items-center gap-1"><span class="w-2.5 h-2.5 rounded-full bg-orange-500"></span> उच्च</span>
-                    <span class="flex items-center gap-1"><span class="w-2.5 h-2.5 rounded-full bg-amber-500"></span> मध्यम</span>
-                    <span class="flex items-center gap-1"><span class="w-2.5 h-2.5 rounded-full bg-emerald-600"></span> नियंत्रित</span>
+                <div class="flex items-center space-x-3 text-[11px] font-semibold text-stone-600">
+                    <span class="flex items-center gap-1.5"><span class="w-2.5 h-2.5 rounded-full bg-rose-600"></span> अति संवेदनशील</span>
+                    <span class="flex items-center gap-1.5"><span class="w-2.5 h-2.5 rounded-full bg-orange-500"></span> उच्च</span>
+                    <span class="flex items-center gap-1.5"><span class="w-2.5 h-2.5 rounded-full bg-amber-500"></span> मध्यम</span>
+                    <span class="flex items-center gap-1.5"><span class="w-2.5 h-2.5 rounded-full bg-emerald-600"></span> नियंत्रित</span>
                 </div>
             </div>
-            <div id="bhopalMap" class="w-full h-80 rounded-2xl border border-slate-200 z-10"></div>
+            <div id="bhopalMap" class="w-full h-96 rounded-2xl border border-stone-200 z-10"></div>
         </div>
 
-        <!-- Right: Statewide Context Card (1 col) -->
-        <div class="bg-gradient-to-br from-slate-900 to-teal-950 text-white rounded-3xl p-6 shadow-sm flex flex-col justify-between space-y-4">
-            <div class="space-y-2">
-                <div class="inline-flex items-center space-x-1.5 px-2.5 py-1 rounded-full bg-teal-500/20 text-teal-300 text-[11px] font-bold border border-teal-500/30">
-                    <span>📊 राज्यव्यापी तुलना (Statewide Context)</span>
+        <!-- Statewide Context Card -->
+        <div class="bg-gradient-to-br from-stone-900 to-emerald-950 text-white rounded-[2rem] p-8 shadow-soft flex flex-col justify-between space-y-6 border border-stone-800">
+            <div class="space-y-3">
+                <div class="inline-flex items-center space-x-1.5 px-3 py-1 rounded-full bg-emerald-500/20 text-emerald-300 text-xs font-semibold border border-emerald-500/30">
+                    <span>📊 राज्यव्यापी तुलना (Statewide Insight)</span>
                 </div>
-                <h4 class="text-lg font-bold">भोपाल बनाम संपूर्ण मध्य प्रदेश</h4>
-                <p class="text-xs text-slate-300 font-hindi leading-relaxed">
-                    MPPCB के 21,600 राज्यव्यापी परीक्षणों के अनुसार, <strong>भोपाल के घाटों में जैविक कचरे (BOD) की विफलता दर पूरे राज्य में सर्वाधिक</strong> है।
+                <h4 class="text-xl font-display font-medium text-white">भोपाल बनाम संपूर्ण मध्य प्रदेश</h4>
+                <p class="text-xs text-stone-300 font-hindi leading-relaxed">
+                    MPPCB के 21,600 राज्यव्यापी परीक्षणों के आधार पर <strong>भोपाल के घाटों में जैविक कचरे (BOD) की विफलता दर पूरे राज्य में सबसे अधिक</strong> है।
                 </p>
             </div>
 
-            <div class="space-y-3 bg-white/5 p-4 rounded-2xl border border-white/10 text-xs">
-                <div class="flex justify-between items-center pb-2 border-b border-white/10">
-                    <span class="text-slate-300">भोपाल BOD विफलता दर:</span>
-                    <span class="font-extrabold text-rose-400 text-sm">89.3%</span>
+            <div class="space-y-3 bg-white/5 p-5 rounded-2xl border border-white/10 text-xs">
+                <div class="flex justify-between items-center pb-2.5 border-b border-white/10">
+                    <span class="text-stone-300">भोपाल BOD विफलता दर:</span>
+                    <span class="font-display font-bold text-rose-400 text-base">89.3%</span>
                 </div>
-                <div class="flex justify-between items-center pb-2 border-b border-white/10">
-                    <span class="text-slate-300">मध्य प्रदेश औसत BOD विफलता:</span>
-                    <span class="font-bold text-slate-200">27.5%</span>
+                <div class="flex justify-between items-center pb-2.5 border-b border-white/10">
+                    <span class="text-stone-300">मध्य प्रदेश औसत BOD विफलता:</span>
+                    <span class="font-bold text-stone-200">27.5%</span>
                 </div>
                 <div class="flex justify-between items-center">
-                    <span class="text-slate-300">भोपाल में जैविक भार अनुपात:</span>
-                    <span class="font-extrabold text-amber-400 text-sm">3.2 गुना अधिक</span>
+                    <span class="text-stone-300">भोपाल में जैविक प्रदूषण अनुपात:</span>
+                    <span class="font-display font-bold text-amber-400 text-base">3.2× अधिक</span>
                 </div>
             </div>
 
-            <p class="text-[11px] text-teal-300/80 font-hindi">
-                💡 निष्कर्ष: राज्य के अन्य जिलों की तुलना में भोपाल के घाटों को विसर्जन के दौरान अतिरिक्त सफाई और तात्कालिक वातन (Aeration) की सर्वोच्च आवश्यकता है।
+            <p class="text-xs text-emerald-300/90 font-hindi bg-emerald-950/40 p-3.5 rounded-xl border border-emerald-500/20">
+                💡 <strong>अधिकारी निष्कर्ष:</strong> राज्य के अन्य संभागों की तुलना में भोपाल को विसर्जन के दौरान अतिरिक्त सफाई दल और तात्कालिक वातन (Aeration) की सर्वोच्च आवश्यकता है।
             </p>
         </div>
     </div>
 
-    <!-- Official MPPCB Field Photographic Evidence Gallery -->
-    <div class="bg-white rounded-3xl p-6 border border-slate-200 shadow-sm space-y-4">
-        <div class="flex flex-col sm:flex-row sm:items-center justify-between gap-2 border-b border-slate-200 pb-3">
+    <!-- FIELD PHOTOGRAPHIC EVIDENCE: Editorial Gallery Grid -->
+    <div class="bg-white rounded-[2rem] p-8 border border-stone-200/80 shadow-soft space-y-6">
+        <div class="flex flex-col sm:flex-row sm:items-center justify-between gap-3 border-b border-stone-100 pb-4">
             <div>
-                <h3 class="text-sm font-bold text-slate-900 flex items-center gap-1.5">
-                    <span>📸</span> MPPCB आधिकारिक फील्ड साक्ष्य एवं घाट फोटोग्राफ (Field Photographic Evidence)
+                <h3 class="text-base font-bold text-stone-900 flex items-center gap-2">
+                    <span>📸</span> MPPCB आधिकारिक फील्ड साक्ष्य एवं घाट फोटोग्राफ
                 </h3>
-                <p class="text-[11px] text-slate-500 font-hindi">
+                <p class="text-xs text-subtle font-hindi mt-0.5">
                     वार्षिक MPPCB विसर्जन रिपोर्टों (2023–2025) से उद्धृत वास्तविक जमीनी व्यवस्थाएं, बैरिकेडिंग एवं कृत्रिम कुंड
                 </p>
             </div>
-            <span class="text-xs font-semibold text-teal-800 bg-teal-50 px-2.5 py-1 rounded-full border border-teal-200">
+            <span class="text-xs font-semibold text-emerald-800 bg-emerald-50 px-3 py-1 rounded-full border border-emerald-200">
                 Source: MPPCB Action Taken Reports
             </span>
         </div>
 
-        <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4">
+        <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6">
             <!-- Photo 1 -->
-            <div class="bg-slate-50 rounded-2xl overflow-hidden border border-slate-200 shadow-sm group">
-                <div class="h-44 overflow-hidden bg-slate-200">
-                    <img src="/static/img/gallery/bhopal_artificial_kund_immersion.jpeg" alt="Artificial Kund Immersion" class="w-full h-full object-cover group-hover:scale-105 transition duration-300">
+            <div class="bg-stone-50 rounded-2xl overflow-hidden border border-stone-200/80 shadow-soft card-lift">
+                <div class="h-48 overflow-hidden bg-stone-200">
+                    <img src="/static/img/gallery/bhopal_artificial_kund_immersion.jpeg" alt="Artificial Kund Immersion" class="w-full h-full object-cover hover:scale-105 transition duration-500">
                 </div>
-                <div class="p-3 space-y-1">
-                    <span class="text-[10px] font-bold text-teal-700 uppercase tracking-wider block">कृत्रिम कुंड विसर्जन</span>
-                    <p class="text-xs font-semibold text-slate-800 font-hindi">नदी व झीलों के तटों पर बने अस्थायी कुंडों में प्रतिमा विसर्जन</p>
-                    <p class="text-[10px] text-slate-500">Report 2025 · Page 12</p>
+                <div class="p-4 space-y-1">
+                    <span class="text-[10px] font-bold text-emerald-700 uppercase tracking-wider block">कृत्रिम कुंड विसर्जन</span>
+                    <p class="text-xs font-bold text-stone-900 font-hindi">नदी व झीलों के तटों पर बने अस्थायी कुंडों में प्रतिमा विसर्जन</p>
+                    <p class="text-[10px] text-subtle">Report 2025 · Page 12</p>
                 </div>
             </div>
 
             <!-- Photo 2 -->
-            <div class="bg-slate-50 rounded-2xl overflow-hidden border border-slate-200 shadow-sm group">
-                <div class="h-44 overflow-hidden bg-slate-200">
-                    <img src="/static/img/gallery/lake_ghat_barricading_protection.jpeg" alt="Lake Ghat Barricading" class="w-full h-full object-cover group-hover:scale-105 transition duration-300">
+            <div class="bg-stone-50 rounded-2xl overflow-hidden border border-stone-200/80 shadow-soft card-lift">
+                <div class="h-48 overflow-hidden bg-stone-200">
+                    <img src="/static/img/gallery/lake_ghat_barricading_protection.jpeg" alt="Lake Ghat Barricading" class="w-full h-full object-cover hover:scale-105 transition duration-500">
                 </div>
-                <div class="p-3 space-y-1">
+                <div class="p-4 space-y-1">
                     <span class="text-[10px] font-bold text-rose-700 uppercase tracking-wider block">NGT बैरिकेडिंग सुरक्षा</span>
-                    <p class="text-xs font-semibold text-slate-800 font-hindi">सीधे प्राकृतिक जल में विसर्जन रोकने हेतु घाटों पर अवरोधक</p>
-                    <p class="text-[10px] text-slate-500">Report 2025 · Page 13</p>
+                    <p class="text-xs font-bold text-stone-900 font-hindi">सीधे प्राकृतिक जल में विसर्जन रोकने हेतु घाटों पर अवरोधक</p>
+                    <p class="text-[10px] text-subtle">Report 2025 · Page 13</p>
                 </div>
             </div>
 
             <!-- Photo 3 -->
-            <div class="bg-slate-50 rounded-2xl overflow-hidden border border-slate-200 shadow-sm group">
-                <div class="h-44 overflow-hidden bg-slate-200">
-                    <img src="/static/img/gallery/synthetic_liner_kund_setup.jpeg" alt="Synthetic Liner Kund" class="w-full h-full object-cover group-hover:scale-105 transition duration-300">
+            <div class="bg-stone-50 rounded-2xl overflow-hidden border border-stone-200/80 shadow-soft card-lift">
+                <div class="h-48 overflow-hidden bg-stone-200">
+                    <img src="/static/img/gallery/synthetic_liner_kund_setup.jpeg" alt="Synthetic Liner Kund" class="w-full h-full object-cover hover:scale-105 transition duration-500">
                 </div>
-                <div class="p-3 space-y-1">
+                <div class="p-4 space-y-1">
                     <span class="text-[10px] font-bold text-amber-700 uppercase tracking-wider block">सिंथेटिक लाइनर कुंड</span>
-                    <p class="text-xs font-semibold text-slate-800 font-hindi">तलहटी में सिंथेटिक लाइनर युक्त सीलबंद विसर्जन कुंड व्यवस्था</p>
-                    <p class="text-[10px] text-slate-500">Report 2025 · Page 14</p>
+                    <p class="text-xs font-bold text-stone-900 font-hindi">तलहटी में सिंथेटिक लाइनर युक्त सीलबंद विसर्जन कुंड व्यवस्था</p>
+                    <p class="text-[10px] text-subtle">Report 2025 · Page 14</p>
                 </div>
             </div>
 
             <!-- Photo 4 -->
-            <div class="bg-slate-50 rounded-2xl overflow-hidden border border-slate-200 shadow-sm group">
-                <div class="h-44 overflow-hidden bg-slate-200">
-                    <img src="/static/img/gallery/mppcb_statutory_warning_board.jpeg" alt="Statutory Warning Board" class="w-full h-full object-cover group-hover:scale-105 transition duration-300">
+            <div class="bg-stone-50 rounded-2xl overflow-hidden border border-stone-200/80 shadow-soft card-lift">
+                <div class="h-48 overflow-hidden bg-stone-200">
+                    <img src="/static/img/gallery/mppcb_statutory_warning_board.jpeg" alt="Statutory Warning Board" class="w-full h-full object-cover hover:scale-105 transition duration-500">
                 </div>
-                <div class="p-3 space-y-1">
-                    <span class="text-[10px] font-bold text-blue-700 uppercase tracking-wider block">वैधानिक चेतावनी सूचना</span>
-                    <p class="text-xs font-semibold text-slate-800 font-hindi">घाटों पर MPPCB एवं नगर निगम के गाइडलाइन बोर्ड व बैनर</p>
-                    <p class="text-[10px] text-slate-500">Report 2025 · Page 8</p>
+                <div class="p-4 space-y-1">
+                    <span class="text-[10px] font-bold text-teal-700 uppercase tracking-wider block">वैधानिक चेतावनी सूचना</span>
+                    <p class="text-xs font-bold text-stone-900 font-hindi">घाटों पर MPPCB एवं नगर निगम के गाइडलाइन बोर्ड व बैनर</p>
+                    <p class="text-[10px] text-subtle">Report 2025 · Page 8</p>
                 </div>
             </div>
         </div>
     </div>
 
-    <!-- Dynamic Risk Weight Sensitivity Controller -->
-    <div class="bg-white rounded-2xl p-5 border border-slate-200 shadow-sm space-y-3">
-        <div class="flex flex-col sm:flex-row sm:items-center justify-between gap-2">
+    <!-- DYNAMIC RISK SENSITIVITY SLIDERS: Smooth Pill-like Controls -->
+    <div class="bg-white rounded-[2rem] p-8 border border-stone-200/80 shadow-soft space-y-5">
+        <div class="flex flex-col sm:flex-row sm:items-center justify-between gap-3 border-b border-stone-100 pb-4">
             <div>
-                <h4 class="text-sm font-bold text-slate-900 flex items-center gap-1.5">
-                    <span>🎚️</span> डायनामिक जोखिम संवेदनशीलता नियंत्रक (Dynamic Risk Sensitivity Sliders)
+                <h4 class="text-base font-bold text-stone-900 flex items-center gap-2">
+                    <span>🎚️</span> डायनामिक जोखिम संवेदनशीलता नियंत्रक (Risk Sensitivity Sliders)
                 </h4>
-                <p class="text-xs text-slate-500 font-hindi">
+                <p class="text-xs text-subtle font-hindi mt-0.5">
                     अधिकारी आवश्यकतानुसार ऑक्सीजन या BOD को अलग-अलग प्राथमिकता देकर तात्कालिक रैंकिंग पुनः परिकलित कर सकते हैं।
                 </p>
             </div>
-            <button onclick="resetWeights()" class="text-xs font-semibold text-teal-700 hover:underline">
-                डिफ़ॉल्ट रीसेट करें (Reset to 50/40/10)
+            <button onclick="resetWeights()" class="px-3.5 py-1.5 rounded-full text-xs font-semibold bg-stone-100 text-stone-700 hover:bg-stone-200 transition">
+                डिफ़ॉल्ट रीसेट (50 / 40 / 10)
             </button>
         </div>
 
-        <div class="grid grid-cols-1 sm:grid-cols-3 gap-4 pt-2 text-xs">
+        <div class="grid grid-cols-1 sm:grid-cols-3 gap-6 pt-1 text-xs">
             <!-- DO Slider -->
-            <div class="bg-slate-50 p-3 rounded-xl border border-slate-200/80 space-y-1">
-                <div class="flex justify-between">
-                    <span class="font-bold text-slate-700">घुलित ऑक्सीजन (DO Weight):</span>
-                    <span id="label-w-do" class="font-black text-teal-700">50%</span>
+            <div class="bg-stone-50/80 p-4 rounded-2xl border border-stone-200/60 space-y-2">
+                <div class="flex justify-between items-center">
+                    <span class="font-bold text-stone-700">घुलित ऑक्सीजन (DO Weight):</span>
+                    <span id="label-w-do" class="font-display font-bold text-emerald-800 text-sm">50%</span>
                 </div>
-                <input type="range" id="slider-w-do" min="20" max="80" value="50" oninput="updateWeights()" class="w-full accent-teal-600 cursor-pointer">
+                <input type="range" id="slider-w-do" min="20" max="80" value="50" oninput="updateWeights()" class="w-full accent-emerald-700 cursor-pointer">
             </div>
 
             <!-- BOD Slider -->
-            <div class="bg-slate-50 p-3 rounded-xl border border-slate-200/80 space-y-1">
-                <div class="flex justify-between">
-                    <span class="font-bold text-slate-700">BOD प्रदूषण भार (BOD Weight):</span>
-                    <span id="label-w-bod" class="font-black text-teal-700">40%</span>
+            <div class="bg-stone-50/80 p-4 rounded-2xl border border-stone-200/60 space-y-2">
+                <div class="flex justify-between items-center">
+                    <span class="font-bold text-stone-700">BOD प्रदूषण भार (BOD Weight):</span>
+                    <span id="label-w-bod" class="font-display font-bold text-emerald-800 text-sm">40%</span>
                 </div>
-                <input type="range" id="slider-w-bod" min="10" max="70" value="40" oninput="updateWeights()" class="w-full accent-teal-600 cursor-pointer">
+                <input type="range" id="slider-w-bod" min="10" max="70" value="40" oninput="updateWeights()" class="w-full accent-emerald-700 cursor-pointer">
             </div>
 
             <!-- pH Slider -->
-            <div class="bg-slate-50 p-3 rounded-xl border border-slate-200/80 space-y-1">
-                <div class="flex justify-between">
-                    <span class="font-bold text-slate-700">pH विषमता (pH Weight):</span>
-                    <span id="label-w-ph" class="font-black text-teal-700">10%</span>
+            <div class="bg-stone-50/80 p-4 rounded-2xl border border-stone-200/60 space-y-2">
+                <div class="flex justify-between items-center">
+                    <span class="font-bold text-stone-700">pH विषमता (pH Weight):</span>
+                    <span id="label-w-ph" class="font-display font-bold text-emerald-800 text-sm">10%</span>
                 </div>
-                <input type="range" id="slider-w-ph" min="5" max="30" value="10" oninput="updateWeights()" class="w-full accent-teal-600 cursor-pointer">
+                <input type="range" id="slider-w-ph" min="5" max="30" value="10" oninput="updateWeights()" class="w-full accent-emerald-700 cursor-pointer">
             </div>
         </div>
     </div>
 
-    <!-- Ghat Risk Ranking Main Section -->
-    <div class="space-y-4">
-        <div class="flex flex-col sm:flex-row sm:items-center justify-between gap-3 border-b border-slate-200 pb-4">
+    <!-- GHAT RISK RANKING CARDS: Airy, Generous Spacing, High Visual Balance -->
+    <div class="space-y-6">
+        <div class="flex flex-col sm:flex-row sm:items-center justify-between gap-4 border-b border-stone-200 pb-4">
             <div>
-                <h3 class="text-xl font-bold text-slate-900 flex items-center gap-2">
-                    <span>🏆</span> 7 विसर्जन घाटों की जोखिम रैंकिंग (Risk Ranking)
+                <h3 class="text-2xl font-display font-medium text-stone-900 flex items-center gap-2">
+                    <span>🏆</span> 7 विसर्जन घाटों की प्राथमिकता रैंकिंग (Ghat Risk Ranking)
                 </h3>
-                <p class="text-xs text-slate-500 mt-0.5 font-hindi">
+                <p class="text-xs text-subtle font-hindi mt-1">
                     कार्ड पर क्लिक करके घाट का विस्तृत 3-वर्षीय विश्लेषण व चार्ट्स देखें
                 </p>
             </div>
             <div class="flex items-center space-x-2">
-                <span class="text-xs font-medium text-slate-500">भाषा / Language:</span>
-                <button id="lang-btn-hi" onclick="setLanguage('hi')" class="px-2.5 py-1 text-xs font-bold rounded-lg bg-teal-600 text-white shadow-sm">हिंदी</button>
-                <button id="lang-btn-en" onclick="setLanguage('en')" class="px-2.5 py-1 text-xs font-bold rounded-lg bg-slate-100 text-slate-700 hover:bg-slate-200">English</button>
+                <span class="text-xs font-medium text-subtle">भाषा:</span>
+                <button id="lang-btn-hi" onclick="setLanguage('hi')" class="px-3 py-1 text-xs font-bold rounded-full bg-stone-900 text-white shadow-soft">हिंदी</button>
+                <button id="lang-btn-en" onclick="setLanguage('en')" class="px-3 py-1 text-xs font-bold rounded-full bg-stone-200 text-stone-700 hover:bg-stone-300">English</button>
             </div>
         </div>
 
-        <!-- Ghat Cards Grid -->
-        <div id="ghatsContainer" class="grid grid-cols-1 gap-4">
+        <!-- Ghat Cards Stack -->
+        <div id="ghatsContainer" class="space-y-5">
             {% for g in summary %}
-            <div class="bg-white rounded-2xl border {% if g.risk_level == 'CRITICAL' %}border-rose-300 ring-2 ring-rose-500/10{% elif g.risk_level == 'HIGH' %}border-amber-300{% else %}border-slate-200{% endif %} p-5 sm:p-6 shadow-sm hover:shadow-md transition">
-                <div class="flex flex-col lg:flex-row lg:items-center justify-between gap-4">
-                    <!-- Title & Badges -->
-                    <div class="space-y-2 flex-grow">
-                        <div class="flex flex-wrap items-center gap-2">
-                            <span class="w-8 h-8 rounded-xl bg-slate-900 text-white flex items-center justify-center font-extrabold text-sm shadow">
+            <div class="bg-white rounded-[2rem] border {% if g.risk_level == 'CRITICAL' %}border-rose-300 ring-2 ring-rose-500/10{% elif g.risk_level == 'HIGH' %}border-amber-300{% else %}border-stone-200/80{% endif %} p-6 sm:p-8 shadow-soft card-lift">
+                <div class="flex flex-col lg:flex-row lg:items-center justify-between gap-6">
+                    <!-- Title & Details -->
+                    <div class="space-y-3 flex-grow">
+                        <div class="flex flex-wrap items-center gap-2.5">
+                            <span class="w-9 h-9 rounded-2xl bg-stone-900 text-white flex items-center justify-center font-display font-bold text-sm shadow-soft">
                                 #{{ g.rank }}
                             </span>
-                            <a href="/ghat/{{ g.site|urlencode }}" class="text-lg font-extrabold text-slate-900 hover:text-teal-700 transition flex items-center gap-1.5">
+                            <a href="/ghat/{{ g.site|urlencode }}" class="text-xl font-bold text-stone-900 hover:text-emerald-800 transition flex items-center gap-1.5">
                                 {{ g.site }}
-                                <span class="text-xs text-teal-600 font-bold">&rarr;</span>
+                                <span class="text-xs text-emerald-700 font-bold">&rarr;</span>
                             </a>
-                            <span class="inline-flex items-center px-2.5 py-1 rounded-full text-xs font-bold {% if g.badge_color == 'rose' %}bg-rose-100 text-rose-800 border border-rose-200{% elif g.badge_color == 'orange' %}bg-orange-100 text-orange-800 border border-orange-200{% elif g.badge_color == 'amber' %}bg-amber-100 text-amber-800 border border-amber-200{% else %}bg-emerald-100 text-emerald-800 border border-emerald-200{% endif %}">
+                            <span class="inline-flex items-center px-3 py-1 rounded-full text-xs font-bold {% if g.badge_color == 'rose' %}bg-rose-100 text-rose-800 border border-rose-200{% elif g.badge_color == 'orange' %}bg-orange-100 text-orange-800 border border-orange-200{% elif g.badge_color == 'amber' %}bg-amber-100 text-amber-800 border border-amber-200{% else %}bg-emerald-100 text-emerald-800 border border-emerald-200{% endif %}">
                                 {{ g.risk_badge }}
                             </span>
-                            <span class="bg-slate-100 text-slate-700 text-xs px-2.5 py-1 rounded-full border border-slate-200">
+                            <span class="bg-stone-100 text-stone-700 text-xs px-3 py-1 rounded-full border border-stone-200">
                                 📍 {{ g.water_body }} ({{ g.type }})
                             </span>
                             {% if 'Banned' in g.ngt_status %}
-                            <span class="bg-rose-50 text-rose-700 text-xs font-semibold px-2.5 py-1 rounded-full border border-rose-200">
+                            <span class="bg-rose-50 text-rose-700 text-xs font-semibold px-3 py-1 rounded-full border border-rose-200">
                                 🚫 NGT प्रतिबंधित
                             </span>
                             {% endif %}
                             {% if not g.has_durga_2025 %}
-                            <span class="bg-yellow-50 text-yellow-800 text-xs font-bold px-2 py-0.5 rounded border border-yellow-300" title="MPPCB रिपोर्ट 2025 में दुर्गा परीक्षण सारणी अनुपलब्ध">
+                            <span class="bg-amber-50 text-amber-900 text-xs font-bold px-2.5 py-0.5 rounded-md border border-amber-300" title="MPPCB रिपोर्ट 2025 में दुर्गा परीक्षण सारणी अनुपलब्ध">
                                 ⚠️ दुर्गा 2025 डेटा अनुपलब्ध
                             </span>
                             {% endif %}
                         </div>
 
-                        <!-- Plain Words Justification (Dual Language) -->
-                        <div class="text-sm font-medium text-slate-700 bg-slate-50 p-3 rounded-xl border border-slate-100">
-                            <p class="lang-text-hi font-hindi"><strong class="text-slate-900">जोखिम कारण:</strong> {{ g.reason_hi }}</p>
-                            <p class="lang-text-en hidden"><strong class="text-slate-900">Risk Rationale:</strong> {{ g.reason_en }}</p>
+                        <!-- Justification Box -->
+                        <div class="text-xs sm:text-sm font-medium text-stone-700 bg-stone-50/80 p-4 rounded-2xl border border-stone-200/60 leading-relaxed">
+                            <p class="lang-text-hi font-hindi"><strong class="text-stone-900 font-bold">जोखिम कारण:</strong> {{ g.reason_hi }}</p>
+                            <p class="lang-text-en hidden"><strong class="text-stone-900 font-bold">Risk Rationale:</strong> {{ g.reason_en }}</p>
                         </div>
 
-                        <!-- Action Recommendations -->
-                        <div class="space-y-1 pt-1">
-                            <span class="text-xs font-bold text-slate-500 uppercase tracking-wider">अधिकारी हेतु अनुशंसित कार्रवाई (Actions for BMC):</span>
-                            <ul class="text-xs text-slate-700 space-y-1">
+                        <!-- Action Directives -->
+                        <div class="space-y-1.5 pt-1">
+                            <span class="text-[11px] font-bold text-subtle uppercase tracking-wider">अधिकारी हेतु अनुशंसित कार्रवाई (Actions for BMC):</span>
+                            <ul class="text-xs text-stone-800 space-y-1.5 font-hindi">
                                 {% for r_hi in g.recommendations_hi %}
-                                <li class="lang-text-hi font-hindi flex items-start gap-1.5">
-                                    <span class="text-teal-600 font-bold">✔</span> <span>{{ r_hi }}</span>
+                                <li class="lang-text-hi flex items-start gap-2">
+                                    <span class="text-emerald-700 font-bold">✔</span> <span>{{ r_hi }}</span>
                                 </li>
                                 {% endfor %}
                                 {% for r_en in g.recommendations_en %}
-                                <li class="lang-text-en hidden flex items-start gap-1.5">
-                                    <span class="text-teal-600 font-bold">✔</span> <span>{{ r_en }}</span>
+                                <li class="lang-text-en hidden flex items-start gap-2">
+                                    <span class="text-emerald-700 font-bold">✔</span> <span>{{ r_en }}</span>
                                 </li>
                                 {% endfor %}
                             </ul>
                         </div>
                     </div>
 
-                    <!-- Metrics Sidebar on Card -->
-                    <div class="lg:w-72 shrink-0 bg-slate-50 rounded-xl p-4 border border-slate-200/80 flex flex-col justify-between space-y-3">
-                        <div class="flex items-center justify-between border-b border-slate-200 pb-2">
-                            <span class="text-xs font-semibold text-slate-500">समग्र जोखिम स्कोर</span>
-                            <span class="text-2xl font-black {% if g.base_risk_score > 35 %}text-rose-600{% elif g.base_risk_score > 20 %}text-amber-600{% else %}text-emerald-600{% endif %}">
-                                {{ g.base_risk_score }}<span class="text-xs text-slate-400 font-normal"> / 100</span>
+                    <!-- Metrics Sidebar -->
+                    <div class="lg:w-72 shrink-0 bg-stone-50/80 rounded-2xl p-5 border border-stone-200/80 flex flex-col justify-between space-y-4">
+                        <div class="flex items-center justify-between border-b border-stone-200 pb-3">
+                            <span class="text-xs font-semibold text-subtle">समग्र जोखिम स्कोर</span>
+                            <span class="text-3xl font-display font-bold {% if g.base_risk_score > 35 %}text-rose-600{% elif g.base_risk_score > 20 %}text-amber-600{% else %}text-emerald-700{% endif %}">
+                                {{ g.base_risk_score }}<span class="text-xs text-subtle font-normal font-sans"> / 100</span>
                             </span>
                         </div>
 
-                        <div class="grid grid-cols-2 gap-2 text-xs">
-                            <div class="bg-white p-2 rounded-lg border border-slate-100">
-                                <span class="text-slate-400 block text-[10px]">DO विफलता ( < 5)</span>
-                                <span class="font-bold text-slate-800">{{ g.do_fails }} ({{ g.do_fail_pct }}%)</span>
+                        <div class="grid grid-cols-2 gap-2.5 text-xs">
+                            <div class="bg-white p-2.5 rounded-xl border border-stone-200/60">
+                                <span class="text-subtle block text-[10px]">DO विफलता</span>
+                                <span class="font-bold text-stone-900">{{ g.do_fails }}</span>
                             </div>
-                            <div class="bg-white p-2 rounded-lg border border-slate-100">
-                                <span class="text-slate-400 block text-[10px]">BOD विफलता ( > 3)</span>
-                                <span class="font-bold text-slate-800">{{ g.bod_fails }} ({{ g.bod_fail_pct }}%)</span>
+                            <div class="bg-white p-2.5 rounded-xl border border-stone-200/60">
+                                <span class="text-subtle block text-[10px]">BOD विफलता</span>
+                                <span class="font-bold text-stone-900">{{ g.bod_fails }}</span>
                             </div>
-                            <div class="bg-white p-2 rounded-lg border border-slate-100">
-                                <span class="text-slate-400 block text-[10px]">न्यूनतम DO स्तर</span>
-                                <span class="font-bold {% if g.do_min == 0.0 %}text-rose-600{% else %}text-slate-800{% endif %}">
+                            <div class="bg-white p-2.5 rounded-xl border border-stone-200/60">
+                                <span class="text-subtle block text-[10px]">न्यूनतम DO</span>
+                                <span class="font-bold {% if g.do_min == 0.0 %}text-rose-600 font-black{% else %}text-stone-900{% endif %}">
                                     {{ g.do_min }} mg/l
                                 </span>
                             </div>
-                            <div class="bg-white p-2 rounded-lg border border-slate-100">
-                                <span class="text-slate-400 block text-[10px]">अधिकतम BOD स्तर</span>
-                                <span class="font-bold {% if g.bod_max and g.bod_max > 10 %}text-rose-600{% else %}text-slate-800{% endif %}">
+                            <div class="bg-white p-2.5 rounded-xl border border-stone-200/60">
+                                <span class="text-subtle block text-[10px]">अधिकतम BOD</span>
+                                <span class="font-bold {% if g.bod_max and g.bod_max > 10 %}text-rose-600{% else %}text-stone-900{% endif %}">
                                     {{ g.bod_max }} mg/l
                                 </span>
                             </div>
                         </div>
 
-                        <div class="pt-1 flex justify-between items-center text-[11px] text-slate-500">
-                            <a href="/ghat/{{ g.site|urlencode }}" class="text-teal-700 font-bold hover:underline">
+                        <div class="pt-1 flex justify-between items-center text-xs">
+                            <a href="/ghat/{{ g.site|urlencode }}" class="text-emerald-800 font-bold hover:underline">
                                 विस्तृत ट्रेंड्स देखें &rarr;
                             </a>
-                            <a href="/traceability?ghat={{ g.site|urlencode }}" class="text-slate-500 hover:text-slate-800">
-                                साक्ष्य (PDF पृष्ठ)
+                            <a href="/traceability?ghat={{ g.site|urlencode }}" class="text-subtle hover:text-stone-900">
+                                साक्ष्य (PDF)
                             </a>
                         </div>
                     </div>
@@ -395,95 +421,95 @@
         </div>
     </div>
 
-    <!-- Special Row: Newly Constructed Dedicated BMC Ghats (2026 Reality) -->
-    <div class="bg-gradient-to-r from-blue-900 to-indigo-950 text-white rounded-2xl p-6 shadow-md">
-        <div class="flex flex-col md:flex-row items-start md:items-center justify-between gap-4">
-            <div class="space-y-2 max-w-3xl">
-                <div class="inline-flex items-center space-x-1 px-2.5 py-0.5 rounded-full bg-blue-500/30 text-blue-200 text-xs font-bold border border-blue-400/30">
+    <!-- NEW BMC DEDICATED GHATS CARD -->
+    <div class="bg-gradient-to-r from-blue-950 to-indigo-950 text-white rounded-[2rem] p-8 shadow-soft border border-blue-900">
+        <div class="flex flex-col md:flex-row items-start md:items-center justify-between gap-6">
+            <div class="space-y-3 max-w-3xl">
+                <div class="inline-flex items-center space-x-1.5 px-3 py-1 rounded-full bg-blue-500/20 text-blue-200 text-xs font-bold border border-blue-400/30">
                     <span>🏗️ एनजीटी निर्देश 2026 विशेष प्रावधान</span>
                 </div>
-                <h4 class="text-lg sm:text-xl font-bold">
+                <h4 class="text-xl font-display font-medium">
                     नगर निगम द्वारा नवनिर्मित समर्पित विसर्जन घाट (New Dedicated Ghats)
                 </h4>
-                <p class="text-sm text-blue-200 font-hindi">
-                    एनजीटी के आदेश के तहत बड़े और छोटे तालाब में विसर्जन रोके जाने के बाद नगर निगम द्वारा नए समर्पित कृत्रिम घाट बनाए जा रहे हैं। इन नए स्थलों का <strong>कोई ऐतिहासिक जल डेटा उपलब्ध नहीं है</strong>। अतः अधिकारी इन्हें स्वतः "सुरक्षित" न मानें।
+                <p class="text-xs sm:text-sm text-blue-200 font-hindi leading-relaxed">
+                    एनजीटी के आदेश के तहत बड़े और छोटे तालाब में विसर्जन रोके जाने के बाद नगर निगम द्वारा नए समर्पित कृत्रिम घाट बनाए जा रहे हैं। इन नए स्थलों का <strong>कोई ऐतिहासिक जल डेटा उपलब्ध नहीं है</strong>। अतः अधिकारी इन्हें स्वतः सुरक्षित न समझें।
                 </p>
-                <div class="text-xs bg-black/30 p-2.5 rounded-xl border border-white/10 font-hindi space-y-1">
-                    <p><strong>अनिवार्य परीक्षण प्रोटोकॉल:</strong> 20 अक्टूबर से पूर्व (72 घंटे पहले), विसर्जन के दिन और विसर्जन के 7 दिन बाद इन नवीन घाटों पर अनिवार्य जल नमूने लिए जाएं।</p>
-                    <p><strong>संरचनात्मक सावधानी:</strong> कृत्रिम कुंडों में पानी का ठहराव होने पर 24 घंटे में ऑक्सीजन शून्य होने का गंभीर खतरा रहता है (जैसा बैरागढ़ कुंड में देखा गया)। निरंतर जल चक्रण एवं एरेटर अनिवार्य करें।</p>
+                <div class="text-xs bg-black/30 p-4 rounded-xl border border-white/10 font-hindi space-y-1.5">
+                    <p><strong>अनिवार्य परीक्षण प्रोटोकॉल:</strong> 20 अक्टूबर से पूर्व (72 घंटे पहले), विसर्जन के दिन और 1 सप्ताह बाद इन नवीन घाटों पर अनिवार्य जल नमूने लिए जाएं।</p>
+                    <p><strong>संरचनात्मक सावधानी:</strong> कृत्रिम कुंडों में पानी का ठहराव होने पर 24 घंटे में ऑक्सीजन शून्य होने का गंभीर खतरा रहता है। निरंतर जल चक्रण एवं एरेटर अनिवार्य करें।</p>
                 </div>
             </div>
             <div class="shrink-0">
-                <button onclick="openModal('addReadingModal')" class="bg-white text-slate-900 font-black px-4 py-2.5 rounded-xl text-xs shadow hover:bg-slate-100 transition">
-                    ➕ नए घाट का परीक्षण दर्ज करें
+                <button onclick="openModal('addReadingModal')" class="bg-white text-stone-950 font-bold px-6 py-3 rounded-full text-xs shadow-soft hover:bg-stone-100 transition uppercase tracking-wider">
+                    ➕ नए घाट का परीक्षण जोड़ें
                 </button>
             </div>
         </div>
     </div>
 
-    <!-- Charts Section -->
-    <div class="grid grid-cols-1 lg:grid-cols-2 gap-6 pt-4">
+    <!-- CHARTS SECTION: Dual Visualizations -->
+    <div class="grid grid-cols-1 lg:grid-cols-2 gap-8 pt-2">
         <!-- Risk Comparison Bar Chart -->
-        <div class="bg-white p-5 rounded-2xl border border-slate-200 shadow-sm space-y-3">
-            <div class="flex justify-between items-center">
-                <h4 class="font-bold text-slate-800 text-sm">7 घाटों का तुलनात्मक जोखिम स्कोर (Risk Score 0-100)</h4>
-                <span class="text-xs text-slate-400 font-mono">CPCB Class B Standard</span>
+        <div class="bg-white p-8 rounded-[2rem] border border-stone-200/80 shadow-soft space-y-4">
+            <div class="flex justify-between items-center border-b border-stone-100 pb-3">
+                <h4 class="font-bold text-stone-900 text-sm">7 घाटों का तुलनात्मक जोखिम स्कोर (Risk Score 0-100)</h4>
+                <span class="text-xs text-subtle font-mono">CPCB Class B</span>
             </div>
-            <div class="h-64">
+            <div class="h-72">
                 <canvas id="riskBarChart"></canvas>
             </div>
-            <p class="text-[11px] text-slate-500 font-hindi">
+            <p class="text-xs text-subtle font-hindi">
                 बैरागढ़ कुंड में 4 बार शून्य DO होने के कारण यह सर्वाधिक जोखिम श्रेणी में है। प्रेमपुरा घाट सबसे स्वच्छ दर्ज हुआ।
             </p>
         </div>
 
         <!-- Pre vs During vs After Impact Surge -->
-        <div class="bg-white p-5 rounded-2xl border border-slate-200 shadow-sm space-y-3">
-            <div class="flex justify-between items-center">
-                <h4 class="font-bold text-slate-800 text-sm">विसर्जन का प्रभाव: पूर्व vs दौरान vs 1 सप्ताह बाद (Delta Impact)</h4>
-                <span class="text-xs text-slate-400 font-mono">Median Spike Analysis</span>
+        <div class="bg-white p-8 rounded-[2rem] border border-stone-200/80 shadow-soft space-y-4">
+            <div class="flex justify-between items-center border-b border-stone-100 pb-3">
+                <h4 class="font-bold text-stone-900 text-sm">विसर्जन का प्रभाव: पूर्व vs दौरान vs 1 सप्ताह बाद</h4>
+                <span class="text-xs text-subtle font-mono">Median Delta</span>
             </div>
-            <div class="h-64">
+            <div class="h-72">
                 <canvas id="immersionDeltaChart"></canvas>
             </div>
-            <p class="text-[11px] text-slate-500 font-hindi">
+            <p class="text-xs text-subtle font-hindi">
                 विसर्जन के बाद रासायनिक व कुल कचरा (COD, Solids, Turbidity) एक सप्ताह बाद भी बढ़ा रहता है। विसर्जन के 24-48 घंटों में सफाई आवश्यक।
             </p>
         </div>
     </div>
 
-    <!-- Immersion Impact Table -->
-    <div class="bg-white rounded-2xl border border-slate-200 overflow-hidden shadow-sm">
-        <div class="px-5 py-4 border-b border-slate-200 bg-slate-50/70 flex justify-between items-center">
+    <!-- STATISTICAL IMMERSION DELTAS TABLE -->
+    <div class="bg-white rounded-[2rem] border border-stone-200/80 overflow-hidden shadow-soft">
+        <div class="px-8 py-5 border-b border-stone-100 bg-stone-50/50 flex justify-between items-center">
             <div>
-                <h4 class="font-bold text-slate-800 text-sm">विसर्जन के 3 चरणों का सांख्यिकीय प्रभाव (Pre &rarr; During &rarr; After)</h4>
-                <p class="text-xs text-slate-500 font-hindi">भोपाल के सभी 7 घाटों पर दर्ज औसत परिवर्तन</p>
+                <h4 class="font-bold text-stone-900 text-sm">विसर्जन के 3 चरणों का सांख्यिकीय प्रभाव (Pre &rarr; During &rarr; After)</h4>
+                <p class="text-xs text-subtle font-hindi">भोपाल के सभी 7 घाटों पर दर्ज औसत परिवर्तन</p>
             </div>
-            <span class="text-xs bg-slate-200 text-slate-700 px-2 py-0.5 rounded font-mono">1,524 Readings</span>
+            <span class="text-xs bg-stone-200/80 text-stone-700 px-3 py-1 rounded-full font-mono font-bold">1,524 Readings</span>
         </div>
         <div class="overflow-x-auto">
-            <table class="w-full text-left text-xs text-slate-700">
-                <thead class="bg-slate-100 text-slate-600 font-semibold uppercase tracking-wider text-[11px]">
+            <table class="w-full text-left text-xs text-stone-700">
+                <thead class="bg-stone-100 text-stone-600 font-bold uppercase tracking-wider text-[11px]">
                     <tr>
-                        <th class="py-3 px-4">पैरामीटर (Parameter)</th>
-                        <th class="py-3 px-4">इकाई (Unit)</th>
-                        <th class="py-3 px-4">दौरान परिवर्तन (During - Pre)</th>
-                        <th class="py-3 px-4">1 सप्ताह बाद परिवर्तन (After - Pre)</th>
-                        <th class="py-3 px-4">% स्थल जहाँ 1 सप्ताह बाद भी प्रदूषण बढ़ा रहा</th>
+                        <th class="py-3.5 px-6">पैरामीटर (Parameter)</th>
+                        <th class="py-3.5 px-6">इकाई (Unit)</th>
+                        <th class="py-3.5 px-6">दौरान परिवर्तन (During - Pre)</th>
+                        <th class="py-3.5 px-6">1 सप्ताह बाद परिवर्तन (After - Pre)</th>
+                        <th class="py-3.5 px-6">% स्थल जहाँ 1 सप्ताह बाद भी प्रदूषण बढ़ा रहा</th>
                     </tr>
                 </thead>
-                <tbody class="divide-y divide-slate-100">
+                <tbody class="divide-y divide-stone-100">
                     {% for d in deltas %}
-                    <tr class="hover:bg-slate-50/50">
-                        <td class="py-3 px-4 font-bold text-slate-900">{{ d.parameter }}</td>
-                        <td class="py-3 px-4 text-slate-500 font-mono">{{ d.unit }}</td>
-                        <td class="py-3 px-4 font-mono font-medium {% if d.median_change_during and d.median_change_during > 0 and d.parameter != 'Dissolved oxygen' %}text-rose-600{% elif d.parameter == 'Dissolved oxygen' and d.median_change_during < 0 %}text-rose-600{% endif %}">
+                    <tr class="hover:bg-stone-50/60 transition">
+                        <td class="py-3.5 px-6 font-bold text-stone-900">{{ d.parameter }}</td>
+                        <td class="py-3.5 px-6 text-subtle font-mono">{{ d.unit }}</td>
+                        <td class="py-3.5 px-6 font-mono font-medium {% if d.median_change_during and d.median_change_during > 0 and d.parameter != 'Dissolved oxygen' %}text-rose-600{% elif d.parameter == 'Dissolved oxygen' and d.median_change_during < 0 %}text-rose-600{% endif %}">
                             {{ d.median_change_during }}
                         </td>
-                        <td class="py-3 px-4 font-mono font-medium {% if d.median_change_after and d.median_change_after > 0 and d.parameter != 'Dissolved oxygen' %}text-rose-600{% endif %}">
+                        <td class="py-3.5 px-6 font-mono font-medium {% if d.median_change_after and d.median_change_after > 0 and d.parameter != 'Dissolved oxygen' %}text-rose-600{% endif %}">
                             {{ d.median_change_after }}
                         </td>
-                        <td class="py-3 px-4 font-bold text-slate-800">
+                        <td class="py-3.5 px-6 font-bold text-stone-900">
                             {{ d.pct_after_higher }}
                         </td>
                     </tr>
@@ -496,17 +522,17 @@
 </div>
 
 <!-- MODAL: ADD DYNAMIC READING / 2026 TEST SAMPLE -->
-<div id="addReadingModal" class="hidden fixed inset-0 bg-black/60 z-50 flex items-center justify-center p-4">
-    <div class="bg-white rounded-3xl max-w-lg w-full p-6 space-y-4 shadow-2xl relative">
-        <div class="flex justify-between items-center border-b border-slate-200 pb-3">
-            <h3 class="text-base font-bold text-slate-900">➕ नया परीक्षण नमूना दर्ज करें (Add Water Sample)</h3>
-            <button onclick="closeModal('addReadingModal')" class="text-slate-400 hover:text-slate-600 font-bold text-xl">&times;</button>
+<div id="addReadingModal" class="hidden fixed inset-0 bg-stone-950/70 backdrop-blur-sm z-50 flex items-center justify-center p-4">
+    <div class="bg-white rounded-[2rem] max-w-lg w-full p-8 space-y-5 shadow-2xl relative border border-stone-200">
+        <div class="flex justify-between items-center border-b border-stone-100 pb-4">
+            <h3 class="text-base font-bold text-stone-900">➕ नया परीक्षण नमूना दर्ज करें (Add Sample)</h3>
+            <button onclick="closeModal('addReadingModal')" class="text-stone-400 hover:text-stone-600 font-bold text-2xl leading-none">&times;</button>
         </div>
 
-        <form id="addReadingForm" onsubmit="submitReading(event)" class="space-y-3 text-xs">
+        <form id="addReadingForm" onsubmit="submitReading(event)" class="space-y-4 text-xs">
             <div>
-                <label class="block font-bold text-slate-700 mb-1">घाट चुनें (Ghat / Site):</label>
-                <select name="site" id="form-site" required class="w-full border border-slate-300 rounded-xl p-2.5 bg-slate-50">
+                <label class="block font-bold text-stone-700 mb-1">घाट चुनें (Ghat / Site):</label>
+                <select name="site" id="form-site" required class="w-full border border-stone-200 rounded-xl p-3 bg-stone-50 font-medium">
                     {% for g in summary %}
                     <option value="{{ g.site }}">{{ g.site }}</option>
                     {% endfor %}
@@ -515,43 +541,43 @@
             </div>
 
             <!-- New Ghat Inputs (Conditional) -->
-            <div id="newGhatInputs" class="hidden space-y-2 p-3 bg-teal-50/50 rounded-xl border border-teal-100">
+            <div id="newGhatInputs" class="hidden space-y-2 p-4 bg-emerald-50/50 rounded-2xl border border-emerald-100">
                 <div>
-                    <label class="block font-bold text-slate-700 mb-0.5">नया घाट का नाम:</label>
-                    <input type="text" name="new_site_name" id="new_site_name" placeholder="उदा. नया समर्पित कुंड #1 (हलालपुर)" class="w-full border border-slate-300 rounded-lg p-2 bg-white">
+                    <label class="block font-bold text-stone-700 mb-1">नया घाट का नाम:</label>
+                    <input type="text" name="new_site_name" id="new_site_name" placeholder="उदा. नया समर्पित कुंड #1 (हलालपुर)" class="w-full border border-stone-200 rounded-xl p-2.5 bg-white font-medium">
                 </div>
                 <div>
-                    <label class="block font-bold text-slate-700 mb-0.5">जल निकाय / स्थान:</label>
-                    <input type="text" name="new_water_body" id="new_water_body" placeholder="उदा. समर्पित कृत्रिम कुंड" class="w-full border border-slate-300 rounded-lg p-2 bg-white">
+                    <label class="block font-bold text-stone-700 mb-1">जल निकाय / स्थान:</label>
+                    <input type="text" name="new_water_body" id="new_water_body" placeholder="उदा. समर्पित कृत्रिम कुंड" class="w-full border border-stone-200 rounded-xl p-2.5 bg-white font-medium">
                 </div>
             </div>
 
-            <div class="grid grid-cols-2 gap-3">
+            <div class="grid grid-cols-2 gap-4">
                 <div>
-                    <label class="block font-bold text-slate-700 mb-1">वर्ष (Year):</label>
-                    <input type="number" name="year" value="2026" required class="w-full border border-slate-300 rounded-xl p-2.5 bg-slate-50 font-bold">
+                    <label class="block font-bold text-stone-700 mb-1">वर्ष (Year):</label>
+                    <input type="number" name="year" value="2026" required class="w-full border border-stone-200 rounded-xl p-3 bg-stone-50 font-bold">
                 </div>
                 <div>
-                    <label class="block font-bold text-slate-700 mb-1">त्योहार (Festival):</label>
-                    <select name="festival" class="w-full border border-slate-300 rounded-xl p-2.5 bg-slate-50">
+                    <label class="block font-bold text-stone-700 mb-1">त्योहार (Festival):</label>
+                    <select name="festival" class="w-full border border-stone-200 rounded-xl p-3 bg-stone-50 font-medium">
                         <option value="Durga" selected>दुर्गा (Durga 2026)</option>
                         <option value="Ganesh">गणेश (Ganesh)</option>
                     </select>
                 </div>
             </div>
 
-            <div class="grid grid-cols-2 gap-3">
+            <div class="grid grid-cols-2 gap-4">
                 <div>
-                    <label class="block font-bold text-slate-700 mb-1">चरण (Phase):</label>
-                    <select name="phase" class="w-full border border-slate-300 rounded-xl p-2.5 bg-slate-50">
+                    <label class="block font-bold text-stone-700 mb-1">चरण (Phase):</label>
+                    <select name="phase" class="w-full border border-stone-200 rounded-xl p-3 bg-stone-50 font-medium">
                         <option value="pre" selected>Pre (विसर्जन पूर्व)</option>
                         <option value="during">During (विसर्जन दौरान)</option>
                         <option value="after">After (1 सप्ताह बाद)</option>
                     </select>
                 </div>
                 <div>
-                    <label class="block font-bold text-slate-700 mb-1">पैरामीटर (Parameter):</label>
-                    <select name="parameter" class="w-full border border-slate-300 rounded-xl p-2.5 bg-slate-50">
+                    <label class="block font-bold text-stone-700 mb-1">पैरामीटर (Parameter):</label>
+                    <select name="parameter" class="w-full border border-stone-200 rounded-xl p-3 bg-stone-50 font-medium">
                         <option value="Dissolved oxygen" selected>Dissolved oxygen (DO)</option>
                         <option value="BOD">BOD</option>
                         <option value="pH">pH</option>
@@ -565,17 +591,17 @@
             </div>
 
             <div>
-                <label class="block font-bold text-slate-700 mb-1">परीक्षण मान (Value / Result):</label>
-                <input type="text" name="value" placeholder="उदा. 4.2 या BDL" required class="w-full border border-slate-300 rounded-xl p-2.5 bg-slate-50 font-mono text-base font-bold">
-                <span class="text-[10px] text-slate-400">नोट: यदि भारी धातु संसूचन सीमा से कम हो तो 'BDL' लिखें।</span>
+                <label class="block font-bold text-stone-700 mb-1">परीक्षण मान (Value / Result):</label>
+                <input type="text" name="value" placeholder="उदा. 4.2 या BDL" required class="w-full border border-stone-200 rounded-xl p-3 bg-stone-50 font-mono text-base font-bold">
+                <span class="text-[10px] text-subtle mt-1 block">नोट: भारी धातु संसूचन सीमा से कम होने पर 'BDL' लिखें।</span>
             </div>
 
-            <div class="pt-3 flex justify-end space-x-2">
-                <button type="button" onclick="closeModal('addReadingModal')" class="px-4 py-2 rounded-xl text-slate-600 bg-slate-100 hover:bg-slate-200 font-semibold">
+            <div class="pt-3 flex justify-end space-x-3">
+                <button type="button" onclick="closeModal('addReadingModal')" class="px-5 py-2.5 rounded-full text-stone-600 bg-stone-100 hover:bg-stone-200 font-semibold">
                     रद्द करें
                 </button>
-                <button type="submit" class="px-5 py-2 rounded-xl bg-teal-600 hover:bg-teal-700 text-white font-bold shadow">
-                    💾 डेटाबेस में सहेजें (Save to SQLite)
+                <button type="submit" class="px-6 py-2.5 rounded-full bg-emerald-700 hover:bg-emerald-800 text-white font-bold shadow-soft">
+                    💾 सहेजें (Save)
                 </button>
             </div>
         </form>
@@ -591,17 +617,17 @@
         if (lang === 'hi') {
             document.querySelectorAll('.lang-text-hi').forEach(el => el.classList.remove('hidden'));
             document.querySelectorAll('.lang-text-en').forEach(el => el.classList.add('hidden'));
-            document.getElementById('lang-btn-hi').classList.add('bg-teal-600', 'text-white');
-            document.getElementById('lang-btn-hi').classList.remove('bg-slate-100', 'text-slate-700');
-            document.getElementById('lang-btn-en').classList.remove('bg-teal-600', 'text-white');
-            document.getElementById('lang-btn-en').classList.add('bg-slate-100', 'text-slate-700');
+            document.getElementById('lang-btn-hi').classList.add('bg-stone-900', 'text-white');
+            document.getElementById('lang-btn-hi').classList.remove('bg-stone-200', 'text-stone-700');
+            document.getElementById('lang-btn-en').classList.remove('bg-stone-900', 'text-white');
+            document.getElementById('lang-btn-en').classList.add('bg-stone-200', 'text-stone-700');
         } else {
             document.querySelectorAll('.lang-text-hi').forEach(el => el.classList.add('hidden'));
             document.querySelectorAll('.lang-text-en').forEach(el => el.classList.remove('hidden'));
-            document.getElementById('lang-btn-en').classList.add('bg-teal-600', 'text-white');
-            document.getElementById('lang-btn-en').classList.remove('bg-slate-100', 'text-slate-700');
-            document.getElementById('lang-btn-hi').classList.remove('bg-teal-600', 'text-white');
-            document.getElementById('lang-btn-hi').classList.add('bg-slate-100', 'text-slate-700');
+            document.getElementById('lang-btn-en').classList.add('bg-stone-900', 'text-white');
+            document.getElementById('lang-btn-en').classList.remove('bg-stone-200', 'text-stone-700');
+            document.getElementById('lang-btn-hi').classList.remove('bg-stone-900', 'text-white');
+            document.getElementById('lang-btn-hi').classList.add('bg-stone-200', 'text-stone-700');
         }
     }
 
@@ -679,7 +705,6 @@
     }
 
     function updateDashboardWithRankings(rankings) {
-        // Update Chart.js dataset
         riskBarChart.data.labels = rankings.map(r => r.site.split(' ')[0] + ' ' + (r.site.split(' ')[1] || ''));
         riskBarChart.data.datasets[0].data = rankings.map(r => r.base_risk_score);
         riskBarChart.update();
@@ -706,7 +731,7 @@
                     'rgba(14, 165, 233, 0.85)',
                     'rgba(16, 185, 129, 0.85)'
                 ],
-                borderRadius: 8
+                borderRadius: 12
             }]
         },
         options: {
@@ -716,7 +741,11 @@
                 y: {
                     beginAtZero: true,
                     max: 100,
+                    grid: { color: 'rgba(0,0,0,0.04)' },
                     title: { display: true, text: 'Score' }
+                },
+                x: {
+                    grid: { display: false }
                 }
             },
             plugins: {
@@ -739,14 +768,14 @@
                 {
                     label: 'दौरान उछाल (During - Pre)',
                     data: deltaDuring,
-                    backgroundColor: 'rgba(239, 68, 68, 0.7)',
-                    borderRadius: 6
+                    backgroundColor: 'rgba(239, 68, 68, 0.75)',
+                    borderRadius: 10
                 },
                 {
                     label: '1 सप्ताह बाद (After - Pre)',
                     data: deltaAfter,
-                    backgroundColor: 'rgba(245, 158, 11, 0.7)',
-                    borderRadius: 6
+                    backgroundColor: 'rgba(245, 158, 11, 0.75)',
+                    borderRadius: 10
                 }
             ]
         },
@@ -754,7 +783,13 @@
             responsive: true,
             maintainAspectRatio: false,
             scales: {
-                y: { title: { display: true, text: 'Median Delta' } }
+                y: { 
+                    grid: { color: 'rgba(0,0,0,0.04)' },
+                    title: { display: true, text: 'Median Delta' } 
+                },
+                x: {
+                    grid: { display: false }
+                }
             }
         }
     });
@@ -770,21 +805,21 @@
         summaryData.forEach(g => {
             if (g.lat && g.lon) {
                 const marker = L.circleMarker([g.lat, g.lon], {
-                    radius: 10,
+                    radius: 11,
                     fillColor: g.marker_color,
                     color: '#ffffff',
-                    weight: 2,
+                    weight: 3,
                     opacity: 1,
-                    fillOpacity: 0.9
+                    fillOpacity: 0.95
                 }).addTo(map);
 
                 marker.bindPopup(`
-                    <div style="font-family: sans-serif; font-size: 12px; line-height: 1.4;">
-                        <strong>#${g.rank} ${g.site}</strong><br/>
+                    <div style="font-family: 'Plus Jakarta Sans', sans-serif; font-size: 12px; line-height: 1.5; padding: 2px;">
+                        <strong style="font-size: 13px; color: #16191E;">#${g.rank} ${g.site}</strong><br/>
                         <span style="color: ${g.marker_color}; font-weight: bold;">${g.risk_badge}</span><br/>
                         स्कोर: <strong>${g.base_risk_score} / 100</strong><br/>
                         जल निकाय: ${g.water_body}<br/>
-                        <a href="/ghat/${encodeURIComponent(g.site)}" style="color: #0f766e; font-weight: bold; text-decoration: underline; margin-top: 4px; display: inline-block;">
+                        <a href="/ghat/${encodeURIComponent(g.site)}" style="color: #047857; font-weight: bold; text-decoration: underline; margin-top: 6px; display: inline-block;">
                             विस्तृत विश्लेषण देखें &rarr;
                         </a>
                     </div>

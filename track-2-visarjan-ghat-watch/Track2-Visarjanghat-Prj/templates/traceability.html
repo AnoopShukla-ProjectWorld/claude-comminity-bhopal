@@ -3,29 +3,30 @@
 {% block title %}डेटा प्रमाण एवं PDF पृष्ठ संदर्भ (Traceability) · Visarjan Ghat Watch{% endblock %}
 
 {% block content %}
-<div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8 space-y-6">
+<div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-10 space-y-8">
 
-    <div class="flex flex-col sm:flex-row sm:items-center justify-between gap-4 border-b border-slate-200 pb-4">
+    <!-- Header Section -->
+    <div class="flex flex-col sm:flex-row sm:items-center justify-between gap-4 border-b border-stone-200 pb-5">
         <div>
-            <h2 class="text-2xl font-black text-slate-900 flex items-center gap-2">
-                <span>🔍</span> 100% डेटा प्रमाण एवं PDF पृष्ठ सत्यापन (Traceability Evidence)
+            <h2 class="text-3xl font-display font-medium text-stone-900 flex items-center gap-2">
+                <span>🔍</span> 100% डेटा प्रमाण एवं PDF पृष्ठ सत्यापन
             </h2>
-            <p class="text-xs text-slate-500 font-hindi mt-1">
+            <p class="text-xs text-subtle font-hindi mt-1">
                 डैशबोर्ड का प्रत्येक आंकड़ा सीधे MPPCB की आधिकारिक रिपोर्टों और उनके संबंधित पृष्ठ संख्याओं से सत्यापित है।
             </p>
         </div>
-        <div class="flex items-center gap-2 text-xs">
-            <span class="bg-rose-100 text-rose-800 font-bold px-2.5 py-1 rounded-md">🔴 मानक उल्लंघन (Violation)</span>
-            <span class="bg-emerald-100 text-emerald-800 font-bold px-2.5 py-1 rounded-md">🟢 मानक अनुरूप (Pass)</span>
-            <span class="bg-slate-200 text-slate-700 font-bold px-2.5 py-1 rounded-md">⚪ नमूना नहीं लिया (Missing)</span>
+        <div class="flex flex-wrap items-center gap-2 text-xs">
+            <span class="bg-rose-100 text-rose-800 font-bold px-3 py-1 rounded-full">🔴 मानक उल्लंघन</span>
+            <span class="bg-emerald-100 text-emerald-800 font-bold px-3 py-1 rounded-full">🟢 मानक अनुरूप</span>
+            <span class="bg-stone-200 text-stone-700 font-bold px-3 py-1 rounded-full">⚪ Not Sampled</span>
         </div>
     </div>
 
-    <!-- Filters Bar -->
-    <div class="bg-white p-4 rounded-2xl border border-slate-200 shadow-sm flex flex-wrap items-center gap-3 text-xs">
+    <!-- Filters Bar (Spacious Pill Controls) -->
+    <div class="bg-white p-5 rounded-[2rem] border border-stone-200/80 shadow-soft flex flex-wrap items-center gap-4 text-xs">
         <div>
-            <label class="font-bold text-slate-600 block mb-1">घाट चुनें (Ghat):</label>
-            <select id="filter-ghat" onchange="applyFilters()" class="border border-slate-300 rounded-lg px-3 py-1.5 bg-slate-50 font-medium text-slate-800 focus:outline-teal-500">
+            <label class="font-bold text-stone-700 block mb-1">घाट चुनें (Ghat):</label>
+            <select id="filter-ghat" onchange="applyFilters()" class="border border-stone-200 rounded-xl px-3.5 py-2 bg-stone-50 font-medium text-stone-800 focus:outline-emerald-600">
                 <option value="ALL">सभी 7 घाट (All 7 Ghats)</option>
                 {% for g in ghats_list %}
                 <option value="{{ g }}" {% if selected_ghat == g %}selected{% endif %}>{{ g }}</option>
@@ -34,8 +35,8 @@
         </div>
 
         <div>
-            <label class="font-bold text-slate-600 block mb-1">वर्ष (Year):</label>
-            <select id="filter-year" onchange="applyFilters()" class="border border-slate-300 rounded-lg px-3 py-1.5 bg-slate-50 font-medium text-slate-800 focus:outline-teal-500">
+            <label class="font-bold text-stone-700 block mb-1">वर्ष (Year):</label>
+            <select id="filter-year" onchange="applyFilters()" class="border border-stone-200 rounded-xl px-3.5 py-2 bg-stone-50 font-medium text-stone-800 focus:outline-emerald-600">
                 <option value="ALL">सभी वर्ष (All Years)</option>
                 <option value="2025">2025</option>
                 <option value="2024">2024</option>
@@ -44,8 +45,8 @@
         </div>
 
         <div>
-            <label class="font-bold text-slate-600 block mb-1">त्योहार (Festival):</label>
-            <select id="filter-festival" onchange="applyFilters()" class="border border-slate-300 rounded-lg px-3 py-1.5 bg-slate-50 font-medium text-slate-800 focus:outline-teal-500">
+            <label class="font-bold text-stone-700 block mb-1">त्योहार (Festival):</label>
+            <select id="filter-festival" onchange="applyFilters()" class="border border-stone-200 rounded-xl px-3.5 py-2 bg-stone-50 font-medium text-stone-800 focus:outline-emerald-600">
                 <option value="ALL">गणेश एवं दुर्गा (Both)</option>
                 <option value="Durga">दुर्गा (Durga)</option>
                 <option value="Ganesh">गणेश (Ganesh)</option>
@@ -53,8 +54,8 @@
         </div>
 
         <div>
-            <label class="font-bold text-slate-600 block mb-1">पैरामीटर (Parameter):</label>
-            <select id="filter-param" onchange="applyFilters()" class="border border-slate-300 rounded-lg px-3 py-1.5 bg-slate-50 font-medium text-slate-800 focus:outline-teal-500">
+            <label class="font-bold text-stone-700 block mb-1">पैरामीटर (Parameter):</label>
+            <select id="filter-param" onchange="applyFilters()" class="border border-stone-200 rounded-xl px-3.5 py-2 bg-stone-50 font-medium text-stone-800 focus:outline-emerald-600">
                 <option value="ALL">सभी 13 पैरामीटर्स</option>
                 <option value="Dissolved oxygen">Dissolved oxygen (DO)</option>
                 <option value="BOD">BOD</option>
@@ -67,97 +68,97 @@
         </div>
 
         <div class="ml-auto self-end">
-            <span id="filtered-count" class="font-bold text-slate-500">कुल पंक्तियाँ: {{ readings|length }}</span>
+            <span id="filtered-count" class="font-bold text-stone-500 bg-stone-100 px-3 py-1.5 rounded-full">कुल पंक्तियाँ: {{ readings|length }}</span>
         </div>
     </div>
 
     <!-- Readings Table with Exact PDF Page References -->
-    <div class="bg-white rounded-2xl border border-slate-200 overflow-hidden shadow-sm">
-        <div class="overflow-x-auto max-h-[700px] overflow-y-auto">
-            <table class="w-full text-left text-xs text-slate-700 relative">
-                <thead class="bg-slate-100 text-slate-700 font-bold uppercase tracking-wider text-[11px] sticky top-0 shadow-sm z-10">
+    <div class="bg-white rounded-[2rem] border border-stone-200/80 overflow-hidden shadow-soft">
+        <div class="overflow-x-auto max-h-[750px] overflow-y-auto">
+            <table class="w-full text-left text-xs text-stone-700 relative">
+                <thead class="bg-stone-100 text-stone-600 font-bold uppercase tracking-wider text-[11px] sticky top-0 shadow-sm z-10">
                     <tr>
-                        <th class="py-3 px-4">वर्ष / त्योहार</th>
-                        <th class="py-3 px-4">घाट स्थल (Site)</th>
-                        <th class="py-3 px-4">चरण (Phase)</th>
-                        <th class="py-3 px-4">पैरामीटर (Parameter)</th>
-                        <th class="py-3 px-4">मान (Reported Value)</th>
-                        <th class="py-3 px-4">CPCB मानक स्थिति</th>
-                        <th class="py-3 px-4">स्रोत PDF एवं पृष्ठ (Source Page)</th>
+                        <th class="py-3.5 px-6">वर्ष / त्योहार</th>
+                        <th class="py-3.5 px-6">घाट स्थल (Site)</th>
+                        <th class="py-3.5 px-6">चरण (Phase)</th>
+                        <th class="py-3.5 px-6">पैरामीटर (Parameter)</th>
+                        <th class="py-3.5 px-6">मान (Reported Value)</th>
+                        <th class="py-3.5 px-6">CPCB मानक स्थिति</th>
+                        <th class="py-3.5 px-6">स्रोत PDF एवं पृष्ठ (Click to Open)</th>
                     </tr>
                 </thead>
-                <tbody id="readings-tbody" class="divide-y divide-slate-100 font-mono">
+                <tbody id="readings-tbody" class="divide-y divide-stone-100 font-mono">
                     {% for r in readings %}
-                    <tr class="hover:bg-slate-50 data-row" 
+                    <tr class="hover:bg-stone-50/60 transition data-row" 
                         data-ghat="{{ r.site }}" 
                         data-year="{{ r.year }}" 
                         data-festival="{{ r.festival }}" 
                         data-param="{{ r.parameter }}">
                         
-                        <td class="py-2.5 px-4 font-sans font-semibold">
-                            <span class="bg-slate-100 px-2 py-0.5 rounded text-slate-800">{{ r.year }}</span>
-                            <span class="text-slate-500 ml-1">{{ r.festival }}</span>
+                        <td class="py-3 px-6 font-sans font-semibold">
+                            <span class="bg-stone-100 px-2 py-0.5 rounded text-stone-900">{{ r.year }}</span>
+                            <span class="text-subtle ml-1">{{ r.festival }}</span>
                         </td>
                         
-                        <td class="py-2.5 px-4 font-sans font-bold text-slate-900 max-w-[200px] truncate" title="{{ r.site }}">
+                        <td class="py-3 px-6 font-sans font-bold text-stone-900 max-w-[200px] truncate" title="{{ r.site }}">
                             {{ r.site }}
                         </td>
                         
-                        <td class="py-2.5 px-4 font-sans">
+                        <td class="py-3 px-6 font-sans">
                             {% if r.phase == 'pre' %}
                             <span class="bg-blue-50 text-blue-700 px-2 py-0.5 rounded font-semibold text-[10px]">Pre (पूर्व)</span>
                             {% elif r.phase == 'during' %}
                             <span class="bg-purple-50 text-purple-700 px-2 py-0.5 rounded font-semibold text-[10px]">During (दौरान)</span>
                             {% else %}
-                            <span class="bg-slate-100 text-slate-700 px-2 py-0.5 rounded font-semibold text-[10px]">After (1 सप्ताह बाद)</span>
+                            <span class="bg-stone-100 text-stone-700 px-2 py-0.5 rounded font-semibold text-[10px]">After (1 सप्ताह बाद)</span>
                             {% endif %}
                         </td>
                         
-                        <td class="py-2.5 px-4 font-sans text-slate-800">
+                        <td class="py-3 px-6 font-sans text-stone-900">
                             <strong>{{ r.parameter }}</strong>
-                            <span class="text-slate-400 text-[10px]">({{ r.unit_assumed }})</span>
+                            <span class="text-subtle text-[10px]">({{ r.unit_assumed }})</span>
                         </td>
                         
-                        <td class="py-2.5 px-4 font-bold">
+                        <td class="py-3 px-6 font-bold">
                             {% if r.is_missing %}
-                            <span class="text-slate-400 font-sans italic bg-slate-100 px-1.5 py-0.5 rounded">Not Sampled</span>
+                            <span class="text-stone-400 font-sans italic bg-stone-100 px-2 py-0.5 rounded">Not Sampled</span>
                             {% elif r.is_bdl %}
-                            <span class="text-teal-700 font-sans font-bold bg-teal-50 px-1.5 py-0.5 rounded">BDL (&lt; Detect)</span>
+                            <span class="text-teal-700 font-sans font-bold bg-teal-50 px-2 py-0.5 rounded">BDL (&lt; Detect)</span>
                             {% elif r.value == 0.0 and r.parameter == 'Dissolved oxygen' %}
-                            <span class="text-rose-600 bg-rose-100 px-2 py-0.5 rounded font-extrabold text-sm">0.0 (Dead Water)</span>
+                            <span class="text-rose-600 bg-rose-100 px-2.5 py-0.5 rounded font-black text-sm">0.0 (Dead Water)</span>
                             {% elif r.cpcb_status == 'FAIL_CLASS_B' or r.cpcb_status == 'FAIL_CLASS_D' or r.cpcb_status == 'CRITICAL_BOD' %}
                             <span class="text-rose-600 bg-rose-50 px-2 py-0.5 rounded">{{ r.value }}</span>
                             {% else %}
-                            <span class="text-slate-800">{{ r.value }}</span>
+                            <span class="text-stone-900">{{ r.value }}</span>
                             {% endif %}
                         </td>
                         
-                        <td class="py-2.5 px-4 font-sans text-[11px]">
+                        <td class="py-3 px-6 font-sans text-[11px]">
                             {% if r.cpcb_status == 'CRITICAL_ZERO' %}
-                            <span class="inline-flex items-center px-2 py-0.5 rounded-full font-bold bg-rose-100 text-rose-800 border border-rose-300">
+                            <span class="inline-flex items-center px-2.5 py-0.5 rounded-full font-bold bg-rose-100 text-rose-800 border border-rose-300">
                                 🔴 CRITICAL: 0 DO
                             </span>
                             {% elif r.cpcb_status == 'FAIL_CLASS_B' or r.cpcb_status == 'FAIL_CLASS_D' or r.cpcb_status == 'CRITICAL_BOD' %}
-                            <span class="inline-flex items-center px-2 py-0.5 rounded-full font-bold bg-rose-50 text-rose-700 border border-rose-200">
-                                ⚠️ उल्लंघन (Exceeds Limit)
+                            <span class="inline-flex items-center px-2.5 py-0.5 rounded-full font-bold bg-rose-50 text-rose-700 border border-rose-200">
+                                ⚠️ मानक उल्लंघन
                             </span>
                             {% elif r.cpcb_status == 'PASS' %}
-                            <span class="inline-flex items-center px-2 py-0.5 rounded-full font-semibold bg-emerald-50 text-emerald-700 border border-emerald-200">
-                                ✔ मानक अनुरूप (Pass)
+                            <span class="inline-flex items-center px-2.5 py-0.5 rounded-full font-semibold bg-emerald-50 text-emerald-700 border border-emerald-200">
+                                ✔ मानक अनुरूप
                             </span>
                             {% elif r.cpcb_status == 'SAFE_BDL' %}
-                            <span class="inline-flex items-center px-2 py-0.5 rounded-full font-medium bg-teal-50 text-teal-700">
-                                BDL (सुरक्षित सीमा)
+                            <span class="inline-flex items-center px-2.5 py-0.5 rounded-full font-medium bg-teal-50 text-teal-700">
+                                BDL (सुरक्षित)
                             </span>
                             {% elif r.cpcb_status == 'NOT_SAMPLED' %}
-                            <span class="text-slate-400">डेटा उपलब्ध नहीं</span>
+                            <span class="text-stone-400">डेटा उपलब्ध नहीं</span>
                             {% else %}
-                            <span class="text-slate-400">मानक अनिर्धारित</span>
+                            <span class="text-stone-400">—</span>
                             {% endif %}
                         </td>
                         
-                        <td class="py-2.5 px-4 font-sans text-[11px]">
-                            <a href="/pdf/{{ r.report_pdf }}#page={{ r.source_page }}" target="_blank" title="मूल MPPCB रिपोर्ट PDF में यह पृष्ठ देखें" class="inline-flex items-center gap-1 font-bold text-teal-800 bg-teal-50 hover:bg-teal-100 hover:text-teal-950 px-2.5 py-1 rounded-md border border-teal-200 transition">
+                        <td class="py-3 px-6 font-sans text-[11px]">
+                            <a href="/pdf/{{ r.report_pdf }}#page={{ r.source_page }}" target="_blank" title="क्लिक करके मूल MPPCB रिपोर्ट PDF में यह पृष्ठ देखें" class="inline-flex items-center gap-1.5 font-bold text-emerald-800 bg-emerald-50 hover:bg-emerald-100 hover:text-emerald-950 px-3 py-1 rounded-full border border-emerald-200 transition">
                                 📄 पृष्ठ {{ r.source_page }} · {{ r.report_pdf }} &nearr;
                             </a>
                         </td>
@@ -206,7 +207,6 @@
         document.getElementById('filtered-count').innerText = `प्रदर्शित पंक्तियाँ: ${visibleCount}`;
     }
 
-    // Auto-run if query params present
     window.onload = function() {
         const urlParams = new URLSearchParams(window.location.search);
         const ghatParam = urlParams.get('ghat');

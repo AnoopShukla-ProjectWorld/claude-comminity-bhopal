@@ -3,50 +3,50 @@
 {% block title %}कार्यकारी ब्रीफ (Executive Forwardable Brief) · Visarjan Ghat Watch{% endblock %}
 
 {% block content %}
-<div class="max-w-4xl mx-auto px-4 sm:px-6 py-8 space-y-6">
+<div class="max-w-4xl mx-auto px-4 sm:px-6 py-10 space-y-8">
 
-    <!-- Action Toolbar (Hidden in Print) -->
-    <div class="bg-white p-4 rounded-2xl border border-slate-200 shadow-sm flex flex-wrap items-center justify-between gap-4 no-print">
-        <div class="flex items-center space-x-2">
-            <span class="text-xs font-semibold text-slate-500">भाषा चुनें (Select Language):</span>
-            <button onclick="toggleBriefLang('hi')" id="brief-tab-hi" class="px-3 py-1.5 text-xs font-bold rounded-lg bg-teal-600 text-white shadow-sm">
+    <!-- Action Toolbar (Airy, Rounded Pill Style, Hidden in Print) -->
+    <div class="bg-white p-4 rounded-full border border-stone-200/80 shadow-soft flex flex-wrap items-center justify-between gap-4 no-print">
+        <div class="flex items-center space-x-2 pl-2">
+            <span class="text-xs font-semibold text-subtle">भाषा चुनें:</span>
+            <button onclick="toggleBriefLang('hi')" id="brief-tab-hi" class="px-4 py-1.5 text-xs font-bold rounded-full bg-stone-900 text-white shadow-soft transition">
                 हिंदी संस्करण (Hindi Brief)
             </button>
-            <button onclick="toggleBriefLang('en')" id="brief-tab-en" class="px-3 py-1.5 text-xs font-bold rounded-lg bg-slate-100 text-slate-700 hover:bg-slate-200">
+            <button onclick="toggleBriefLang('en')" id="brief-tab-en" class="px-4 py-1.5 text-xs font-bold rounded-full bg-stone-100 text-stone-700 hover:bg-stone-200 transition">
                 English Version
             </button>
         </div>
-        <div class="flex items-center space-x-2">
-            <button onclick="window.print()" class="px-4 py-2 rounded-xl text-xs font-bold bg-slate-900 text-white hover:bg-slate-800 shadow transition flex items-center gap-1.5">
-                <span>🖨️ प्रिंट करें / PDF सेव करें (Print to PDF)</span>
+        <div class="flex items-center space-x-2 pr-1">
+            <button onclick="window.print()" class="px-5 py-2 rounded-full text-xs font-bold bg-emerald-800 text-white hover:bg-emerald-700 shadow-soft transition flex items-center gap-2">
+                <span>🖨️ प्रिंट करें / PDF सेव करें</span>
             </button>
         </div>
     </div>
 
-    <!-- HINDI BRIEF DOCUMENT (OFFICIAL MEMO) -->
-    <div id="brief-hi" class="bg-white p-8 sm:p-12 rounded-3xl border border-slate-200 shadow-md space-y-6 text-slate-800 leading-relaxed font-hindi print:border-none print:shadow-none print:p-0">
+    <!-- HINDI BRIEF DOCUMENT (OFFICIAL MEMO FORMAT) -->
+    <div id="brief-hi" class="bg-white p-8 sm:p-14 rounded-[2.5rem] border border-stone-200/80 shadow-soft space-y-8 text-stone-800 leading-relaxed font-hindi print:border-none print:shadow-none print:p-0">
         
         <!-- Memo Header -->
-        <div class="border-b-2 border-slate-800 pb-4 flex justify-between items-start">
-            <div>
-                <p class="text-xs font-bold uppercase tracking-widest text-slate-500">नगर पालिक निगम, भोपाल · पर्यावरण प्रकोष्ठ</p>
-                <h2 class="text-2xl font-black text-slate-900 mt-1">गोपनीय / प्राथमिकता ब्रीफ: दुर्गा विसर्जन 2026 घाट जल सुरक्षा</h2>
-                <p class="text-xs text-slate-600 mt-1">संदर्भ: MPPCB विसर्जन जल परीक्षण रिपोर्ट (2023–2025) एवं एनजीटी आदेशानुपालन</p>
+        <div class="border-b-2 border-stone-900 pb-5 flex justify-between items-start">
+            <div class="space-y-1">
+                <p class="text-xs font-bold uppercase tracking-widest text-subtle font-sans">नगर पालिक निगम, भोपाल · पर्यावरण प्रकोष्ठ</p>
+                <h2 class="text-2xl sm:text-3xl font-display font-medium text-stone-900">गोपनीय / प्राथमिकता ब्रीफ: दुर्गा विसर्जन 2026 घाट जल सुरक्षा</h2>
+                <p class="text-xs text-subtle">संदर्भ: MPPCB विसर्जन जल परीक्षण रिपोर्ट (2023–2025) एवं एनजीटी आदेशानुपालन</p>
             </div>
-            <div class="text-right text-xs text-slate-500">
+            <div class="text-right text-xs text-subtle font-sans shrink-0 pl-4">
                 <p>दिनांक: <strong>11 अक्टूबर 2026</strong></p>
                 <p>विसर्जन तिथि: <strong>20 अक्टूबर 2026 (9 दिन शेष)</strong></p>
-                <p class="text-rose-600 font-bold">प्राथमिकता: अति-महत्वपूर्ण</p>
+                <span class="inline-block mt-1 bg-rose-100 text-rose-800 font-bold px-2 py-0.5 rounded text-[10px]">अति-महत्वपूर्ण</span>
             </div>
         </div>
 
         <!-- 1. Executive Summary -->
-        <div class="space-y-2">
-            <h3 class="text-base font-bold text-slate-900 uppercase border-b border-slate-200 pb-1">1. कार्यकारी सारांश (Executive Summary)</h3>
-            <p class="text-sm text-slate-700">
+        <div class="space-y-3">
+            <h3 class="text-sm font-bold text-stone-900 uppercase tracking-wider font-sans border-b border-stone-200 pb-1.5">1. कार्यकारी सारांश (Executive Summary)</h3>
+            <p class="text-sm text-stone-700 leading-relaxed">
                 मध्य प्रदेश प्रदूषण नियंत्रण बोर्ड (MPPCB) द्वारा पिछले तीन वर्षों में गणेश एवं दुर्गा विसर्जन के 7 भोपाल घाटों पर लिए गए 1,524 जल परीक्षण नमूनों के विस्तृत विश्लेषण के आधार पर यह ब्रीफ तैयार किया गया है। सीपीसीबी (CPCB) के क्लास-B (आउटडोर स्नान) मानकों के अनुसार पानी में घुलित ऑक्सीजन (DO) न्यूनतम 5 mg/l तथा BOD अधिकतम 3 mg/l होनी चाहिए।
             </p>
-            <div class="bg-amber-50 border-l-4 border-amber-500 p-3 text-xs text-amber-900 rounded-r-lg space-y-1">
+            <div class="bg-amber-50/70 border border-amber-200/80 p-4 text-xs text-stone-800 rounded-2xl space-y-1.5">
                 <p><strong>मुख्य निष्कर्ष:</strong> भोपाल के 36.2% नमूनों में ऑक्सीजन स्तर मानक से कम पाया गया तथा 89.3% नमूनों में BOD सीमा पार पाई गई। बैरागढ़ कुंड में 4 बार ऑक्सीजन शून्य (0 mg/l) पाई गई।</p>
                 <p><strong>एनजीटी आदेश (2026):</strong> बड़े एवं छोटे तालाब में मूर्ति विसर्जन पूर्णतः प्रतिबंधित है। नगर निगम द्वारा नए समर्पित कुंड बनाए जा रहे हैं।</p>
             </div>
@@ -54,20 +54,20 @@
 
         <!-- 2. Ranked Ghat List with plain reasons -->
         <div class="space-y-3">
-            <h3 class="text-base font-bold text-slate-900 uppercase border-b border-slate-200 pb-1">2. जोखिम के आधार पर घाटों की प्राथमिकता सूची (Ranked List)</h3>
+            <h3 class="text-sm font-bold text-stone-900 uppercase tracking-wider font-sans border-b border-stone-200 pb-1.5">2. जोखिम के आधार पर घाटों की प्राथमिकता सूची (Ranked List)</h3>
             <div class="space-y-3">
                 {% for g in summary %}
-                <div class="p-3.5 rounded-xl border {% if g.risk_level == 'CRITICAL' %}border-rose-300 bg-rose-50/40{% elif g.risk_level == 'HIGH' %}border-amber-300 bg-amber-50/30{% else %}border-slate-200 bg-slate-50/50{% endif %}">
+                <div class="p-4 rounded-2xl border {% if g.risk_level == 'CRITICAL' %}border-rose-200 bg-rose-50/30{% elif g.risk_level == 'HIGH' %}border-amber-200 bg-amber-50/30{% else %}border-stone-200 bg-stone-50/50{% endif %}">
                     <div class="flex justify-between items-center text-xs">
-                        <span class="font-black text-slate-900 text-sm">#{{ g.rank }} {{ g.site }} ({{ g.water_body }})</span>
-                        <span class="font-bold px-2 py-0.5 rounded text-[11px] {% if g.badge_color == 'rose' %}bg-rose-200 text-rose-900{% elif g.badge_color == 'orange' %}bg-orange-200 text-orange-900{% else %}bg-slate-200 text-slate-800{% endif %}">
+                        <span class="font-bold text-stone-900 text-sm">#{{ g.rank }} {{ g.site }} ({{ g.water_body }})</span>
+                        <span class="font-bold px-2.5 py-0.5 rounded-full text-[11px] {% if g.badge_color == 'rose' %}bg-rose-100 text-rose-800{% elif g.badge_color == 'orange' %}bg-orange-100 text-orange-800{% else %}bg-stone-200 text-stone-800{% endif %}">
                             {{ g.risk_badge }} · जोखिम स्कोर: {{ g.base_risk_score }}/100
                         </span>
                     </div>
-                    <p class="text-xs text-slate-700 mt-1.5">
+                    <p class="text-xs text-stone-700 mt-2 leading-relaxed">
                         <strong>कारण:</strong> {{ g.reason_hi }}
                     </p>
-                    <p class="text-xs text-slate-900 mt-1 font-semibold">
+                    <p class="text-xs text-stone-900 mt-1.5 font-semibold">
                         <strong>अनुशंसित त्वरित कार्रवाई:</strong> {{ g.recommendations_hi|join(' | ') }}
                     </p>
                 </div>
@@ -76,12 +76,12 @@
         </div>
 
         <!-- 3. New Ghats Warning & Mandatory Testing -->
-        <div class="space-y-2">
-            <h3 class="text-base font-bold text-slate-900 uppercase border-b border-slate-200 pb-1">3. नवीन विसर्जन घाटों हेतु विशेष निर्देश (New Dedicated Ghats)</h3>
-            <p class="text-xs text-slate-700">
+        <div class="space-y-3">
+            <h3 class="text-sm font-bold text-stone-900 uppercase tracking-wider font-sans border-b border-stone-200 pb-1.5">3. नवीन विसर्जन घाटों हेतु विशेष निर्देश (New Dedicated Ghats)</h3>
+            <p class="text-xs text-stone-700 leading-relaxed">
                 एनजीटी प्रतिबंध के पश्चात जिन नए समर्पित कुंडों पर विसर्जन कराया जा रहा है, उनका कोई ऐतिहासिक पूर्व-डेटा उपलब्ध नहीं है। अतः अधिकारी निम्न प्रोटोकॉल का पालन करें:
             </p>
-            <ul class="list-disc list-inside text-xs text-slate-700 space-y-1 pl-2">
+            <ul class="list-disc list-inside text-xs text-stone-700 space-y-1.5 pl-2">
                 <li><strong>पूर्व-परीक्षण:</strong> विसर्जन से 72 घंटे पूर्व पानी का परीक्षण कराएं।</li>
                 <li><strong>निरंतर वातन:</strong> विसर्जन के दौरान पानी में पर्याप्त ऑक्सीजन बनाए रखने हेतु स्प्लैश एरेटर स्थापित किए जाएं।</li>
                 <li><strong>त्वरित सफाई:</strong> विसर्जन के 24-48 घंटों के भीतर मूर्तियों के अवशेष एवं सिल्ट बाहर निकाली जाए।</li>
@@ -89,9 +89,9 @@
         </div>
 
         <!-- 4. Data Gaps and Transparency -->
-        <div class="space-y-2">
-            <h3 class="text-base font-bold text-slate-900 uppercase border-b border-slate-200 pb-1">4. डेटा अंतराल एवं सीमाएं (Data Gaps & Limitations)</h3>
-            <ul class="list-disc list-inside text-xs text-slate-600 space-y-1 pl-2">
+        <div class="space-y-3">
+            <h3 class="text-sm font-bold text-stone-900 uppercase tracking-wider font-sans border-b border-stone-200 pb-1.5">4. डेटा अंतराल एवं सीमाएं (Data Gaps & Limitations)</h3>
+            <ul class="list-disc list-inside text-xs text-stone-600 space-y-1.5 pl-2">
                 <li><strong>बैरागढ़ एवं मालीखेड़ी कुंड:</strong> MPPCB की 2025 दुर्गा रिपोर्ट में इन दोनों कुंडों का कोई परीक्षण दर्ज नहीं है। अतः इन्हें सुरक्षित न समझा जाए।</li>
                 <li><strong>रानी कमलापति घाट / कमला पार्क कुंड:</strong> रिपोर्ट में गणेश हेतु "कमला पार्क कुंड" तथा दुर्गा हेतु "निचली झील घाट" लिखा है (मध्यम मिलान आत्मविश्वास)।</li>
                 <li><strong>स्वास्थ्य प्रभाव:</strong> यह रिपोर्ट केवल जल गुणवत्ता मानकों पर आधारित है, किसी बीमारी अथवा स्वास्थ्य दावे को प्रमाणित नहीं करती।</li>
@@ -99,42 +99,42 @@
         </div>
 
         <!-- Sign-off -->
-        <div class="pt-6 border-t border-slate-200 flex justify-between items-end text-xs text-slate-500">
+        <div class="pt-8 border-t border-stone-200 flex justify-between items-end text-xs text-subtle font-sans">
             <div>
                 <p>प्रस्तुतकर्ता: <strong>अनूप शुक्ला</strong> (Bhopal Impact Lab 2026)</p>
                 <p>प्रमाणित स्रोत: MPPCB विसर्जन रिपोर्ट 2023, 2024, 2025</p>
             </div>
             <div class="text-right">
-                <p class="border-t border-slate-400 pt-1 w-48 text-center text-slate-700 font-bold">हस्ताक्षर / नोडल अधिकारी (BMC)</p>
+                <p class="border-t border-stone-400 pt-1.5 w-48 text-center text-stone-800 font-bold">हस्ताक्षर / नोडल अधिकारी (BMC)</p>
             </div>
         </div>
 
     </div>
 
     <!-- ENGLISH BRIEF DOCUMENT (OFFICIAL MEMO) -->
-    <div id="brief-en" class="hidden bg-white p-8 sm:p-12 rounded-3xl border border-slate-200 shadow-md space-y-6 text-slate-800 leading-relaxed print:border-none print:shadow-none print:p-0">
+    <div id="brief-en" class="hidden bg-white p-8 sm:p-14 rounded-[2.5rem] border border-stone-200/80 shadow-soft space-y-8 text-stone-800 leading-relaxed print:border-none print:shadow-none print:p-0">
         
         <!-- Memo Header -->
-        <div class="border-b-2 border-slate-800 pb-4 flex justify-between items-start">
-            <div>
-                <p class="text-xs font-bold uppercase tracking-widest text-slate-500">Bhopal Municipal Corporation · Environmental Planning Cell</p>
-                <h2 class="text-2xl font-black text-slate-900 mt-1">OFFICIAL MEMO: Durga Visarjan 2026 Ghat Water Safety & Risk Brief</h2>
-                <p class="text-xs text-slate-600 mt-1">Subject: 3-Year MPPCB Water Monitoring Analysis & NGT Order Compliance</p>
+        <div class="border-b-2 border-stone-900 pb-5 flex justify-between items-start">
+            <div class="space-y-1">
+                <p class="text-xs font-bold uppercase tracking-widest text-subtle">Bhopal Municipal Corporation · Environmental Planning Cell</p>
+                <h2 class="text-2xl sm:text-3xl font-display font-medium text-stone-900">OFFICIAL MEMO: Durga Visarjan 2026 Ghat Water Safety Brief</h2>
+                <p class="text-xs text-subtle">Subject: 3-Year MPPCB Water Monitoring Analysis & NGT Order Compliance</p>
             </div>
-            <div class="text-right text-xs text-slate-500">
+            <div class="text-right text-xs text-subtle shrink-0 pl-4">
                 <p>Date: <strong>11 October 2026</strong></p>
                 <p>Visarjan Date: <strong>20 October 2026 (9 Days Remaining)</strong></p>
-                <p class="text-rose-600 font-bold">Priority: High / Action Required</p>
+                <span class="inline-block mt-1 bg-rose-100 text-rose-800 font-bold px-2 py-0.5 rounded text-[10px]">High Priority</span>
             </div>
         </div>
 
         <!-- 1. Executive Summary -->
-        <div class="space-y-2">
-            <h3 class="text-base font-bold text-slate-900 uppercase border-b border-slate-200 pb-1">1. Executive Summary</h3>
-            <p class="text-sm text-slate-700">
+        <div class="space-y-3">
+            <h3 class="text-sm font-bold text-stone-900 uppercase tracking-wider border-b border-stone-200 pb-1.5">1. Executive Summary</h3>
+            <p class="text-sm text-stone-700 leading-relaxed">
                 This forwardable brief synthesizes 1,524 water quality readings across 7 Bhopal idol-immersion sites from 2023 to 2025 MPPCB annual reports, benchmarked against CPCB Class B (outdoor bathing) standards (Dissolved Oxygen &ge; 5.0 mg/l, BOD &le; 3.0 mg/l).
             </p>
-            <div class="bg-amber-50 border-l-4 border-amber-500 p-3 text-xs text-amber-900 rounded-r-lg space-y-1">
+            <div class="bg-amber-50/70 border border-amber-200/80 p-4 text-xs text-stone-800 rounded-2xl space-y-1.5">
                 <p><strong>Key Findings:</strong> 36.2% of Dissolved Oxygen readings failed the bathing standard. 89.3% of BOD tests violated organic pollution limits. Dissolved Oxygen collapsed to <strong>0.0 mg/l four separate times</strong> at Bairagarh kund.</p>
                 <p><strong>NGT Directive (2026):</strong> Immersion in the Upper and Lower Lakes is legally banned. BMC is operating dedicated artificial containment kunds.</p>
             </div>
@@ -142,20 +142,20 @@
 
         <!-- 2. Ranked Ghat List -->
         <div class="space-y-3">
-            <h3 class="text-base font-bold text-slate-900 uppercase border-b border-slate-200 pb-1">2. Ghat Risk Ranking (Prioritized Resource Allocation)</h3>
+            <h3 class="text-sm font-bold text-stone-900 uppercase tracking-wider border-b border-stone-200 pb-1.5">2. Ghat Risk Ranking (Prioritized Resource Allocation)</h3>
             <div class="space-y-3">
                 {% for g in summary %}
-                <div class="p-3.5 rounded-xl border {% if g.risk_level == 'CRITICAL' %}border-rose-300 bg-rose-50/40{% elif g.risk_level == 'HIGH' %}border-amber-300 bg-amber-50/30{% else %}border-slate-200 bg-slate-50/50{% endif %}">
+                <div class="p-4 rounded-2xl border {% if g.risk_level == 'CRITICAL' %}border-rose-200 bg-rose-50/30{% elif g.risk_level == 'HIGH' %}border-amber-200 bg-amber-50/30{% else %}border-stone-200 bg-stone-50/50{% endif %}">
                     <div class="flex justify-between items-center text-xs">
-                        <span class="font-black text-slate-900 text-sm">#{{ g.rank }} {{ g.site }} ({{ g.water_body }})</span>
-                        <span class="font-bold px-2 py-0.5 rounded text-[11px] {% if g.badge_color == 'rose' %}bg-rose-200 text-rose-900{% elif g.badge_color == 'orange' %}bg-orange-200 text-orange-900{% else %}bg-slate-200 text-slate-800{% endif %}">
+                        <span class="font-bold text-stone-900 text-sm">#{{ g.rank }} {{ g.site }} ({{ g.water_body }})</span>
+                        <span class="font-bold px-2.5 py-0.5 rounded-full text-[11px] {% if g.badge_color == 'rose' %}bg-rose-100 text-rose-800{% elif g.badge_color == 'orange' %}bg-orange-100 text-orange-800{% else %}bg-stone-200 text-stone-800{% endif %}">
                             Risk Score: {{ g.base_risk_score }}/100 ({{ g.risk_level }})
                         </span>
                     </div>
-                    <p class="text-xs text-slate-700 mt-1.5">
+                    <p class="text-xs text-stone-700 mt-2 leading-relaxed">
                         <strong>Rationale:</strong> {{ g.reason_en }}
                     </p>
-                    <p class="text-xs text-slate-900 mt-1 font-semibold">
+                    <p class="text-xs text-stone-900 mt-1.5 font-semibold">
                         <strong>Recommended BMC Action:</strong> {{ g.recommendations_en|join(' | ') }}
                     </p>
                 </div>
@@ -164,12 +164,12 @@
         </div>
 
         <!-- 3. Protocol for New Ghats -->
-        <div class="space-y-2">
-            <h3 class="text-base font-bold text-slate-900 uppercase border-b border-slate-200 pb-1">3. Mandatory Protocol for New BMC Immersion Sites</h3>
-            <p class="text-xs text-slate-700">
+        <div class="space-y-3">
+            <h3 class="text-sm font-bold text-stone-900 uppercase tracking-wider border-b border-stone-200 pb-1.5">3. Mandatory Protocol for New BMC Immersion Sites</h3>
+            <p class="text-xs text-stone-700 leading-relaxed">
                 Because direct lake immersion is banned by the NGT, new dedicated ghats carry <strong>zero historical baseline data</strong>. Officers must not assume them safe:
             </p>
-            <ul class="list-disc list-inside text-xs text-slate-700 space-y-1 pl-2">
+            <ul class="list-disc list-inside text-xs text-stone-700 space-y-1.5 pl-2">
                 <li>Deploy MPPCB water sampling 72 hours prior to 20 October.</li>
                 <li>Install mechanical aerators to prevent stagnant anoxia during high load.</li>
                 <li>Enforce retrieval of idol armatures and nirmalya within 24 to 48 hours.</li>
@@ -177,9 +177,9 @@
         </div>
 
         <!-- 4. Data Transparency & Gaps -->
-        <div class="space-y-2">
-            <h3 class="text-base font-bold text-slate-900 uppercase border-b border-slate-200 pb-1">4. Data Limitations & Honest Gaps</h3>
-            <ul class="list-disc list-inside text-xs text-slate-600 space-y-1 pl-2">
+        <div class="space-y-3">
+            <h3 class="text-sm font-bold text-stone-900 uppercase tracking-wider border-b border-stone-200 pb-1.5">4. Data Limitations & Honest Gaps</h3>
+            <ul class="list-disc list-inside text-xs text-stone-600 space-y-1.5 pl-2">
                 <li><strong>Missing 2025 Data:</strong> Bairagarh and Malikhedi kunds had no Durga 2025 sampling tables in the MPPCB report. Absence of data is not clean water.</li>
                 <li><strong>Naming Uncertainty:</strong> Rani Kamlapati site varies between "Kamla Park kund" and "Lower Lake ghat" across reports.</li>
                 <li><strong>No Health Claims:</strong> Data indicates CPCB statutory exceedance only; no epidemiological claims are made.</li>
@@ -187,13 +187,13 @@
         </div>
 
         <!-- Sign-off -->
-        <div class="pt-6 border-t border-slate-200 flex justify-between items-end text-xs text-slate-500">
+        <div class="pt-8 border-t border-stone-200 flex justify-between items-end text-xs text-subtle">
             <div>
                 <p>Prepared by: <strong>Anoop Shukla</strong> (Bhopal Impact Lab 2026)</p>
                 <p>Data Source: MPPCB Annual Visarjan Reports 2023, 2024, 2025</p>
             </div>
             <div class="text-right">
-                <p class="border-t border-slate-400 pt-1 w-48 text-center text-slate-700 font-bold">Nodal Planning Officer (BMC)</p>
+                <p class="border-t border-stone-400 pt-1.5 w-48 text-center text-stone-800 font-bold">Nodal Planning Officer (BMC)</p>
             </div>
         </div>
 
@@ -208,17 +208,17 @@
         if (lang === 'hi') {
             document.getElementById('brief-hi').classList.remove('hidden');
             document.getElementById('brief-en').classList.add('hidden');
-            document.getElementById('brief-tab-hi').classList.add('bg-teal-600', 'text-white');
-            document.getElementById('brief-tab-hi').classList.remove('bg-slate-100', 'text-slate-700');
-            document.getElementById('brief-tab-en').classList.remove('bg-teal-600', 'text-white');
-            document.getElementById('brief-tab-en').classList.add('bg-slate-100', 'text-slate-700');
+            document.getElementById('brief-tab-hi').classList.add('bg-stone-900', 'text-white');
+            document.getElementById('brief-tab-hi').classList.remove('bg-stone-100', 'text-stone-700');
+            document.getElementById('brief-tab-en').classList.remove('bg-stone-900', 'text-white');
+            document.getElementById('brief-tab-en').classList.add('bg-stone-100', 'text-stone-700');
         } else {
             document.getElementById('brief-en').classList.remove('hidden');
             document.getElementById('brief-hi').classList.add('hidden');
-            document.getElementById('brief-tab-en').classList.add('bg-teal-600', 'text-white');
-            document.getElementById('brief-tab-en').classList.remove('bg-slate-100', 'text-slate-700');
-            document.getElementById('brief-tab-hi').classList.remove('bg-teal-600', 'text-white');
-            document.getElementById('brief-tab-hi').classList.add('bg-slate-100', 'text-slate-700');
+            document.getElementById('brief-tab-en').classList.add('bg-stone-900', 'text-white');
+            document.getElementById('brief-tab-en').classList.remove('bg-stone-100', 'text-stone-700');
+            document.getElementById('brief-tab-hi').classList.remove('bg-stone-900', 'text-white');
+            document.getElementById('brief-tab-hi').classList.add('bg-stone-100', 'text-stone-700');
         }
     }
 </script>

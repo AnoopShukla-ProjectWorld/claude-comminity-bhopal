@@ -1,71 +1,73 @@
 {% extends 'base.html' %}
 
-{% block title %}{{ ghat.site }} · घाट विस्तृत विश्लेषण · Visarjan Ghat Watch{% endblock %}
+{% block title %}{{ ghat.site }} · विस्तृत विश्लेषण · Visarjan Ghat Watch{% endblock %}
 
 {% block content %}
-<div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8 space-y-8">
+<div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-10 space-y-10">
 
-    <!-- Top Navigation / Breadcrumbs -->
+    <!-- Top Navigation / Breadcrumbs (Clean Pill) -->
     <div class="flex items-center justify-between no-print">
-        <a href="/" class="inline-flex items-center space-x-2 text-xs font-bold text-teal-700 hover:text-teal-900 bg-teal-50 px-3 py-1.5 rounded-lg border border-teal-200">
+        <a href="/" class="inline-flex items-center space-x-2 text-xs font-semibold text-stone-700 hover:text-stone-950 bg-stone-100 hover:bg-stone-200 px-4 py-2 rounded-full transition">
             <span>&larr;</span> <span>डैशबोर्ड पर वापस जाएं (Back to Dashboard)</span>
         </a>
         <div class="flex items-center space-x-2">
-            <button onclick="window.print()" class="px-3 py-1.5 rounded-lg text-xs font-bold bg-slate-900 text-white hover:bg-slate-800 shadow">
+            <button onclick="window.print()" class="px-5 py-2 rounded-full text-xs font-semibold bg-stone-900 text-white hover:bg-stone-800 shadow-soft transition">
                 🖨️ इस घाट की रिपोर्ट प्रिंट करें
             </button>
         </div>
     </div>
 
-    <!-- Ghat Hero Card -->
-    <div class="bg-white rounded-3xl p-6 sm:p-8 border border-slate-200 shadow-md">
-        <div class="flex flex-col lg:flex-row lg:items-center justify-between gap-6">
-            <div class="space-y-3">
-                <div class="flex flex-wrap items-center gap-2">
-                    <span class="px-3 py-1 rounded-full text-xs font-bold {% if ghat_summary.badge_color == 'rose' %}bg-rose-100 text-rose-800 border border-rose-300{% elif ghat_summary.badge_color == 'orange' %}bg-orange-100 text-orange-800 border border-orange-300{% else %}bg-amber-100 text-amber-800 border border-amber-300{% endif %}">
-                        {{ ghat_summary.risk_badge }} · रैंक #{{ ghat_summary.rank }}
+    <!-- Ghat Hero Card (Airy, Editorial, Fraunces Title) -->
+    <div class="bg-white rounded-[2.5rem] p-8 sm:p-12 border border-stone-200/80 shadow-soft">
+        <div class="flex flex-col lg:flex-row lg:items-center justify-between gap-8">
+            <div class="space-y-4 max-w-3xl">
+                <div class="flex flex-wrap items-center gap-2.5">
+                    <span class="px-3.5 py-1 rounded-full text-xs font-bold {% if ghat_summary.badge_color == 'rose' %}bg-rose-100 text-rose-800 border border-rose-200{% elif ghat_summary.badge_color == 'orange' %}bg-orange-100 text-orange-800 border border-orange-200{% else %}bg-amber-100 text-amber-800 border border-amber-200{% endif %}">
+                        {{ ghat_summary.risk_badge }} · प्राथमिकता #{{ ghat_summary.rank }}
                     </span>
-                    <span class="bg-slate-100 text-slate-700 text-xs px-3 py-1 rounded-full font-medium">
+                    <span class="bg-stone-100 text-stone-700 text-xs px-3.5 py-1 rounded-full font-medium">
                         📍 {{ ghat.water_body }} ({{ ghat.type }})
                     </span>
                     {% if 'Banned' in ghat.ngt_status %}
-                    <span class="bg-rose-50 text-rose-700 text-xs font-bold px-3 py-1 rounded-full border border-rose-200">
+                    <span class="bg-rose-50 text-rose-700 text-xs font-bold px-3.5 py-1 rounded-full border border-rose-200">
                         🚫 NGT प्रतिबंधित जल निकाय
                     </span>
                     {% endif %}
                 </div>
-                <h2 class="text-2xl sm:text-3xl font-black text-slate-900">
+
+                <h2 class="text-3xl sm:text-4xl font-display font-medium text-stone-900 leading-tight">
                     {{ ghat.site }}
                 </h2>
-                <div class="text-sm font-medium text-slate-700 bg-slate-50 p-4 rounded-2xl border border-slate-100">
-                    <p class="font-hindi"><strong class="text-slate-900">विस्तृत जोखिम निष्कर्ष:</strong> {{ ghat_summary.reason_hi }}</p>
-                    <p class="text-xs text-slate-500 mt-1"><strong>English Rationale:</strong> {{ ghat_summary.reason_en }}</p>
+
+                <div class="text-xs sm:text-sm font-medium text-stone-700 bg-stone-50/80 p-5 rounded-2xl border border-stone-200/60 leading-relaxed">
+                    <p class="font-hindi"><strong class="text-stone-900 font-bold">विस्तृत जोखिम निष्कर्ष:</strong> {{ ghat_summary.reason_hi }}</p>
+                    <p class="text-xs text-subtle mt-1.5"><strong>English Rationale:</strong> {{ ghat_summary.reason_en }}</p>
                 </div>
             </div>
 
             <!-- Risk Score Widget -->
-            <div class="lg:w-64 shrink-0 bg-slate-900 text-white rounded-2xl p-5 text-center space-y-2 shadow-lg">
-                <span class="text-xs font-bold uppercase tracking-wider text-slate-400">समग्र जोखिम स्कोर</span>
-                <div class="text-4xl font-black text-teal-400">
-                    {{ ghat_summary.base_risk_score }}<span class="text-xs text-slate-400"> / 100</span>
+            <div class="lg:w-72 shrink-0 bg-stone-900 text-white rounded-[2rem] p-6 text-center space-y-3 shadow-lift border border-stone-800">
+                <span class="text-xs font-bold uppercase tracking-wider text-stone-400">समग्र जोखिम स्कोर</span>
+                <div class="text-5xl font-display font-bold text-emerald-400">
+                    {{ ghat_summary.base_risk_score }}<span class="text-xs text-stone-400 font-sans font-normal"> / 100</span>
                 </div>
-                <div class="text-[11px] text-slate-300 border-t border-slate-800 pt-2 space-y-1">
-                    <p>DO विफलता: <strong>{{ ghat_summary.do_fails }}</strong></p>
-                    <p>BOD विफलता: <strong>{{ ghat_summary.bod_fails }}</strong></p>
+                <div class="text-xs text-stone-300 border-t border-stone-800 pt-3 space-y-1.5 font-hindi">
+                    <p>DO विफलता दर: <strong>{{ ghat_summary.do_fails }} ({{ ghat_summary.do_fail_pct }}%)</strong></p>
+                    <p>BOD विफलता दर: <strong>{{ ghat_summary.bod_fails }} ({{ ghat_summary.bod_fail_pct }}%)</strong></p>
                     <p>डेटा पूर्णता: <strong>{{ ghat_summary.completeness_pct }}%</strong></p>
                 </div>
             </div>
         </div>
     </div>
 
-    <!-- Recommendations Directive -->
-    <div class="bg-amber-50/70 border border-amber-200/80 rounded-2xl p-5 space-y-2">
-        <h3 class="text-xs font-bold uppercase tracking-wider text-amber-900 flex items-center gap-1.5">
+    <!-- Action Directive Box -->
+    <div class="bg-amber-50/60 border border-amber-200/80 rounded-[2rem] p-8 space-y-3">
+        <h3 class="text-xs font-bold uppercase tracking-wider text-amber-900 flex items-center gap-2">
             <span>⚡</span> BMC विसर्जन योजना निर्देश (Action Protocol for this Ghat):
         </h3>
-        <ul class="text-xs text-amber-950 font-hindi space-y-1.5 pl-2">
+        <ul class="text-xs sm:text-sm text-stone-800 font-hindi space-y-2 pl-2">
             {% for r_hi in ghat_summary.recommendations_hi %}
-            <li class="flex items-start gap-2">
+            <li class="flex items-start gap-2.5">
                 <span class="text-amber-700 font-bold">✔</span> <span>{{ r_hi }}</span>
             </li>
             {% endfor %}
@@ -73,90 +75,90 @@
     </div>
 
     <!-- Charts Row -->
-    <div class="grid grid-cols-1 lg:grid-cols-2 gap-6">
+    <div class="grid grid-cols-1 lg:grid-cols-2 gap-8">
         <!-- Chart 1: Year-over-Year Trends -->
-        <div class="bg-white p-5 rounded-2xl border border-slate-200 shadow-sm space-y-3">
-            <div class="flex justify-between items-center">
-                <h4 class="font-bold text-slate-900 text-sm">सालाना रुझान (Year-over-Year Trend: 2023 - 2025)</h4>
-                <span class="text-xs text-slate-400 font-mono">DO vs BOD (Median)</span>
+        <div class="bg-white p-8 rounded-[2rem] border border-stone-200/80 shadow-soft space-y-4">
+            <div class="flex justify-between items-center border-b border-stone-100 pb-3">
+                <h4 class="font-bold text-stone-900 text-sm">सालाना रुझान (Year-over-Year Trend: 2023 - 2025)</h4>
+                <span class="text-xs text-subtle font-mono">DO vs BOD (Median)</span>
             </div>
-            <div class="h-64">
+            <div class="h-72">
                 <canvas id="yoyChart"></canvas>
             </div>
-            <p class="text-[11px] text-slate-500 font-hindi">
+            <p class="text-xs text-subtle font-hindi">
                 वर्ष 2023 से 2025 के दौरान ऑक्सीजन एवं जैविक अपशिष्ट में परिवर्तन।
             </p>
         </div>
 
         <!-- Chart 2: Phase Spike Impact -->
-        <div class="bg-white p-5 rounded-2xl border border-slate-200 shadow-sm space-y-3">
-            <div class="flex justify-between items-center">
-                <h4 class="font-bold text-slate-900 text-sm">विसर्जन के चरणों का प्रभाव (Pre &rarr; During &rarr; After)</h4>
-                <span class="text-xs text-slate-400 font-mono">Phase Medians</span>
+        <div class="bg-white p-8 rounded-[2rem] border border-stone-200/80 shadow-soft space-y-4">
+            <div class="flex justify-between items-center border-b border-stone-100 pb-3">
+                <h4 class="font-bold text-stone-900 text-sm">विसर्जन के चरणों का प्रभाव (Pre &rarr; During &rarr; After)</h4>
+                <span class="text-xs text-subtle font-mono">Phase Medians</span>
             </div>
-            <div class="h-64">
+            <div class="h-72">
                 <canvas id="phaseChart"></canvas>
             </div>
-            <p class="text-[11px] text-slate-500 font-hindi">
+            <p class="text-xs text-subtle font-hindi">
                 विसर्जन के दौरान ऑक्सीजन गिरावट और कचरे का उछाल।
             </p>
         </div>
     </div>
 
     <!-- Verified Readings Table for this Ghat -->
-    <div class="bg-white rounded-2xl border border-slate-200 overflow-hidden shadow-sm">
-        <div class="px-5 py-4 border-b border-slate-200 bg-slate-50 flex justify-between items-center">
+    <div class="bg-white rounded-[2rem] border border-stone-200/80 overflow-hidden shadow-soft">
+        <div class="px-8 py-5 border-b border-stone-100 bg-stone-50/50 flex justify-between items-center">
             <div>
-                <h4 class="font-bold text-slate-900 text-sm">इस घाट के सभी ऐतिहासिक परीक्षण (Total {{ deep_dive.total_readings }} Readings)</h4>
-                <p class="text-xs text-slate-500 font-hindi">MPPCB 2023, 2024 व 2025 वार्षिक रिपोर्टों से 100% सत्यापित</p>
+                <h4 class="font-bold text-stone-900 text-sm">इस घाट के सभी ऐतिहासिक परीक्षण (Total {{ deep_dive.total_readings }} Readings)</h4>
+                <p class="text-xs text-subtle font-hindi">MPPCB 2023, 2024 व 2025 वार्षिक रिपोर्टों से 100% सत्यापित</p>
             </div>
-            <span class="text-xs font-mono bg-slate-200 text-slate-800 px-2.5 py-1 rounded-md">CPCB Class B Standard</span>
+            <span class="text-xs font-mono bg-stone-200/80 text-stone-800 px-3 py-1 rounded-full font-bold">CPCB Class B Standard</span>
         </div>
-        <div class="overflow-x-auto max-h-[500px] overflow-y-auto">
-            <table class="w-full text-left text-xs text-slate-700">
-                <thead class="bg-slate-100 text-slate-700 font-bold uppercase tracking-wider text-[11px] sticky top-0 shadow-sm">
+        <div class="overflow-x-auto max-h-[550px] overflow-y-auto">
+            <table class="w-full text-left text-xs text-stone-700">
+                <thead class="bg-stone-100 text-stone-600 font-bold uppercase tracking-wider text-[11px] sticky top-0 shadow-sm">
                     <tr>
-                        <th class="py-2.5 px-4">वर्ष / त्योहार</th>
-                        <th class="py-2.5 px-4">चरण (Phase)</th>
-                        <th class="py-2.5 px-4">पैरामीटर</th>
-                        <th class="py-2.5 px-4">परीक्षण मान (Value)</th>
-                        <th class="py-2.5 px-4">CPCB स्थिति</th>
-                        <th class="py-2.5 px-4">स्रोत PDF एवं पृष्ठ</th>
+                        <th class="py-3.5 px-6">वर्ष / त्योहार</th>
+                        <th class="py-3.5 px-6">चरण (Phase)</th>
+                        <th class="py-3.5 px-6">पैरामीटर</th>
+                        <th class="py-3.5 px-6">परीक्षण मान (Value)</th>
+                        <th class="py-3.5 px-6">CPCB स्थिति</th>
+                        <th class="py-3.5 px-6">स्रोत PDF एवं पृष्ठ</th>
                     </tr>
                 </thead>
-                <tbody class="divide-y divide-slate-100 font-mono">
+                <tbody class="divide-y divide-stone-100 font-mono">
                     {% for r in deep_dive.readings %}
-                    <tr class="hover:bg-slate-50">
-                        <td class="py-2.5 px-4 font-sans font-semibold">
-                            <span class="bg-slate-100 px-2 py-0.5 rounded">{{ r.year }}</span>
-                            <span class="text-slate-500 ml-1">{{ r.festival }}</span>
+                    <tr class="hover:bg-stone-50/60 transition">
+                        <td class="py-3 px-6 font-sans font-semibold">
+                            <span class="bg-stone-100 px-2 py-0.5 rounded text-stone-900">{{ r.year }}</span>
+                            <span class="text-subtle ml-1">{{ r.festival }}</span>
                         </td>
-                        <td class="py-2.5 px-4 font-sans">
+                        <td class="py-3 px-6 font-sans">
                             {% if r.phase == 'pre' %}
                             <span class="text-blue-700 font-bold">Pre (पूर्व)</span>
                             {% elif r.phase == 'during' %}
                             <span class="text-purple-700 font-bold">During (दौरान)</span>
                             {% else %}
-                            <span class="text-slate-700 font-bold">After (1 सप्ताह बाद)</span>
+                            <span class="text-stone-700 font-bold">After (1 सप्ताह बाद)</span>
                             {% endif %}
                         </td>
-                        <td class="py-2.5 px-4 font-sans">
-                            <strong>{{ r.parameter }}</strong> <span class="text-slate-400">({{ r.unit_assumed }})</span>
+                        <td class="py-3 px-6 font-sans">
+                            <strong class="text-stone-900">{{ r.parameter }}</strong> <span class="text-subtle">({{ r.unit_assumed }})</span>
                         </td>
-                        <td class="py-2.5 px-4 font-bold">
+                        <td class="py-3 px-6 font-bold">
                             {% if r.is_missing %}
-                            <span class="text-slate-400 italic">Not Sampled</span>
+                            <span class="text-stone-400 italic font-sans">Not Sampled</span>
                             {% elif r.is_bdl %}
-                            <span class="text-teal-700">BDL</span>
+                            <span class="text-teal-700 font-sans">BDL</span>
                             {% elif r.value == 0.0 and r.parameter == 'Dissolved oxygen' %}
                             <span class="text-rose-600 bg-rose-100 px-2 py-0.5 rounded font-black">0.0 (Zero DO)</span>
                             {% elif r.cpcb_status == 'FAIL_CLASS_B' or r.cpcb_status == 'FAIL_CLASS_D' or r.cpcb_status == 'CRITICAL_BOD' %}
                             <span class="text-rose-600">{{ r.value }}</span>
                             {% else %}
-                            <span class="text-slate-800">{{ r.value }}</span>
+                            <span class="text-stone-900">{{ r.value }}</span>
                             {% endif %}
                         </td>
-                        <td class="py-2.5 px-4 font-sans">
+                        <td class="py-3 px-6 font-sans">
                             {% if r.cpcb_status == 'CRITICAL_ZERO' %}
                             <span class="text-rose-700 font-black">🔴 DO शून्य (विफल)</span>
                             {% elif r.cpcb_status == 'FAIL_CLASS_B' or r.cpcb_status == 'CRITICAL_BOD' %}
@@ -166,11 +168,11 @@
                             {% elif r.cpcb_status == 'SAFE_BDL' %}
                             <span class="text-teal-700">BDL सुरक्षित</span>
                             {% else %}
-                            <span class="text-slate-400">—</span>
+                            <span class="text-stone-400">—</span>
                             {% endif %}
                         </td>
-                        <td class="py-2.5 px-4 font-sans text-teal-800 font-bold">
-                            <a href="/pdf/{{ r.report_pdf }}#page={{ r.source_page }}" target="_blank" title="मूल MPPCB रिपोर्ट PDF में यह पृष्ठ देखें" class="hover:underline hover:text-teal-950 inline-flex items-center gap-1">
+                        <td class="py-3 px-6 font-sans text-emerald-800 font-bold">
+                            <a href="/pdf/{{ r.report_pdf }}#page={{ r.source_page }}" target="_blank" title="मूल MPPCB रिपोर्ट PDF में यह पृष्ठ देखें" class="hover:underline hover:text-emerald-950 inline-flex items-center gap-1">
                                 📄 पृष्ठ {{ r.source_page }} · {{ r.report_pdf }} &nearr;
                             </a>
                         </td>
@@ -201,20 +203,20 @@
                 {
                     label: 'घुलित ऑक्सीजन (DO mg/l, Standard ≥ 5)',
                     data: yoyDO,
-                    borderColor: 'rgba(14, 165, 233, 1)',
-                    backgroundColor: 'rgba(14, 165, 233, 0.1)',
+                    borderColor: 'rgba(13, 148, 136, 1)',
+                    backgroundColor: 'rgba(13, 148, 136, 0.08)',
                     borderWidth: 3,
                     fill: true,
-                    tension: 0.3
+                    tension: 0.35
                 },
                 {
                     label: 'BOD (mg/l, Standard ≤ 3)',
                     data: yoyBOD,
                     borderColor: 'rgba(239, 68, 68, 1)',
-                    backgroundColor: 'rgba(239, 68, 68, 0.1)',
+                    backgroundColor: 'rgba(239, 68, 68, 0.08)',
                     borderWidth: 3,
                     fill: true,
-                    tension: 0.3
+                    tension: 0.35
                 }
             ]
         },
@@ -222,7 +224,14 @@
             responsive: true,
             maintainAspectRatio: false,
             scales: {
-                y: { beginAtZero: true, title: { display: true, text: 'mg/l' } }
+                y: { 
+                    beginAtZero: true, 
+                    grid: { color: 'rgba(0,0,0,0.04)' },
+                    title: { display: true, text: 'mg/l' } 
+                },
+                x: {
+                    grid: { display: false }
+                }
             }
         }
     });
@@ -243,14 +252,14 @@
                 {
                     label: 'Median DO (mg/l)',
                     data: phaseDO,
-                    backgroundColor: 'rgba(14, 165, 233, 0.8)',
-                    borderRadius: 6
+                    backgroundColor: 'rgba(13, 148, 136, 0.8)',
+                    borderRadius: 10
                 },
                 {
                     label: 'Median BOD (mg/l)',
                     data: phaseBOD,
                     backgroundColor: 'rgba(239, 68, 68, 0.8)',
-                    borderRadius: 6
+                    borderRadius: 10
                 }
             ]
         },
@@ -258,7 +267,14 @@
             responsive: true,
             maintainAspectRatio: false,
             scales: {
-                y: { beginAtZero: true, title: { display: true, text: 'mg/l' } }
+                y: { 
+                    beginAtZero: true, 
+                    grid: { color: 'rgba(0,0,0,0.04)' },
+                    title: { display: true, text: 'mg/l' } 
+                },
+                x: {
+                    grid: { display: false }
+                }
             }
         }
     });
