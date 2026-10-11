@@ -1,47 +1,74 @@
 {% extends 'base.html' %}
 
 {% block content %}
-<div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-10 space-y-12">
+<!-- FULL-WIDTH CINEMATIC HERO BANNER (Edge-to-Edge with Split-Fade Image) -->
+<section class="relative w-full bg-stone-950 text-white overflow-hidden border-b border-stone-800/80 shadow-lift">
+    <!-- Right 50% Image Container with Smooth Left Fade Mask -->
+    <div class="absolute inset-y-0 right-0 w-full lg:w-1/2 pointer-events-none select-none z-0">
+        <img src="/static/img/gallery/visarjan_containment_operation.jpeg" 
+             alt="Bhopal Visarjan Ghat Operation" 
+             class="w-full h-full object-cover object-center opacity-40 lg:opacity-75">
+        <!-- Multi-directional gradient masks for seamless fade -->
+        <div class="absolute inset-0 bg-gradient-to-t from-stone-950 via-stone-950/60 to-transparent lg:hidden"></div>
+        <div class="hidden lg:block absolute inset-0 bg-gradient-to-r from-stone-950 via-stone-950/70 to-transparent"></div>
+        <div class="hidden lg:block absolute inset-y-0 left-0 w-32 bg-gradient-to-r from-stone-950 to-transparent"></div>
+    </div>
 
-    <!-- HERO SECTION: Spacious, Editorial & Calming Tone -->
-    <div class="relative bg-gradient-to-br from-stone-900 via-stone-900 to-emerald-950 rounded-[2.5rem] p-8 sm:p-12 text-white shadow-floating overflow-hidden border border-stone-800">
-        <div class="absolute -right-16 -bottom-16 w-96 h-96 bg-emerald-500/10 rounded-full blur-3xl pointer-events-none"></div>
-        <div class="relative z-10 flex flex-col lg:flex-row lg:items-center justify-between gap-10">
-            <div class="space-y-4 max-w-3xl">
-                <div class="inline-flex items-center space-x-2 px-3.5 py-1 rounded-full bg-emerald-500/10 text-emerald-300 text-xs font-semibold border border-emerald-500/20">
-                    <span class="w-2 h-2 rounded-full bg-emerald-400 animate-pulse"></span>
-                    <span>नगर पालिक निगम भोपाल · विसर्जन योजना 2026</span>
-                </div>
-                
-                <h2 class="text-3xl sm:text-4xl lg:text-5xl font-display font-medium tracking-tight text-white leading-tight">
-                    भोपाल विसर्जन घाट जल गुणवत्ता एवं प्राथमिकता रैंकिंग
-                </h2>
-                
-                <p class="text-stone-300 text-sm sm:text-base leading-relaxed font-hindi font-light max-w-2xl">
-                    MPPCB के 3 वर्षों (2023–2025) के 1,524 प्रमाणित जल परीक्षणों का निष्पक्ष विश्लेषण। दुर्गा विसर्जन से पूर्व संसाधन आवंटन, वातन (Aeration) व तात्कालिक सफाई हेतु समर्पित निर्णय प्रणाली।
-                </p>
-
-                <div class="flex flex-wrap items-center gap-3 pt-2 text-xs text-stone-300">
-                    <span class="bg-white/10 px-3.5 py-1.5 rounded-full border border-white/10">📅 दुर्गा विसर्जन: <strong>20 अक्टूबर 2026</strong></span>
-                    <span class="bg-rose-500/20 text-rose-300 border border-rose-500/30 px-3.5 py-1.5 rounded-full font-bold">⏳ 9 दिन शेष</span>
-                    <span class="bg-amber-500/20 text-amber-300 border border-amber-500/30 px-3.5 py-1.5 rounded-full">⚖️ CPCB Class B Standard</span>
-                </div>
+    <!-- Banner Content (Spacious, Left Aligned, High Contrast) -->
+    <div class="relative z-10 max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-14 sm:py-20 lg:py-24">
+        <div class="max-w-3xl space-y-6">
+            <!-- Advisory Tag -->
+            <div class="inline-flex items-center space-x-2.5 px-4 py-1.5 rounded-full bg-emerald-500/15 text-emerald-300 text-xs font-semibold border border-emerald-500/30 backdrop-blur-sm">
+                <span class="w-2 h-2 rounded-full bg-emerald-400 animate-pulse"></span>
+                <span>नगर पालिक निगम भोपाल · दुर्गा विसर्जन कार्ययोजना 2026</span>
             </div>
 
-            <!-- Single-Click High Value CTA Cluster -->
-            <div class="flex flex-col sm:flex-row lg:flex-col gap-3 shrink-0">
-                <button onclick="openModal('addReadingModal')" class="inline-flex items-center justify-center space-x-2 px-6 py-3.5 rounded-full bg-emerald-500 text-stone-950 font-bold text-xs uppercase tracking-wider hover:bg-emerald-400 hover:scale-[1.02] active:scale-[0.98] transition shadow-soft">
+            <!-- Main Heading in Fraunces Serif -->
+            <h1 class="text-3xl sm:text-4xl lg:text-5xl font-display font-medium text-white tracking-tight leading-[1.15]">
+                भोपाल विसर्जन घाट जल गुणवत्ता एवं प्राथमिकता रैंकिंग
+            </h1>
+
+            <!-- Explanatory Subtext -->
+            <p class="text-stone-300 text-sm sm:text-base leading-relaxed font-hindi font-light max-w-2xl">
+                मध्य प्रदेश प्रदूषण नियंत्रण बोर्ड (MPPCB) के 3 वर्षों (2023–2025) के 1,524 प्रमाणित जल परीक्षणों का निष्पक्ष विश्लेषण। 20 अक्टूबर दुर्गा विसर्जन से पूर्व संसाधन आवंटन, वातन (Aeration) व तात्कालिक सफाई हेतु आधिकारिक निर्णय प्रणाली।
+            </p>
+
+            <!-- Action Buttons Row (Clean, Generous Padding, No Cramping) -->
+            <div class="flex flex-wrap items-center gap-3.5 pt-2">
+                <button onclick="openModal('addReadingModal')" 
+                        class="inline-flex items-center space-x-2 px-6 py-3.5 rounded-full bg-emerald-500 hover:bg-emerald-400 text-stone-950 font-bold text-xs uppercase tracking-wider transition-all duration-200 shadow-soft hover:shadow-lift hover:scale-[1.02] active:scale-[0.98]">
                     <span>➕ नया 2026 परीक्षण डेटा जोड़ें</span>
                 </button>
-                <a href="/brief" class="inline-flex items-center justify-center space-x-2 px-6 py-3.5 rounded-full bg-white/10 hover:bg-white/20 text-white font-medium text-xs transition border border-white/10">
+
+                <a href="/brief" 
+                   class="inline-flex items-center space-x-2 px-6 py-3.5 rounded-full bg-stone-900/90 hover:bg-stone-800 text-white font-medium text-xs transition-all duration-200 border border-stone-700/80 backdrop-blur-sm hover:border-stone-500">
                     <span>📑 अधिकारी ब्रीफ देखें (Memo) &rarr;</span>
                 </a>
-                <a href="/export-csv" class="inline-flex items-center justify-center space-x-2 px-6 py-3.5 rounded-full bg-stone-800/80 hover:bg-stone-800 text-stone-300 font-medium text-xs transition border border-stone-700/60">
+
+                <a href="/export-csv" 
+                   class="inline-flex items-center space-x-2 px-6 py-3.5 rounded-full bg-stone-900/60 hover:bg-stone-800 text-stone-300 font-medium text-xs transition-all duration-200 border border-stone-800 hover:text-white backdrop-blur-sm">
                     <span>📥 रैंकिंग CSV डाउनलोड करें</span>
                 </a>
             </div>
+
+            <!-- Key Metadata Strip (Pill Badges) -->
+            <div class="flex flex-wrap items-center gap-3 pt-3 text-xs text-stone-300 border-t border-stone-800/80 max-w-xl">
+                <span class="bg-white/10 px-3.5 py-1.5 rounded-full border border-white/10 backdrop-blur-sm">
+                    📅 विसर्जन तिथि: <strong class="text-white">20 अक्टूबर 2026</strong>
+                </span>
+                <span class="bg-rose-500/20 text-rose-300 border border-rose-500/30 px-3.5 py-1.5 rounded-full font-bold">
+                    ⏳ उल्टी गिनती: 9 दिन शेष
+                </span>
+                <span class="bg-amber-500/20 text-amber-300 border border-amber-500/30 px-3.5 py-1.5 rounded-full">
+                    ⚖️ CPCB Class B Standard
+                </span>
+            </div>
         </div>
     </div>
+</section>
+
+<!-- MAIN CONTAINER FOR THE REST OF DASHBOARD -->
+<div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-10 space-y-12">
 
     <!-- 4 AIRY KPI CARDS: Clean, Soft Shadows, Generous Padding -->
     <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6">
