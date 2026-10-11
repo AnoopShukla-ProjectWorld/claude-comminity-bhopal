@@ -1,0 +1,264 @@
+{% extends 'base.html' %}
+
+{% block title %}{{ ghat.site }} · घाट विस्तृत विश्लेषण · Visarjan Ghat Watch{% endblock %}
+
+{% block content %}
+<div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8 space-y-8">
+
+    <!-- Top Navigation / Breadcrumbs -->
+    <div class="flex items-center justify-between no-print">
+        <a href="/" class="inline-flex items-center space-x-2 text-xs font-bold text-teal-700 hover:text-teal-900 bg-teal-50 px-3 py-1.5 rounded-lg border border-teal-200">
+            <span>&larr;</span> <span>डैशबोर्ड पर वापस जाएं (Back to Dashboard)</span>
+        </a>
+        <div class="flex items-center space-x-2">
+            <button onclick="window.print()" class="px-3 py-1.5 rounded-lg text-xs font-bold bg-slate-900 text-white hover:bg-slate-800 shadow">
+                🖨️ इस घाट की रिपोर्ट प्रिंट करें
+            </button>
+        </div>
+    </div>
+
+    <!-- Ghat Hero Card -->
+    <div class="bg-white rounded-3xl p-6 sm:p-8 border border-slate-200 shadow-md">
+        <div class="flex flex-col lg:flex-row lg:items-center justify-between gap-6">
+            <div class="space-y-3">
+                <div class="flex flex-wrap items-center gap-2">
+                    <span class="px-3 py-1 rounded-full text-xs font-bold {% if ghat_summary.badge_color == 'rose' %}bg-rose-100 text-rose-800 border border-rose-300{% elif ghat_summary.badge_color == 'orange' %}bg-orange-100 text-orange-800 border border-orange-300{% else %}bg-amber-100 text-amber-800 border border-amber-300{% endif %}">
+                        {{ ghat_summary.risk_badge }} · रैंक #{{ ghat_summary.rank }}
+                    </span>
+                    <span class="bg-slate-100 text-slate-700 text-xs px-3 py-1 rounded-full font-medium">
+                        📍 {{ ghat.water_body }} ({{ ghat.type }})
+                    </span>
+                    {% if 'Banned' in ghat.ngt_status %}
+                    <span class="bg-rose-50 text-rose-700 text-xs font-bold px-3 py-1 rounded-full border border-rose-200">
+                        🚫 NGT प्रतिबंधित जल निकाय
+                    </span>
+                    {% endif %}
+                </div>
+                <h2 class="text-2xl sm:text-3xl font-black text-slate-900">
+                    {{ ghat.site }}
+                </h2>
+                <div class="text-sm font-medium text-slate-700 bg-slate-50 p-4 rounded-2xl border border-slate-100">
+                    <p class="font-hindi"><strong class="text-slate-900">विस्तृत जोखिम निष्कर्ष:</strong> {{ ghat_summary.reason_hi }}</p>
+                    <p class="text-xs text-slate-500 mt-1"><strong>English Rationale:</strong> {{ ghat_summary.reason_en }}</p>
+                </div>
+            </div>
+
+            <!-- Risk Score Widget -->
+            <div class="lg:w-64 shrink-0 bg-slate-900 text-white rounded-2xl p-5 text-center space-y-2 shadow-lg">
+                <span class="text-xs font-bold uppercase tracking-wider text-slate-400">समग्र जोखिम स्कोर</span>
+                <div class="text-4xl font-black text-teal-400">
+                    {{ ghat_summary.base_risk_score }}<span class="text-xs text-slate-400"> / 100</span>
+                </div>
+                <div class="text-[11px] text-slate-300 border-t border-slate-800 pt-2 space-y-1">
+                    <p>DO विफलता: <strong>{{ ghat_summary.do_fails }}</strong></p>
+                    <p>BOD विफलता: <strong>{{ ghat_summary.bod_fails }}</strong></p>
+                    <p>डेटा पूर्णता: <strong>{{ ghat_summary.completeness_pct }}%</strong></p>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Recommendations Directive -->
+    <div class="bg-amber-50/70 border border-amber-200/80 rounded-2xl p-5 space-y-2">
+        <h3 class="text-xs font-bold uppercase tracking-wider text-amber-900 flex items-center gap-1.5">
+            <span>⚡</span> BMC विसर्जन योजना निर्देश (Action Protocol for this Ghat):
+        </h3>
+        <ul class="text-xs text-amber-950 font-hindi space-y-1.5 pl-2">
+            {% for r_hi in ghat_summary.recommendations_hi %}
+            <li class="flex items-start gap-2">
+                <span class="text-amber-700 font-bold">✔</span> <span>{{ r_hi }}</span>
+            </li>
+            {% endfor %}
+        </ul>
+    </div>
+
+    <!-- Charts Row -->
+    <div class="grid grid-cols-1 lg:grid-cols-2 gap-6">
+        <!-- Chart 1: Year-over-Year Trends -->
+        <div class="bg-white p-5 rounded-2xl border border-slate-200 shadow-sm space-y-3">
+            <div class="flex justify-between items-center">
+                <h4 class="font-bold text-slate-900 text-sm">सालाना रुझान (Year-over-Year Trend: 2023 - 2025)</h4>
+                <span class="text-xs text-slate-400 font-mono">DO vs BOD (Median)</span>
+            </div>
+            <div class="h-64">
+                <canvas id="yoyChart"></canvas>
+            </div>
+            <p class="text-[11px] text-slate-500 font-hindi">
+                वर्ष 2023 से 2025 के दौरान ऑक्सीजन एवं जैविक अपशिष्ट में परिवर्तन।
+            </p>
+        </div>
+
+        <!-- Chart 2: Phase Spike Impact -->
+        <div class="bg-white p-5 rounded-2xl border border-slate-200 shadow-sm space-y-3">
+            <div class="flex justify-between items-center">
+                <h4 class="font-bold text-slate-900 text-sm">विसर्जन के चरणों का प्रभाव (Pre &rarr; During &rarr; After)</h4>
+                <span class="text-xs text-slate-400 font-mono">Phase Medians</span>
+            </div>
+            <div class="h-64">
+                <canvas id="phaseChart"></canvas>
+            </div>
+            <p class="text-[11px] text-slate-500 font-hindi">
+                विसर्जन के दौरान ऑक्सीजन गिरावट और कचरे का उछाल।
+            </p>
+        </div>
+    </div>
+
+    <!-- Verified Readings Table for this Ghat -->
+    <div class="bg-white rounded-2xl border border-slate-200 overflow-hidden shadow-sm">
+        <div class="px-5 py-4 border-b border-slate-200 bg-slate-50 flex justify-between items-center">
+            <div>
+                <h4 class="font-bold text-slate-900 text-sm">इस घाट के सभी ऐतिहासिक परीक्षण (Total {{ deep_dive.total_readings }} Readings)</h4>
+                <p class="text-xs text-slate-500 font-hindi">MPPCB 2023, 2024 व 2025 वार्षिक रिपोर्टों से 100% सत्यापित</p>
+            </div>
+            <span class="text-xs font-mono bg-slate-200 text-slate-800 px-2.5 py-1 rounded-md">CPCB Class B Standard</span>
+        </div>
+        <div class="overflow-x-auto max-h-[500px] overflow-y-auto">
+            <table class="w-full text-left text-xs text-slate-700">
+                <thead class="bg-slate-100 text-slate-700 font-bold uppercase tracking-wider text-[11px] sticky top-0 shadow-sm">
+                    <tr>
+                        <th class="py-2.5 px-4">वर्ष / त्योहार</th>
+                        <th class="py-2.5 px-4">चरण (Phase)</th>
+                        <th class="py-2.5 px-4">पैरामीटर</th>
+                        <th class="py-2.5 px-4">परीक्षण मान (Value)</th>
+                        <th class="py-2.5 px-4">CPCB स्थिति</th>
+                        <th class="py-2.5 px-4">स्रोत PDF एवं पृष्ठ</th>
+                    </tr>
+                </thead>
+                <tbody class="divide-y divide-slate-100 font-mono">
+                    {% for r in deep_dive.readings %}
+                    <tr class="hover:bg-slate-50">
+                        <td class="py-2.5 px-4 font-sans font-semibold">
+                            <span class="bg-slate-100 px-2 py-0.5 rounded">{{ r.year }}</span>
+                            <span class="text-slate-500 ml-1">{{ r.festival }}</span>
+                        </td>
+                        <td class="py-2.5 px-4 font-sans">
+                            {% if r.phase == 'pre' %}
+                            <span class="text-blue-700 font-bold">Pre (पूर्व)</span>
+                            {% elif r.phase == 'during' %}
+                            <span class="text-purple-700 font-bold">During (दौरान)</span>
+                            {% else %}
+                            <span class="text-slate-700 font-bold">After (1 सप्ताह बाद)</span>
+                            {% endif %}
+                        </td>
+                        <td class="py-2.5 px-4 font-sans">
+                            <strong>{{ r.parameter }}</strong> <span class="text-slate-400">({{ r.unit_assumed }})</span>
+                        </td>
+                        <td class="py-2.5 px-4 font-bold">
+                            {% if r.is_missing %}
+                            <span class="text-slate-400 italic">Not Sampled</span>
+                            {% elif r.is_bdl %}
+                            <span class="text-teal-700">BDL</span>
+                            {% elif r.value == 0.0 and r.parameter == 'Dissolved oxygen' %}
+                            <span class="text-rose-600 bg-rose-100 px-2 py-0.5 rounded font-black">0.0 (Zero DO)</span>
+                            {% elif r.cpcb_status == 'FAIL_CLASS_B' or r.cpcb_status == 'FAIL_CLASS_D' or r.cpcb_status == 'CRITICAL_BOD' %}
+                            <span class="text-rose-600">{{ r.value }}</span>
+                            {% else %}
+                            <span class="text-slate-800">{{ r.value }}</span>
+                            {% endif %}
+                        </td>
+                        <td class="py-2.5 px-4 font-sans">
+                            {% if r.cpcb_status == 'CRITICAL_ZERO' %}
+                            <span class="text-rose-700 font-black">🔴 DO शून्य (विफल)</span>
+                            {% elif r.cpcb_status == 'FAIL_CLASS_B' or r.cpcb_status == 'CRITICAL_BOD' %}
+                            <span class="text-rose-600 font-bold">⚠️ मानक उल्लंघन</span>
+                            {% elif r.cpcb_status == 'PASS' %}
+                            <span class="text-emerald-700 font-bold">✔ मानक अनुरूप</span>
+                            {% elif r.cpcb_status == 'SAFE_BDL' %}
+                            <span class="text-teal-700">BDL सुरक्षित</span>
+                            {% else %}
+                            <span class="text-slate-400">—</span>
+                            {% endif %}
+                        </td>
+                        <td class="py-2.5 px-4 font-sans text-teal-800 font-bold">
+                            📄 पृष्ठ {{ r.source_page }} · {{ r.report_pdf }}
+                        </td>
+                    </tr>
+                    {% endfor %}
+                </tbody>
+            </table>
+        </div>
+    </div>
+
+</div>
+{% endblock %}
+
+{% block scripts %}
+<script>
+    // YoY Trend Chart
+    const yoyTrends = {{ deep_dive.yoy_trends|tojson }};
+    const yoyYears = Object.keys(yoyTrends);
+    const yoyDO = yoyYears.map(y => yoyTrends[y].do);
+    const yoyBOD = yoyYears.map(y => yoyTrends[y].bod);
+
+    const ctxYoY = document.getElementById('yoyChart').getContext('2d');
+    new Chart(ctxYoY, {
+        type: 'line',
+        data: {
+            labels: yoyYears,
+            datasets: [
+                {
+                    label: 'घुलित ऑक्सीजन (DO mg/l, Standard ≥ 5)',
+                    data: yoyDO,
+                    borderColor: 'rgba(14, 165, 233, 1)',
+                    backgroundColor: 'rgba(14, 165, 233, 0.1)',
+                    borderWidth: 3,
+                    fill: true,
+                    tension: 0.3
+                },
+                {
+                    label: 'BOD (mg/l, Standard ≤ 3)',
+                    data: yoyBOD,
+                    borderColor: 'rgba(239, 68, 68, 1)',
+                    backgroundColor: 'rgba(239, 68, 68, 0.1)',
+                    borderWidth: 3,
+                    fill: true,
+                    tension: 0.3
+                }
+            ]
+        },
+        options: {
+            responsive: true,
+            maintainAspectRatio: false,
+            scales: {
+                y: { beginAtZero: true, title: { display: true, text: 'mg/l' } }
+            }
+        }
+    });
+
+    // Phase Spike Chart
+    const phaseData = {{ deep_dive.phase_breakdown|tojson }};
+    const phases = ['pre', 'during', 'after'];
+    const phaseLabels = ['पूर्व (Pre)', 'विसर्जन दौरान (During)', '1 सप्ताह बाद (After)'];
+    const phaseDO = phases.map(p => phaseData[p] ? phaseData[p].do : null);
+    const phaseBOD = phases.map(p => phaseData[p] ? phaseData[p].bod : null);
+
+    const ctxPhase = document.getElementById('phaseChart').getContext('2d');
+    new Chart(ctxPhase, {
+        type: 'bar',
+        data: {
+            labels: phaseLabels,
+            datasets: [
+                {
+                    label: 'Median DO (mg/l)',
+                    data: phaseDO,
+                    backgroundColor: 'rgba(14, 165, 233, 0.8)',
+                    borderRadius: 6
+                },
+                {
+                    label: 'Median BOD (mg/l)',
+                    data: phaseBOD,
+                    backgroundColor: 'rgba(239, 68, 68, 0.8)',
+                    borderRadius: 6
+                }
+            ]
+        },
+        options: {
+            responsive: true,
+            maintainAspectRatio: false,
+            scales: {
+                y: { beginAtZero: true, title: { display: true, text: 'mg/l' } }
+            }
+        }
+    });
+</script>
+{% endblock %}

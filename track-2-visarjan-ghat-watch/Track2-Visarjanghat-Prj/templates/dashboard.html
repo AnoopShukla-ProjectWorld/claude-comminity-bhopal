@@ -24,12 +24,11 @@
                 </div>
             </div>
             <div class="flex flex-col sm:flex-row lg:flex-col gap-3 shrink-0">
-                <a href="/brief" class="inline-flex items-center justify-center space-x-2 px-5 py-3 rounded-xl bg-teal-500 text-slate-950 font-bold text-sm hover:bg-teal-400 transition shadow-lg shadow-teal-500/20">
-                    <span>📑 अधिकारी ब्रीफ देखें (Forwardable Memo)</span>
-                    <span>&rarr;</span>
-                </a>
-                <a href="/traceability" class="inline-flex items-center justify-center space-x-2 px-5 py-3 rounded-xl bg-white/10 hover:bg-white/15 text-white font-medium text-sm transition border border-white/10">
-                    <span>🔍 PDF रिपोर्ट पृष्ठ संदर्भ देखें</span>
+                <button onclick="openModal('addReadingModal')" class="inline-flex items-center justify-center space-x-2 px-5 py-3 rounded-xl bg-teal-500 text-slate-950 font-bold text-sm hover:bg-teal-400 transition shadow-lg shadow-teal-500/20">
+                    <span>➕ नया 2026 परीक्षण डेटा जोड़ें (Add Reading)</span>
+                </button>
+                <a href="/brief" class="inline-flex items-center justify-center space-x-2 px-5 py-3 rounded-xl bg-white/10 hover:bg-white/15 text-white font-medium text-sm transition border border-white/10">
+                    <span>📑 अधिकारी ब्रीफ देखें (Forwardable Memo) &rarr;</span>
                 </a>
             </div>
         </div>
@@ -85,19 +84,121 @@
             </div>
         </div>
 
-        <!-- Total Traced Readings -->
+        <!-- Total Traced Readings (SQLite Backed) -->
         <div class="bg-white p-5 rounded-2xl border border-slate-200/80 shadow-sm relative overflow-hidden group hover:border-teal-300 transition">
             <div class="flex justify-between items-start">
-                <span class="text-xs font-bold uppercase tracking-wider text-slate-500">कुल प्रमाणित डेटा पॉइंट्स</span>
-                <span class="w-8 h-8 rounded-lg bg-teal-50 text-teal-600 flex items-center justify-center font-bold text-sm">📋</span>
+                <span class="text-xs font-bold uppercase tracking-wider text-slate-500">कुल प्रमाणित डेटा पॉइंट्स (SQLite)</span>
+                <span class="w-8 h-8 rounded-lg bg-teal-50 text-teal-600 flex items-center justify-center font-bold text-sm">🗄️</span>
             </div>
             <div class="mt-3 flex items-baseline space-x-2">
-                <span class="text-3xl font-black text-teal-700">{{ stats.total_rows }}</span>
+                <span id="kpi-total-rows" class="text-3xl font-black text-teal-700">{{ stats.total_rows }}</span>
                 <span class="text-slate-500 text-sm">परीक्षण (7 घाट, 3 वर्ष)</span>
             </div>
-            <p class="text-xs text-slate-500 mt-2 font-hindi">MPPCB 2023, 2024 व 2025 आधिकारिक रिपोर्टों के प्रत्येक पृष्ठ से 100% सत्यापित।</p>
+            <p class="text-xs text-slate-500 mt-2 font-hindi">SQLite डेटाबेस में स्थायी संचित। डायनामिक रूप से अद्यतन योग्य।</p>
             <div class="mt-3">
-                <span class="inline-block bg-teal-100 text-teal-800 text-[10px] font-bold px-2 py-0.5 rounded">100% Traceable Evidence</span>
+                <span class="inline-block bg-teal-100 text-teal-800 text-[10px] font-bold px-2 py-0.5 rounded">Persistent SQLite Database</span>
+            </div>
+        </div>
+    </div>
+
+    <!-- Interactive Bhopal Map & Statewide Context Grid -->
+    <div class="grid grid-cols-1 lg:grid-cols-3 gap-6">
+        <!-- Left: Leaflet Bhopal Map (2 cols) -->
+        <div class="lg:col-span-2 bg-white rounded-3xl p-5 border border-slate-200 shadow-sm space-y-3">
+            <div class="flex items-center justify-between">
+                <div>
+                    <h3 class="text-sm font-bold text-slate-900 flex items-center gap-1.5">
+                        <span>🗺️</span> भोपाल विसर्जन घाट भू-स्थानिक मानचित्र (Interactive Geospatial Map)
+                    </h3>
+                    <p class="text-[11px] text-slate-500 font-hindi">
+                        7 घाटों की वास्तविक स्थिति और जोखिम स्तर (मार्कर पर क्लिक करके विवरण देखें)
+                    </p>
+                </div>
+                <div class="flex items-center space-x-2 text-[10px] font-semibold">
+                    <span class="flex items-center gap-1"><span class="w-2.5 h-2.5 rounded-full bg-rose-600"></span> अति संवेदनशील</span>
+                    <span class="flex items-center gap-1"><span class="w-2.5 h-2.5 rounded-full bg-orange-500"></span> उच्च</span>
+                    <span class="flex items-center gap-1"><span class="w-2.5 h-2.5 rounded-full bg-amber-500"></span> मध्यम</span>
+                    <span class="flex items-center gap-1"><span class="w-2.5 h-2.5 rounded-full bg-emerald-600"></span> नियंत्रित</span>
+                </div>
+            </div>
+            <div id="bhopalMap" class="w-full h-80 rounded-2xl border border-slate-200 z-10"></div>
+        </div>
+
+        <!-- Right: Statewide Context Card (1 col) -->
+        <div class="bg-gradient-to-br from-slate-900 to-teal-950 text-white rounded-3xl p-6 shadow-sm flex flex-col justify-between space-y-4">
+            <div class="space-y-2">
+                <div class="inline-flex items-center space-x-1.5 px-2.5 py-1 rounded-full bg-teal-500/20 text-teal-300 text-[11px] font-bold border border-teal-500/30">
+                    <span>📊 राज्यव्यापी तुलना (Statewide Context)</span>
+                </div>
+                <h4 class="text-lg font-bold">भोपाल बनाम संपूर्ण मध्य प्रदेश</h4>
+                <p class="text-xs text-slate-300 font-hindi leading-relaxed">
+                    MPPCB के 21,600 राज्यव्यापी परीक्षणों के अनुसार, <strong>भोपाल के घाटों में जैविक कचरे (BOD) की विफलता दर पूरे राज्य में सर्वाधिक</strong> है।
+                </p>
+            </div>
+
+            <div class="space-y-3 bg-white/5 p-4 rounded-2xl border border-white/10 text-xs">
+                <div class="flex justify-between items-center pb-2 border-b border-white/10">
+                    <span class="text-slate-300">भोपाल BOD विफलता दर:</span>
+                    <span class="font-extrabold text-rose-400 text-sm">89.3%</span>
+                </div>
+                <div class="flex justify-between items-center pb-2 border-b border-white/10">
+                    <span class="text-slate-300">मध्य प्रदेश औसत BOD विफलता:</span>
+                    <span class="font-bold text-slate-200">27.5%</span>
+                </div>
+                <div class="flex justify-between items-center">
+                    <span class="text-slate-300">भोपाल में जैविक भार अनुपात:</span>
+                    <span class="font-extrabold text-amber-400 text-sm">3.2 गुना अधिक</span>
+                </div>
+            </div>
+
+            <p class="text-[11px] text-teal-300/80 font-hindi">
+                💡 निष्कर्ष: राज्य के अन्य जिलों की तुलना में भोपाल के घाटों को विसर्जन के दौरान अतिरिक्त सफाई और तात्कालिक वातन (Aeration) की सर्वोच्च आवश्यकता है।
+            </p>
+        </div>
+    </div>
+
+    <!-- Dynamic Risk Weight Sensitivity Controller -->
+    <div class="bg-white rounded-2xl p-5 border border-slate-200 shadow-sm space-y-3">
+        <div class="flex flex-col sm:flex-row sm:items-center justify-between gap-2">
+            <div>
+                <h4 class="text-sm font-bold text-slate-900 flex items-center gap-1.5">
+                    <span>🎚️</span> डायनामिक जोखिम संवेदनशीलता नियंत्रक (Dynamic Risk Sensitivity Sliders)
+                </h4>
+                <p class="text-xs text-slate-500 font-hindi">
+                    अधिकारी आवश्यकतानुसार ऑक्सीजन या BOD को अलग-अलग प्राथमिकता देकर तात्कालिक रैंकिंग पुनः परिकलित कर सकते हैं।
+                </p>
+            </div>
+            <button onclick="resetWeights()" class="text-xs font-semibold text-teal-700 hover:underline">
+                डिफ़ॉल्ट रीसेट करें (Reset to 50/40/10)
+            </button>
+        </div>
+
+        <div class="grid grid-cols-1 sm:grid-cols-3 gap-4 pt-2 text-xs">
+            <!-- DO Slider -->
+            <div class="bg-slate-50 p-3 rounded-xl border border-slate-200/80 space-y-1">
+                <div class="flex justify-between">
+                    <span class="font-bold text-slate-700">घुलित ऑक्सीजन (DO Weight):</span>
+                    <span id="label-w-do" class="font-black text-teal-700">50%</span>
+                </div>
+                <input type="range" id="slider-w-do" min="20" max="80" value="50" oninput="updateWeights()" class="w-full accent-teal-600 cursor-pointer">
+            </div>
+
+            <!-- BOD Slider -->
+            <div class="bg-slate-50 p-3 rounded-xl border border-slate-200/80 space-y-1">
+                <div class="flex justify-between">
+                    <span class="font-bold text-slate-700">BOD प्रदूषण भार (BOD Weight):</span>
+                    <span id="label-w-bod" class="font-black text-teal-700">40%</span>
+                </div>
+                <input type="range" id="slider-w-bod" min="10" max="70" value="40" oninput="updateWeights()" class="w-full accent-teal-600 cursor-pointer">
+            </div>
+
+            <!-- pH Slider -->
+            <div class="bg-slate-50 p-3 rounded-xl border border-slate-200/80 space-y-1">
+                <div class="flex justify-between">
+                    <span class="font-bold text-slate-700">pH विषमता (pH Weight):</span>
+                    <span id="label-w-ph" class="font-black text-teal-700">10%</span>
+                </div>
+                <input type="range" id="slider-w-ph" min="5" max="30" value="10" oninput="updateWeights()" class="w-full accent-teal-600 cursor-pointer">
             </div>
         </div>
     </div>
@@ -107,10 +208,10 @@
         <div class="flex flex-col sm:flex-row sm:items-center justify-between gap-3 border-b border-slate-200 pb-4">
             <div>
                 <h3 class="text-xl font-bold text-slate-900 flex items-center gap-2">
-                    <span>🏆</span> 7 विसर्जन घाटों की जोखिम रैंकिंग (Risk Ranking 1 to 7)
+                    <span>🏆</span> 7 विसर्जन घाटों की जोखिम रैंकिंग (Risk Ranking)
                 </h3>
                 <p class="text-xs text-slate-500 mt-0.5 font-hindi">
-                    ऑक्सीजन कमी (50%), BOD अधिकता (40%), pH विषमता (10%) एवं दुर्गा विसर्जन इतिहास पर आधारित पारदर्शी स्कोरिंग।
+                    कार्ड पर क्लिक करके घाट का विस्तृत 3-वर्षीय विश्लेषण व चार्ट्स देखें
                 </p>
             </div>
             <div class="flex items-center space-x-2">
@@ -121,7 +222,7 @@
         </div>
 
         <!-- Ghat Cards Grid -->
-        <div class="grid grid-cols-1 gap-4">
+        <div id="ghatsContainer" class="grid grid-cols-1 gap-4">
             {% for g in summary %}
             <div class="bg-white rounded-2xl border {% if g.risk_level == 'CRITICAL' %}border-rose-300 ring-2 ring-rose-500/10{% elif g.risk_level == 'HIGH' %}border-amber-300{% else %}border-slate-200{% endif %} p-5 sm:p-6 shadow-sm hover:shadow-md transition">
                 <div class="flex flex-col lg:flex-row lg:items-center justify-between gap-4">
@@ -131,9 +232,10 @@
                             <span class="w-8 h-8 rounded-xl bg-slate-900 text-white flex items-center justify-center font-extrabold text-sm shadow">
                                 #{{ g.rank }}
                             </span>
-                            <h4 class="text-lg font-extrabold text-slate-900">
+                            <a href="/ghat/{{ g.site|urlencode }}" class="text-lg font-extrabold text-slate-900 hover:text-teal-700 transition flex items-center gap-1.5">
                                 {{ g.site }}
-                            </h4>
+                                <span class="text-xs text-teal-600 font-bold">&rarr;</span>
+                            </a>
                             <span class="inline-flex items-center px-2.5 py-1 rounded-full text-xs font-bold {% if g.badge_color == 'rose' %}bg-rose-100 text-rose-800 border border-rose-200{% elif g.badge_color == 'orange' %}bg-orange-100 text-orange-800 border border-orange-200{% elif g.badge_color == 'amber' %}bg-amber-100 text-amber-800 border border-amber-200{% else %}bg-emerald-100 text-emerald-800 border border-emerald-200{% endif %}">
                                 {{ g.risk_badge }}
                             </span>
@@ -209,9 +311,11 @@
                         </div>
 
                         <div class="pt-1 flex justify-between items-center text-[11px] text-slate-500">
-                            <span>डेटा पूर्णता: {{ g.completeness_pct }}%</span>
-                            <a href="/traceability?ghat={{ g.site|urlencode }}" class="text-teal-700 font-bold hover:underline">
-                                सभी नमूने देखें &rarr;
+                            <a href="/ghat/{{ g.site|urlencode }}" class="text-teal-700 font-bold hover:underline">
+                                विस्तृत ट्रेंड्स देखें &rarr;
+                            </a>
+                            <a href="/traceability?ghat={{ g.site|urlencode }}" class="text-slate-500 hover:text-slate-800">
+                                साक्ष्य (PDF पृष्ठ)
                             </a>
                         </div>
                     </div>
@@ -240,9 +344,9 @@
                 </div>
             </div>
             <div class="shrink-0">
-                <span class="inline-block bg-white text-slate-900 font-black px-4 py-2 rounded-xl text-xs shadow">
-                    अनिवार्य नया परीक्षण अनुसूची
-                </span>
+                <button onclick="openModal('addReadingModal')" class="bg-white text-slate-900 font-black px-4 py-2.5 rounded-xl text-xs shadow hover:bg-slate-100 transition">
+                    ➕ नए घाट का परीक्षण दर्ज करें
+                </button>
             </div>
         </div>
     </div>
@@ -320,6 +424,94 @@
     </div>
 
 </div>
+
+<!-- MODAL: ADD DYNAMIC READING / 2026 TEST SAMPLE -->
+<div id="addReadingModal" class="hidden fixed inset-0 bg-black/60 z-50 flex items-center justify-center p-4">
+    <div class="bg-white rounded-3xl max-w-lg w-full p-6 space-y-4 shadow-2xl relative">
+        <div class="flex justify-between items-center border-b border-slate-200 pb-3">
+            <h3 class="text-base font-bold text-slate-900">➕ नया परीक्षण नमूना दर्ज करें (Add Water Sample)</h3>
+            <button onclick="closeModal('addReadingModal')" class="text-slate-400 hover:text-slate-600 font-bold text-xl">&times;</button>
+        </div>
+
+        <form id="addReadingForm" onsubmit="submitReading(event)" class="space-y-3 text-xs">
+            <div>
+                <label class="block font-bold text-slate-700 mb-1">घाट चुनें (Ghat / Site):</label>
+                <select name="site" id="form-site" required class="w-full border border-slate-300 rounded-xl p-2.5 bg-slate-50">
+                    {% for g in summary %}
+                    <option value="{{ g.site }}">{{ g.site }}</option>
+                    {% endfor %}
+                    <option value="NEW_GHAT">+ नया समर्पित घाट जोड़ें (Add New Ghat)...</option>
+                </select>
+            </div>
+
+            <!-- New Ghat Inputs (Conditional) -->
+            <div id="newGhatInputs" class="hidden space-y-2 p-3 bg-teal-50/50 rounded-xl border border-teal-100">
+                <div>
+                    <label class="block font-bold text-slate-700 mb-0.5">नया घाट का नाम:</label>
+                    <input type="text" name="new_site_name" id="new_site_name" placeholder="उदा. नया समर्पित कुंड #1 (हलालपुर)" class="w-full border border-slate-300 rounded-lg p-2 bg-white">
+                </div>
+                <div>
+                    <label class="block font-bold text-slate-700 mb-0.5">जल निकाय / स्थान:</label>
+                    <input type="text" name="new_water_body" id="new_water_body" placeholder="उदा. समर्पित कृत्रिम कुंड" class="w-full border border-slate-300 rounded-lg p-2 bg-white">
+                </div>
+            </div>
+
+            <div class="grid grid-cols-2 gap-3">
+                <div>
+                    <label class="block font-bold text-slate-700 mb-1">वर्ष (Year):</label>
+                    <input type="number" name="year" value="2026" required class="w-full border border-slate-300 rounded-xl p-2.5 bg-slate-50 font-bold">
+                </div>
+                <div>
+                    <label class="block font-bold text-slate-700 mb-1">त्योहार (Festival):</label>
+                    <select name="festival" class="w-full border border-slate-300 rounded-xl p-2.5 bg-slate-50">
+                        <option value="Durga" selected>दुर्गा (Durga 2026)</option>
+                        <option value="Ganesh">गणेश (Ganesh)</option>
+                    </select>
+                </div>
+            </div>
+
+            <div class="grid grid-cols-2 gap-3">
+                <div>
+                    <label class="block font-bold text-slate-700 mb-1">चरण (Phase):</label>
+                    <select name="phase" class="w-full border border-slate-300 rounded-xl p-2.5 bg-slate-50">
+                        <option value="pre" selected>Pre (विसर्जन पूर्व)</option>
+                        <option value="during">During (विसर्जन दौरान)</option>
+                        <option value="after">After (1 सप्ताह बाद)</option>
+                    </select>
+                </div>
+                <div>
+                    <label class="block font-bold text-slate-700 mb-1">पैरामीटर (Parameter):</label>
+                    <select name="parameter" class="w-full border border-slate-300 rounded-xl p-2.5 bg-slate-50">
+                        <option value="Dissolved oxygen" selected>Dissolved oxygen (DO)</option>
+                        <option value="BOD">BOD</option>
+                        <option value="pH">pH</option>
+                        <option value="COD">COD</option>
+                        <option value="Turbidity">Turbidity</option>
+                        <option value="Total solids">Total solids</option>
+                        <option value="Lead">Lead</option>
+                        <option value="Zinc">Zinc</option>
+                    </select>
+                </div>
+            </div>
+
+            <div>
+                <label class="block font-bold text-slate-700 mb-1">परीक्षण मान (Value / Result):</label>
+                <input type="text" name="value" placeholder="उदा. 4.2 या BDL" required class="w-full border border-slate-300 rounded-xl p-2.5 bg-slate-50 font-mono text-base font-bold">
+                <span class="text-[10px] text-slate-400">नोट: यदि भारी धातु संसूचन सीमा से कम हो तो 'BDL' लिखें।</span>
+            </div>
+
+            <div class="pt-3 flex justify-end space-x-2">
+                <button type="button" onclick="closeModal('addReadingModal')" class="px-4 py-2 rounded-xl text-slate-600 bg-slate-100 hover:bg-slate-200 font-semibold">
+                    रद्द करें
+                </button>
+                <button type="submit" class="px-5 py-2 rounded-xl bg-teal-600 hover:bg-teal-700 text-white font-bold shadow">
+                    💾 डेटाबेस में सहेजें (Save to SQLite)
+                </button>
+            </div>
+        </form>
+    </div>
+</div>
+
 {% endblock %}
 
 {% block scripts %}
@@ -343,12 +535,92 @@
         }
     }
 
+    // Modal Control
+    function openModal(id) {
+        document.getElementById(id).classList.remove('hidden');
+    }
+    function closeModal(id) {
+        document.getElementById(id).classList.add('hidden');
+    }
+
+    document.getElementById('form-site').addEventListener('change', function() {
+        const newInputs = document.getElementById('newGhatInputs');
+        if (this.value === 'NEW_GHAT') {
+            newInputs.classList.remove('hidden');
+        } else {
+            newInputs.classList.add('hidden');
+        }
+    });
+
+    // Submit Dynamic Reading Form to API
+    async function submitReading(e) {
+        e.preventDefault();
+        const form = document.getElementById('addReadingForm');
+        const formData = new FormData(form);
+        const payload = Object.fromEntries(formData.entries());
+
+        if (payload.site === 'NEW_GHAT') {
+            payload.site = payload.new_site_name || 'नया समर्पित कुंड 2026';
+            payload.water_body = payload.new_water_body || 'समर्पित कुंड';
+        }
+
+        try {
+            const resp = await fetch('/api/add-reading', {
+                method: 'POST',
+                headers: { 'Content-Type': 'application/json' },
+                body: JSON.stringify(payload)
+            });
+            const data = await resp.json();
+            if (data.status === 'success') {
+                alert('✅ नया परीक्षण नमूना सफलतापूर्वक SQLite डेटाबेस में जुड़ गया!');
+                closeModal('addReadingModal');
+                window.location.reload();
+            } else {
+                alert('त्रुटि: ' + data.message);
+            }
+        } catch (err) {
+            alert('सर्वर त्रुटि: ' + err.message);
+        }
+    }
+
+    // Dynamic Weights Sliders
+    let currentDO = 50, currentBOD = 40, currentPH = 10;
+    function updateWeights() {
+        currentDO = parseInt(document.getElementById('slider-w-do').value);
+        currentBOD = parseInt(document.getElementById('slider-w-bod').value);
+        currentPH = parseInt(document.getElementById('slider-w-ph').value);
+
+        document.getElementById('label-w-do').innerText = currentDO + '%';
+        document.getElementById('label-w-bod').innerText = currentBOD + '%';
+        document.getElementById('label-w-ph').innerText = currentPH + '%';
+
+        fetch(`/api/summary?w_do=${currentDO}&w_bod=${currentBOD}&w_ph=${currentPH}`)
+            .then(res => res.json())
+            .then(data => {
+                updateDashboardWithRankings(data.rankings);
+            });
+    }
+
+    function resetWeights() {
+        document.getElementById('slider-w-do').value = 50;
+        document.getElementById('slider-w-bod').value = 40;
+        document.getElementById('slider-w-ph').value = 10;
+        updateWeights();
+    }
+
+    function updateDashboardWithRankings(rankings) {
+        // Update Chart.js dataset
+        riskBarChart.data.labels = rankings.map(r => r.site.split(' ')[0] + ' ' + (r.site.split(' ')[1] || ''));
+        riskBarChart.data.datasets[0].data = rankings.map(r => r.base_risk_score);
+        riskBarChart.update();
+    }
+
     // Chart.js 1: Ghat Risk Score Comparison Bar Chart
     const ghatLabels = {{ summary|map(attribute='site')|list|tojson }};
     const riskScores = {{ summary|map(attribute='base_risk_score')|list|tojson }};
 
     const ctx1 = document.getElementById('riskBarChart').getContext('2d');
-    new Chart(ctx1, {
+    const riskBarChart = new Chart(ctx1, {
         type: 'bar',
         data: {
             labels: ghatLabels.map(l => l.split(' ')[0] + ' ' + (l.split(' ')[1] || '')),
@@ -415,6 +687,40 @@
                 y: { title: { display: true, text: 'Median Delta' } }
             }
         }
+    });
+
+    // Leaflet.js Interactive Bhopal Map Initialization
+    window.addEventListener('DOMContentLoaded', () => {
+        const map = L.map('bhopalMap').setView([23.2500, 77.4100], 12);
+        L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
+            attribution: '&copy; OpenStreetMap contributors'
+        }).addTo(map);
+
+        const summaryData = {{ summary|tojson }};
+        summaryData.forEach(g => {
+            if (g.lat && g.lon) {
+                const marker = L.circleMarker([g.lat, g.lon], {
+                    radius: 10,
+                    fillColor: g.marker_color,
+                    color: '#ffffff',
+                    weight: 2,
+                    opacity: 1,
+                    fillOpacity: 0.9
+                }).addTo(map);
+
+                marker.bindPopup(`
+                    <div style="font-family: sans-serif; font-size: 12px; line-height: 1.4;">
+                        <strong>#${g.rank} ${g.site}</strong><br/>
+                        <span style="color: ${g.marker_color}; font-weight: bold;">${g.risk_badge}</span><br/>
+                        स्कोर: <strong>${g.base_risk_score} / 100</strong><br/>
+                        जल निकाय: ${g.water_body}<br/>
+                        <a href="/ghat/${encodeURIComponent(g.site)}" style="color: #0f766e; font-weight: bold; text-decoration: underline; margin-top: 4px; display: inline-block;">
+                            विस्तृत विश्लेषण देखें &rarr;
+                        </a>
+                    </div>
+                `);
+            }
+        });
     });
 </script>
 {% endblock %}
