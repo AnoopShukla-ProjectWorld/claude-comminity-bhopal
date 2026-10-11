@@ -43,23 +43,39 @@ Every Ganesh and Durga festival, the Madhya Pradesh Pollution Control Board (MPP
 
 ---
 
-## ⚡ How to Run in 3 Steps
+## ⚡ How to Run
 
-### Step 1: Open Terminal in Project Folder
+### 🌟 Option A: 1-Click Automatic Launcher (Windows)
+Simply double-click the **`run.bat`** file inside this folder, or run:
+```cmd
+run.bat
+```
+> **What `run.bat` does automatically:**
+> 1. Verifies your Python 3.10+ environment.
+> 2. Creates and activates an isolated virtual environment (`venv`).
+> 3. Installs all required libraries (`Flask`, `pandas`, `openpyxl`, `numpy`, `Jinja2`).
+> 4. Runs automated system diagnostics to ensure 100% database connectivity.
+> 5. Automatically launches the local web server at `http://localhost:5000` and opens your default browser!
+
+---
+
+### 💻 Option B: Manual Terminal Execution
+
+#### Step 1: Open Terminal in Project Folder
 ```bash
 cd "track-2-visarjan-ghat-watch/Track2-Visarjanghat-Prj"
 ```
 
-### Step 2: Install Dependencies
+#### Step 2: Install Dependencies
 ```bash
 pip install -r requirements.txt
 ```
 
-### Step 3: Launch the Application
+#### Step 3: Launch the Application
 ```bash
 python app.py
 ```
-Open **`http://localhost:5000`** in any browser.
+Open **`http://localhost:5000`** in your web browser.
 
 ---
 
